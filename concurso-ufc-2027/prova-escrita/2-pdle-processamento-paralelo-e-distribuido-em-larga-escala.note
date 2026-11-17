@@ -1,0 +1,84 @@
+===== GATILHOS v1 — 2-pdle-processamento-paralelo-e-distribuido-em-larga-escala_v2.docx — 2026-10-21 =====
+
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+## 1. Introdução e Delimitação do Problema
+O processamento paralelo: tempo ↓ capacidade ↑ → decompor
+O paralelismo: memória compartilhada × distribuída + rede
+Em larga escala: decompor/distribuir/coordenar/recuperar; útil > custo
+
+## 2. Fundamentos e Relevância
+A decomposição: dados × tarefas; speedup + eficiência:
+Sₚ = T₁/Tₚ   Eₚ = Sₚ/p
+em que T₁, Tₚ = tempos; Amdahl [1]: serial s limita
+S(p) = 1/(s + (1 − s)/p)
+Além disso: comunicação + sincronização + I/O → overhead
+Distingue-se: strong (carga fixa) × weak (carga ↑) [2]
+
+## 3. Núcleo Técnico
+
+### 3.1. Decomposição, Granularidade e Balanceamento
+Uma computação eficiente: tarefas independentes + granularidade
+Tarefas grandes: overhead ↓ paralelismo ↓; pequenas: custos ↑
+O balanceamento: trabalho ≠ volume; skew → stragglers
+Escalonamento estático (previsível) × dinâmico (heterogêneo); speculative execution → cauda ↓
+
+### 3.2. Comunicação, Sincronização e Localidade
+Em memória distribuída: rede finita → computação/comunicação ↑
+T_total = T_comp + T_comm + T_sync + T_overhead
+mostra que: só computação ↓ ≠ total ↓
+Barreiras: 1 tarefa lenta → espera global
+A localidade: computar perto × balanceamento
+Redistribuições amplas (shuffles): custosas; agregação local ↓
+
+### 3.3. MapReduce e Modelos de Execução Distribuída
+Modelos de execução abstraem decompor/agendar/coordenar/recuperar
+O paradigma MapReduce [3]: map pares, reduce chave
+ENTRADA → MAP → SHUFFLE → REDUCE → SAÍDA
+O runtime: reexecução → tolerância embutida
+MapReduce: batch robusto ≠ iterativo (materialização)
+
+### 3.4. DAGs, Reutilização e Recuperação
+Modelos DAG: vértice = operação, aresta = dependência
+O Spark [4]: DAG + memória + lineage → recomputa
+Surge um compromisso entre:
+- replicação consome armazenamento
+- recomputação consome processamento
+- checkpointing: persiste estados → recuperação ↓, I/O ↑
+Dessa forma: tolerância = redundância + reconstrução
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+Distribuição não implica escalabilidade linear
+Além da serial: shuffles/skew/stragglers → retornos decrescentes; cauda importa
+Clusters reais: heterogêneos + falhas → reexecutar/recomputar/restaurar
+Abstrações: código simples ≠ custo físico pequeno
+Existe compromisso permanente entre:
+- granularidade × overhead
+- localidade × balanceamento
+- paralelismo × comunicação
+- redundância × recomputação
+- e desempenho × custo
+
+## 5. Conclusão
+Em síntese:
+PROBLEMA
+↓
+DECOMPOSIÇÃO
+↓
+ESCALONAMENTO E BALANCEAMENTO
+↓
+COMUNICAÇÃO / SHUFFLE
+↓
+MODELO DE EXECUÇÃO
+↓
+REEXECUÇÃO / CHECKPOINT
+↓
+ESCALABILIDADE
+Processamento escalável ≠ +nós: paralelismo + comunicação + balanceamento + tolerância + eficiência
+
+## Referências
+[1] AMDAHL, G. AFIPS. 1967.
+[2] GUSTAFSON, J. CACM. 1988.
+[3] DEAN, J. et al. OSDI. 2004.
+[4] ZAHARIA, M. et al. NSDI. 2012.
+

@@ -1,0 +1,7 @@
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+## 2.3.1. Decomposição, Granularidade e Balanceamento
+## 2.3.2. Comunicação, Sincronização e Localidade
+## 2.3.3. MapReduce e Modelos de Execução Distribuída
+## 2.3.4. DAGs, Reutilização e Recuperação
+

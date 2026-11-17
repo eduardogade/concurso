@@ -1,0 +1,1581 @@
+
+# Ponto 1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+## Particionamento vertical × horizontal
+
+**Prioridade:** A
+
+**Definição:**
+Particionamento divide logicamente um conjunto de dados em partes menores. No particionamento **horizontal**, diferentes linhas ou registros são separados entre partições; no **vertical**, diferentes conjuntos de atributos ou colunas são separados, preservando alguma chave que permita relacioná-los.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+2 — Processamento Paralelo e Distribuído
+3 — Processamento de Fluxos
+
+## Sharding
+
+**Prioridade:** A
+
+**Definição:**
+Sharding é a distribuição de partições horizontais de um conjunto de dados entre diferentes nós ou servidores, de modo que cada shard armazene apenas uma fração dos registros. Permite distribuir capacidade de armazenamento e carga de acesso, mas introduz problemas de distribuição, rebalanceamento e operações entre shards.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+2 — Processamento Paralelo e Distribuído
+3 — Processamento de Fluxos
+
+## Replicação
+
+**Prioridade:** A
+
+**Definição:**
+Replicação mantém múltiplas cópias de dados em nós distintos para aumentar disponibilidade e tolerância a falhas. A existência de réplicas exige mecanismos para controlar sua atualização e o grau de consistência observado pelos clientes.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+2 — Processamento Paralelo e Distribuído
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Linearizabilidade
+
+**Prioridade:** A
+
+**Definição:**
+Linearizabilidade é uma garantia forte de consistência segundo a qual cada operação parece ocorrer atomicamente em algum instante entre sua invocação e sua conclusão, respeitando a ordem temporal observável das operações.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Consistência eventual
+
+**Prioridade:** A
+
+**Definição:**
+Consistência eventual admite divergência temporária entre réplicas, mas garante que, na ausência de novas atualizações, elas convergirão para um mesmo estado. Favorece disponibilidade e operação distribuída ao custo de permitir leituras temporariamente desatualizadas.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Teorema CAP
+
+**Prioridade:** A
+
+**Definição:**
+O teorema CAP estabelece que, diante de uma partição de rede, um sistema distribuído não pode simultaneamente garantir consistência forte e disponibilidade para todas as requisições. Assim, quando ocorre a partição, é necessário privilegiar consistência ou disponibilidade.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Quórum de leitura/escrita
+
+**Prioridade:** A
+
+**Definição:**
+Em um sistema com \(N\) réplicas, quóruns determinam quantas réplicas participam de uma escrita \(W\) e de uma leitura \(R\). Condições como \(R+W>N\) fazem os conjuntos de leitura e escrita se sobreporem, permitindo recuperar versões atualizadas conforme o modelo adotado.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Armazenamento distribuído
+
+**Prioridade:** B
+
+**Definição:**
+Armazenamento distribuído organiza dados sobre múltiplos nós coordenados, buscando ampliar capacidade, desempenho, disponibilidade e tolerância a falhas além dos limites de uma única máquina.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Escalabilidade vertical × horizontal
+
+**Prioridade:** B
+
+**Definição:**
+Escalabilidade vertical aumenta os recursos de uma única máquina, como CPU ou memória. Escalabilidade horizontal adiciona novas máquinas ou instâncias e distribui dados ou trabalho entre elas, exigindo mecanismos explícitos de coordenação e distribuição.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Particionamento por intervalo × por hash
+
+**Prioridade:** B
+
+**Definição:**
+No particionamento por intervalo, faixas contíguas da chave são atribuídas às partições, preservando ordenação e favorecendo consultas por faixa. No particionamento por hash, uma função de dispersão distribui chaves entre partições, geralmente favorecendo balanceamento ao custo de perder localidade por ordem.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Replicação síncrona × assíncrona
+
+**Prioridade:** B
+
+**Definição:**
+Na replicação síncrona, a confirmação de uma escrita depende da atualização das réplicas exigidas pelo protocolo, aumentando consistência percebida e latência. Na assíncrona, a confirmação pode preceder a propagação completa, reduzindo latência mas permitindo divergência temporária.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Consenso
+
+**Prioridade:** B
+
+**Definição:**
+Consenso é o problema de fazer processos distribuídos concordarem sobre um valor ou sequência de decisões apesar de falhas admissíveis. É base para coordenação consistente, eleição de líderes e replicação de estado em diversos sistemas distribuídos.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Separação entre computação e armazenamento
+
+**Prioridade:** B
+
+**Definição:**
+É uma arquitetura em que recursos de processamento e persistência são escalados e gerenciados independentemente, em vez de estarem rigidamente acoplados ao mesmo nó. Essa separação favorece elasticidade e compartilhamento, mas pode aumentar comunicação pela rede.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Skew / hotspot
+
+**Prioridade:** C
+
+**Definição:**
+Skew é uma distribuição desigual de dados, trabalho ou acessos entre partições. Um hotspot surge quando uma partição ou recurso recebe carga desproporcional e se torna gargalo apesar da capacidade disponível no restante do sistema.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+2 — Processamento Paralelo e Distribuído
+
+# Ponto 2 — Processamento Paralelo e Distribuído em Larga Escala
+
+## Paralelismo de dados × de tarefas
+
+**Prioridade:** A
+
+**Definição:**
+No paralelismo de dados, operações equivalentes são aplicadas simultaneamente a diferentes partições dos dados. No paralelismo de tarefas, operações distintas são executadas concorrentemente de acordo com suas dependências.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Lei de Amdahl
+
+**Prioridade:** A
+
+**Definição:**
+A Lei de Amdahl estabelece que o ganho máximo de uma computação paralela é limitado pela fração que permanece serial. Para fração serial \(s\) e \(p\) recursos, \(S(p)=1/[s+(1-s)/p]\).
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Shuffle
+
+**Prioridade:** A
+
+**Definição:**
+Shuffle é a redistribuição de dados entre partições ou nós, tipicamente agrupando registros segundo uma nova chave para uma etapa posterior de processamento. Pode envolver comunicação de rede, serialização e I/O significativos, tornando-se frequentemente um dos principais custos de uma execução distribuída.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+3 — Processamento de Fluxos
+
+## MapReduce
+
+**Prioridade:** A
+
+**Definição:**
+MapReduce é um modelo de processamento distribuído no qual uma fase `map` transforma registros em pares intermediários e uma fase `reduce` agrega valores associados às mesmas chaves, com o sistema gerenciando distribuição, shuffle e recuperação de falhas.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Speedup e eficiência paralela
+
+**Prioridade:** B
+
+**Definição:**
+Speedup mede quanto a execução paralela reduz o tempo em relação à execução com um recurso, \(S_p=T_1/T_p\). A eficiência \(E_p=S_p/p\) relaciona esse ganho ao número \(p\) de recursos empregados.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Strong scaling × weak scaling
+
+**Prioridade:** B
+
+**Definição:**
+Strong scaling avalia a redução do tempo de uma carga fixa quando se aumentam os recursos. Weak scaling avalia se o sistema mantém desempenho aproximadamente constante quando carga e recursos crescem proporcionalmente.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Granularidade de tarefas
+
+**Prioridade:** B
+
+**Definição:**
+Granularidade descreve a quantidade de trabalho atribuída a cada tarefa paralela. Tarefas muito grandes restringem paralelismo e balanceamento; tarefas excessivamente pequenas aumentam overhead de criação, escalonamento, sincronização e comunicação.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Localidade dos dados
+
+**Prioridade:** B
+
+**Definição:**
+Localidade dos dados é o princípio de aproximar a computação dos dados que ela processará, reduzindo transferência pela rede e custos de I/O distribuído.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+1 — Armazenamento e Gerenciamento Distribuído
+
+## DAG de execução
+
+**Prioridade:** B
+
+**Definição:**
+Um DAG de execução é um grafo direcionado acíclico no qual vértices representam operações ou estágios e arestas representam dependências. Ele permite identificar operações independentes, ordenar etapas e explorar paralelismo sem violar dependências.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Recomputação × replicação × checkpointing
+
+**Prioridade:** B
+
+**Definição:**
+São estratégias distintas de tolerância a falhas: recomputação refaz resultados perdidos a partir de dependências preservadas; replicação mantém cópias redundantes; checkpointing materializa periodicamente estados intermediários para limitar o trabalho necessário à recuperação.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+1 — Armazenamento e Gerenciamento Distribuído
+3 — Processamento de Fluxos
+
+## Lineage computacional
+
+**Prioridade:** C
+
+**Definição:**
+Lineage computacional registra as dependências e transformações necessárias para produzir um resultado, permitindo reconstruí-lo a partir de dados anteriores após uma falha. Neste contexto, é principalmente um mecanismo de recuperação por recomputação.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+# Ponto 3 — Processamento de Fluxos e Arquiteturas de Dados
+
+## Batch × streaming
+
+**Prioridade:** A
+
+**Definição:**
+Processamento batch opera sobre conjuntos delimitados e previamente disponíveis, normalmente em execuções discretas. Streaming processa eventos continuamente à medida que chegam, favorecendo atualização incremental e baixa latência.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Latência × throughput
+
+**Prioridade:** A
+
+**Definição:**
+Latência é o tempo necessário para uma operação ou resultado tornar-se disponível; throughput é a quantidade de trabalho ou dados processados por unidade de tempo. Otimizar uma dessas propriedades não implica necessariamente otimizar a outra.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+1 — Armazenamento e Gerenciamento Distribuído
+2 — Processamento Paralelo e Distribuído
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Event time × processing time
+
+**Prioridade:** A
+
+**Definição:**
+Event time é o instante associado à ocorrência do evento em sua origem; processing time é o instante em que o sistema efetivamente processa esse evento. A distinção torna-se essencial quando eventos chegam atrasados ou fora de ordem.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Watermark
+
+**Prioridade:** A
+
+**Definição:**
+Watermark é uma estimativa do progresso de um fluxo em event time, indicando até que instante o sistema considera que a maior parte dos eventos relevantes já chegou. Não é garantia de completude, pois eventos tardios ainda podem aparecer.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Processamento stateful
+
+**Prioridade:** A
+
+**Definição:**
+Processamento stateful mantém estado entre eventos, permitindo que o resultado de um evento dependa de informações acumuladas de eventos anteriores. Agregações por janela, contagens e correlações temporais são exemplos de operações que exigem esse estado persistente.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Replay
+
+**Prioridade:** A
+
+**Definição:**
+Replay é o reprocessamento de eventos previamente persistidos, geralmente a partir de um log durável, para reconstruir estado ou resultados após falhas ou mudanças no processamento.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## At-most-once × at-least-once × exactly-once
+
+**Prioridade:** A
+
+**Definição:**
+At-most-once admite perda, mas evita reprocessamento; at-least-once evita perda mediante repetição, podendo gerar duplicatas; exactly-once procura fazer cada efeito lógico aparecer uma única vez apesar de falhas e reexecuções.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Dados bounded × unbounded
+
+**Prioridade:** B
+
+**Definição:**
+Dados bounded constituem um conjunto com início e fim definidos. Dados unbounded representam uma sequência potencialmente contínua, razão pela qual operações globais precisam ser reformuladas em termos de janelas, estado ou processamento incremental.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Janelas de processamento
+
+**Prioridade:** B
+
+**Definição:**
+Janelas dividem conceitualmente um fluxo não delimitado em subconjuntos finitos sobre os quais podem ser calculadas agregações. Podem ser, por exemplo, fixas, deslizantes ou definidas por sessões de atividade.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Idempotência / deduplicação
+
+**Prioridade:** B
+
+**Definição:**
+Uma operação idempotente pode ser repetida sem produzir efeitos adicionais após sua primeira aplicação efetiva. Deduplicação identifica e suprime repetições, sendo ambas estratégias importantes para lidar com reprocessamento e entregas repetidas.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Lambda Architecture × Kappa Architecture
+
+**Prioridade:** B
+
+**Definição:**
+Lambda Architecture mantém caminhos separados para processamento batch e streaming e combina seus resultados. Kappa Architecture busca simplificar o sistema usando um único caminho baseado em fluxo, recorrendo a replay para recomputações quando necessário.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Backpressure
+
+**Prioridade:** B
+
+**Definição:**
+Backpressure é o mecanismo pelo qual etapas consumidoras incapazes de acompanhar a taxa de entrada propagam sinais ou restrições para controlar a produção a montante, evitando crescimento ilimitado de filas e esgotamento de recursos.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Data lake × lakehouse
+
+**Prioridade:** C
+
+**Definição:**
+Data lake armazena grandes volumes de dados em formatos variados com esquema e processamento relativamente flexíveis. Lakehouse combina essa flexibilidade com propriedades de gerenciamento e organização tradicionalmente associadas a sistemas analíticos estruturados.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+# Ponto 4 — Mineração de Dados
+
+## KDD
+
+**Prioridade:** A
+
+**Definição:**
+Knowledge Discovery in Databases (KDD) é o processo amplo de transformar dados em conhecimento válido, novo, útil e interpretável. Inclui seleção, pré-processamento, transformação, mineração e avaliação/interpretação, sendo mineração de dados apenas uma de suas etapas.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Análise Exploratória de Dados (EDA)
+
+**Prioridade:** A
+
+**Definição:**
+EDA é a análise dos dados destinada a compreender distribuições, relações, estrutura, qualidade e possíveis anomalias antes da imposição de modelos formais. Emprega estatísticas descritivas e visualizações para gerar hipóteses e revelar propriedades relevantes do conjunto.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Suporte, confiança e lift
+
+**Prioridade:** A
+
+**Definição:**
+Em regras de associação, suporte mede a frequência conjunta dos itens; confiança estima \(P(Y\mid X)\) para uma regra \(X\rightarrow Y\); lift compara essa associação ao que seria esperado pela frequência de \(Y\), sendo valores acima de 1 indicativos de associação positiva.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Anomalia global × contextual × coletiva
+
+**Prioridade:** A
+
+**Definição:**
+Anomalia global é uma observação incomum em relação ao conjunto como um todo; contextual é anômala apenas sob determinado contexto; coletiva emerge quando um conjunto ou sequência apresenta comportamento anormal mesmo que seus elementos isolados não sejam anômalos.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Associação ≠ causalidade
+
+**Prioridade:** A
+
+**Definição:**
+Uma associação estatística indica dependência ou coocorrência observada entre variáveis, mas não demonstra que mudanças em uma delas causem mudanças na outra. Confundidores, seleção e outros mecanismos podem gerar associações sem relação causal direta.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Dado × padrão × conhecimento
+
+**Prioridade:** B
+
+**Definição:**
+Dado é uma observação registrada; padrão é uma regularidade identificada em um conjunto de dados; conhecimento resulta quando um padrão é validado, interpretado e contextualizado de modo a adquirir significado e utilidade.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Detecção de anomalias
+
+**Prioridade:** B
+
+**Definição:**
+Detecção de anomalias busca identificar observações ou comportamentos que se desviam significativamente do padrão considerado normal. O caráter anômalo depende da representação dos dados e, em muitos casos, do contexto em que a observação ocorre.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Padrão global × local
+
+**Prioridade:** C
+
+**Definição:**
+Um padrão global descreve uma regularidade observável no conjunto de dados como um todo, enquanto um padrão local caracteriza apenas uma região, subconjunto ou contexto específico dos dados.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+## Aprendizado supervisionado × não supervisionado
+
+**Prioridade:** A
+
+**Definição:**
+No aprendizado supervisionado, exemplos incluem entradas e alvos conhecidos e o objetivo é aprender a relação \(X\rightarrow Y\). No não supervisionado, não existe alvo explícito e procura-se descobrir estrutura, representação ou regularidades nos próprios dados.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+4 — Mineração de Dados
+6 — Aprendizado por Reforço
+
+## Underfitting × overfitting
+
+**Prioridade:** A
+
+**Definição:**
+Underfitting ocorre quando o modelo é insuficientemente expressivo para capturar a estrutura relevante dos dados, apresentando erro elevado até no treinamento. Overfitting ocorre quando o modelo se ajusta excessivamente às particularidades do treinamento e perde capacidade de generalização.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Viés × variância
+
+**Prioridade:** A
+
+**Definição:**
+Viés representa erro sistemático decorrente de hipóteses ou modelos excessivamente restritivos; variância representa sensibilidade do modelo às particularidades da amostra de treinamento. Modelos simples tendem a maior viés, enquanto modelos muito flexíveis podem apresentar maior variância.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Data leakage
+
+**Prioridade:** A
+
+**Definição:**
+Data leakage ocorre quando informações indisponíveis no cenário real de previsão influenciam direta ou indiretamente o treinamento, a seleção ou a avaliação do modelo. Produz estimativas artificialmente otimistas de desempenho e invalida a avaliação de generalização.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+10 — Inteligência Artificial Explicável
+
+## Função de perda
+
+**Prioridade:** B
+
+**Definição:**
+Função de perda quantifica o erro associado às previsões de um modelo e fornece o objetivo a ser minimizado durante o treinamento. Sua escolha determina matematicamente quais tipos de erro são penalizados.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Treino × validação × teste
+
+**Prioridade:** B
+
+**Definição:**
+O conjunto de treino ajusta os parâmetros do modelo; a validação orienta escolha de modelo e hiperparâmetros; o teste é reservado para estimar o desempenho final em dados não utilizados nessas decisões.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Parâmetro × hiperparâmetro
+
+**Prioridade:** B
+
+**Definição:**
+Parâmetros são valores aprendidos a partir dos dados durante o treinamento. Hiperparâmetros são escolhas externas ao processo de ajuste de parâmetros e controlam aspectos como estrutura, regularização ou procedimento de treinamento.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+6 — Aprendizado por Reforço
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+## Generalização
+
+**Prioridade:** B
+
+**Definição:**
+Generalização é a capacidade de um modelo manter desempenho adequado em exemplos não utilizados no treinamento e oriundos da mesma tarefa ou distribuição relevante.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Classificação × regressão
+
+**Prioridade:** B
+
+**Definição:**
+Classificação é uma tarefa supervisionada na qual o alvo pertence a categorias discretas; regressão prevê valores quantitativos ou contínuos.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Validação cruzada
+
+**Prioridade:** B
+
+**Definição:**
+Validação cruzada estima o desempenho de um procedimento de aprendizagem repetindo treinamento e validação sobre diferentes divisões dos dados, permitindo avaliar de forma mais robusta escolhas de modelo ou hiperparâmetros.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Clustering
+
+**Prioridade:** C
+
+**Definição:**
+Clustering é uma tarefa não supervisionada que organiza observações em grupos segundo alguma noção de similaridade, buscando alta semelhança dentro dos grupos e separação entre eles.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+4 — Mineração de Dados
+
+# Ponto 6 — Aprendizado por Reforço
+
+## Aprendizado por reforço (RL)
+
+**Prioridade:** A
+
+**Definição:**
+Aprendizado por reforço é o paradigma em que um agente aprende decisões por interação sequencial com um ambiente, recebendo recompensas e transições de estado. Seu objetivo é aprender uma política que maximize o retorno acumulado esperado.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Processo de Decisão de Markov (MDP)
+
+**Prioridade:** A
+
+**Definição:**
+Um MDP formaliza uma tarefa sequencial por estados \(S\), ações \(A\), dinâmica de transição \(P\), recompensas \(R\) e fator de desconto \(\gamma\). Pela propriedade de Markov, dado o estado atual e a ação, o futuro independe da história anterior.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Funções \(V^\pi\) e \(Q^\pi\)
+
+**Prioridade:** A
+
+**Definição:**
+\(V^\pi(s)\) é o retorno esperado ao partir do estado \(s\) e seguir a política \(\pi\); \(Q^\pi(s,a)\) é o retorno esperado ao executar a ação \(a\) em \(s\) e depois seguir \(\pi\).
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Equações de Bellman
+
+**Prioridade:** A
+
+**Definição:**
+As equações de Bellman expressam recursivamente o valor de um estado ou par estado-ação como recompensa imediata mais o valor descontado das consequências futuras. Elas fundamentam grande parte dos métodos de avaliação e otimização em RL.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Exploração × explotação
+
+**Prioridade:** A
+
+**Definição:**
+Exploração seleciona ações para adquirir informação sobre alternativas ainda pouco conhecidas; explotação seleciona ações atualmente consideradas melhores. O agente precisa equilibrar ambas para aprender sem abandonar recompensas conhecidas.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Q-learning × SARSA
+
+**Prioridade:** A
+
+**Definição:**
+Q-learning é um método temporal-difference off-policy que atualiza \(Q\) em direção ao melhor valor da próxima etapa. SARSA é on-policy e atualiza usando a ação efetivamente escolhida pela política seguida pelo agente.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Actor–Critic
+
+**Prioridade:** A
+
+**Definição:**
+Métodos Actor–Critic combinam um **actor**, que representa e atualiza a política, com um **critic**, que estima valores e fornece sinal de avaliação para orientar a atualização do actor.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Retorno e fator de desconto
+
+**Prioridade:** B
+
+**Definição:**
+Retorno \(G_t\) é a soma acumulada das recompensas futuras consideradas pelo agente. O fator \(\gamma\) pondera essas recompensas no tempo, reduzindo a influência de consequências mais distantes quando \(\gamma<1\).
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Política
+
+**Prioridade:** B
+
+**Definição:**
+Política \(\pi(a\mid s)\) especifica como o agente escolhe ações a partir dos estados, podendo ser determinística ou probabilística. É o comportamento que o aprendizado por reforço busca avaliar ou otimizar.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Temporal Difference / bootstrapping
+
+**Prioridade:** B
+
+**Definição:**
+Métodos Temporal Difference atualizam estimativas usando recompensas observadas e estimativas do valor futuro antes que um episódio termine. Esse uso de uma estimativa atual para atualizar outra estimativa caracteriza bootstrapping.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## On-policy × off-policy
+
+**Prioridade:** B
+
+**Definição:**
+Métodos on-policy aprendem sobre a mesma política utilizada para gerar as ações observadas. Métodos off-policy podem aprender uma política-alvo diferente da política utilizada para coletar experiência.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Métodos baseados em valor × em política
+
+**Prioridade:** B
+
+**Definição:**
+Métodos baseados em valor aprendem funções de valor das quais uma política pode ser derivada. Métodos baseados em política parametrizam e otimizam diretamente a própria política.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Reward hacking / specification gaming
+
+**Prioridade:** B
+
+**Definição:**
+Reward hacking ou specification gaming ocorre quando o agente maximiza a recompensa formalmente definida de uma maneira que satisfaz o objetivo matemático, mas não a intenção real de quem especificou a tarefa.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Model-free × model-based
+
+**Prioridade:** C
+
+**Definição:**
+Métodos model-free aprendem valores ou políticas sem construir explicitamente um modelo da dinâmica do ambiente. Métodos model-based utilizam ou aprendem um modelo de transições e recompensas para prever consequências e planejar ações.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+# Ponto 7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+## Lineage de dados/modelos
+
+**Prioridade:** A
+
+**Definição:**
+Lineage representa as relações de transformação e dependência que ligam dados, código, configurações, features, treinamento, modelos e resultados. Permite reconstruir como determinado artefato foi produzido e quais componentes participaram de sua geração.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Experiment tracking
+
+**Prioridade:** A
+
+**Definição:**
+Experiment tracking é o registro sistemático de entradas, configurações, hiperparâmetros, métricas, artefatos e metadados de execuções experimentais, permitindo comparar resultados e recuperar as condições em que foram obtidos.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+—
+
+## Reprodutibilidade
+
+**Prioridade:** A
+
+**Definição:**
+Reprodutibilidade é a capacidade de repetir um procedimento experimental sob condições suficientemente especificadas e obter resultados consistentes. Em ML, requer controlar não apenas código, mas também dados, configuração, dependências, ambiente e aleatoriedade relevante.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+4 — Mineração de Dados
+
+## Artefato
+
+**Prioridade:** B
+
+**Definição:**
+Artefato é um objeto consumido ou produzido durante o ciclo de ML, como conjunto de dados processado, modelo serializado, checkpoint, previsão, métrica ou transformação aprendida.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Versionamento de ML
+
+**Prioridade:** B
+
+**Definição:**
+Versionamento de ML identifica estados específicos dos componentes que determinam um resultado experimental, incluindo código, dados, configurações, ambiente e modelos. Seu objetivo é tornar estados recuperáveis, comparáveis e auditáveis.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Proveniência
+
+**Prioridade:** B
+
+**Definição:**
+Proveniência descreve a origem de um artefato e as condições responsáveis por sua produção. Permite responder de quais dados, código, configuração e execução surgiu determinado resultado.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Rastreabilidade experimental
+
+**Prioridade:** B
+
+**Definição:**
+Rastreabilidade experimental é a capacidade de relacionar uma execução aos seus insumos, configurações, artefatos e resultados, permitindo compreender e auditar o caminho que levou a uma conclusão experimental.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Baseline
+
+**Prioridade:** B
+
+**Definição:**
+Baseline é uma referência explicitamente definida contra a qual um modelo, execução ou comportamento posterior é comparado. Ela permite interpretar se uma alteração representa melhoria, degradação ou mudança relevante.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Validação de dados × validação de modelo
+
+**Prioridade:** B
+
+**Definição:**
+Validação de dados verifica propriedades e qualidade das entradas, como esquema, tipos, faixas e integridade. Validação de modelo verifica propriedades do artefato aprendido, como métricas, robustez ou adequação aos critérios definidos.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Critérios de aceitação / quality gates
+
+**Prioridade:** B
+
+**Definição:**
+Quality gates são condições explícitas que um artefato ou execução deve satisfazer antes de avançar para uma etapa posterior, como promoção ou implantação. Transformam decisões de qualidade em verificações reproduzíveis e controláveis.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+# Ponto 8 — MLOps: Automação, Implantação e Infraestrutura
+
+## CI × CD × CT
+
+**Prioridade:** A
+
+**Definição:**
+CI integra mudanças e executa validações automatizadas; CD automatiza a entrega ou implantação de artefatos aprovados; CT automatiza novo treinamento quando condições previamente definidas são satisfeitas. Em MLOps, os três mecanismos conectam desenvolvimento, validação, treinamento e operação.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Container
+
+**Prioridade:** A
+
+**Definição:**
+Container empacota uma aplicação com runtime, bibliotecas, dependências e configuração necessária para executá-la em um ambiente isolado e reproduzível, reduzindo divergências entre ambientes de desenvolvimento e implantação.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Inferência batch × online × streaming
+
+**Prioridade:** A
+
+**Definição:**
+Inferência batch processa conjuntos de entradas em execuções agrupadas; online responde individualmente a requisições com baixa latência; streaming aplica inferência continuamente sobre eventos à medida que chegam.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+3 — Processamento de Fluxos
+
+## Training-serving skew
+
+**Prioridade:** A
+
+**Definição:**
+Training-serving skew é a divergência entre a forma como dados ou features são produzidos durante o treinamento e durante a inferência em produção. Essa inconsistência pode degradar o desempenho mesmo quando o modelo e seus pesos permanecem inalterados.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Pipeline de ML
+
+**Prioridade:** B
+
+**Definição:**
+Pipeline de ML representa uma sequência explícita e automatizável de etapas do ciclo de aprendizado, como ingestão, validação, transformação, treinamento, avaliação, registro e implantação, com dependências definidas entre elas.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Empacotamento de modelo
+
+**Prioridade:** B
+
+**Definição:**
+Empacotamento reúne o modelo e os componentes necessários para sua execução, podendo incluir código, runtime, dependências, configuração, pré-processamento, pós-processamento e contratos de entrada e saída.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Rollback
+
+**Prioridade:** B
+
+**Definição:**
+Rollback é a reversão controlada de um sistema ou modelo implantado para uma versão anterior conhecida e funcional quando a nova versão apresenta falhas ou comportamento inadequado.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Model serving
+
+**Prioridade:** B
+
+**Definição:**
+Model serving é a disponibilização operacional de um modelo para receber entradas e produzir inferências por uma interface ou mecanismo de execução apropriado ao padrão de consumo.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Orquestração
+
+**Prioridade:** B
+
+**Definição:**
+Orquestração coordena a execução de tarefas e suas dependências, controlando ordem, recursos, repetição, falhas e estados de um workflow ou pipeline automatizado.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Autoscaling
+
+**Prioridade:** B
+
+**Definição:**
+Autoscaling ajusta automaticamente a quantidade de recursos computacionais disponíveis segundo métricas ou demanda observada, buscando atender requisitos de desempenho sem manter capacidade excessiva permanentemente.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Alta disponibilidade × escalabilidade
+
+**Prioridade:** B
+
+**Definição:**
+Alta disponibilidade busca manter o serviço acessível apesar de falhas, normalmente por redundância e recuperação. Escalabilidade busca sustentar crescimento de carga adicionando ou ampliando recursos; uma propriedade não implica automaticamente a outra.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+1 — Armazenamento e Gerenciamento Distribuído
+
+## Underprovisioning × overprovisioning
+
+**Prioridade:** C
+
+**Definição:**
+Underprovisioning ocorre quando os recursos disponíveis são insuficientes para a carga, produzindo degradação ou indisponibilidade. Overprovisioning mantém recursos acima da necessidade efetiva, aumentando custo e ociosidade.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+# Ponto 9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Monitoramento operacional × monitoramento de ML
+
+**Prioridade:** A
+
+**Definição:**
+Monitoramento operacional acompanha a saúde técnica do serviço, como latência, throughput, erros, recursos e disponibilidade. Monitoramento de ML acompanha dados, predições e desempenho do modelo para verificar se continuam compatíveis com as condições em que ele foi validado.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Data drift
+
+**Prioridade:** A
+
+**Definição:**
+Data drift é uma mudança na distribuição das entradas entre o ambiente atual e a referência de treinamento, expressa como \(P_t(X)\neq P_{\text{train}}(X)\). Sua presença não implica necessariamente perda de desempenho.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Concept drift
+
+**Prioridade:** A
+
+**Definição:**
+Concept drift ocorre quando muda a relação entre as entradas e o alvo, isto é, \(P_t(Y\mid X)\neq P_{\text{train}}(Y\mid X)\). Nesse caso, a regra preditiva aprendida pode deixar de representar adequadamente o ambiente atual.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Retreinamento periódico × orientado por eventos
+
+**Prioridade:** A
+
+**Definição:**
+Retreinamento periódico é executado segundo um calendário predefinido; retreinamento orientado por eventos é disparado quando condições específicas são detectadas, como novos dados ou mudanças relevantes. Nenhuma estratégia deve promover automaticamente um novo modelo sem validação.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Observabilidade
+
+**Prioridade:** B
+
+**Definição:**
+Observabilidade é a capacidade de inferir o estado interno de um sistema a partir dos sinais que ele expõe. Métricas, logs e traces fornecem perspectivas complementares para detectar e diagnosticar comportamento operacional.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+3 — Processamento de Fluxos
+
+## Qualidade de dados
+
+**Prioridade:** B
+
+**Definição:**
+Qualidade de dados refere-se à adequação das entradas aos requisitos esperados, incluindo propriedades como esquema, completude, tipos, faixas, consistência e integridade. Problemas de qualidade podem invalidar inferências independentemente de haver drift estatístico.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+4 — Mineração de Dados
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+## Covariate shift
+
+**Prioridade:** B
+
+**Definição:**
+Covariate shift é um caso em que a distribuição das entradas muda, \(P(X)\), enquanto a relação condicional entre alvo e entrada, \(P(Y\mid X)\), permanece aproximadamente estável.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Drift × degradação
+
+**Prioridade:** B
+
+**Definição:**
+Drift é uma mudança estatística nos dados ou na relação entre dados e alvo; degradação é a piora efetiva do desempenho relevante do modelo. Um drift pode ocorrer sem degradação mensurável, e degradação pode ter causas diferentes de drift.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Governança de modelos
+
+**Prioridade:** B
+
+**Definição:**
+Governança de modelos estabelece regras, responsabilidades, controles e evidências para criação, aprovação, implantação, uso, alteração e retirada de modelos durante seu ciclo de vida.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Trilha de auditoria
+
+**Prioridade:** B
+
+**Definição:**
+Trilha de auditoria é o registro verificável de eventos, decisões, versões e responsáveis ao longo do ciclo de vida de um sistema, permitindo reconstruir o que ocorreu, quando e sob quais condições.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+## Ciclo de vida do modelo
+
+**Prioridade:** B
+
+**Definição:**
+Ciclo de vida do modelo compreende as etapas pelas quais um modelo passa desde desenvolvimento e validação até implantação, monitoramento, manutenção, atualização e eventual retirada de operação.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## SLI × SLO
+
+**Prioridade:** C
+
+**Definição:**
+SLI é uma medida quantitativa de uma propriedade observada do serviço; SLO é o objetivo definido para essa medida durante determinado intervalo ou condição operacional.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Feedback delay
+
+**Prioridade:** C
+
+**Definição:**
+Feedback delay é o intervalo entre uma predição e a obtenção do resultado real necessário para avaliar seu acerto. Esse atraso dificulta detectar rapidamente degradação de desempenho em produção.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+# Ponto 10 — Inteligência Artificial Explicável (XAI)
+
+## XAI
+
+**Prioridade:** A
+
+**Definição:**
+Inteligência Artificial Explicável (XAI) reúne métodos destinados a tornar o comportamento ou as decisões de sistemas de IA compreensíveis para pessoas, oferecendo informação sobre fatores, relações ou razões associados às predições do modelo.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Interpretabilidade intrínseca × explicação post hoc
+
+**Prioridade:** A
+
+**Definição:**
+Modelos intrinsecamente interpretáveis possuem estrutura cujo funcionamento pode ser compreendido diretamente, como modelos lineares simples ou árvores pequenas. Explicações post hoc são construídas após o treinamento para analisar modelos cuja lógica interna não é diretamente interpretável.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Explicação contrafactual
+
+**Prioridade:** A
+
+**Definição:**
+Explicação contrafactual identifica alterações nas entradas que seriam suficientes para produzir uma decisão ou predição diferente, respondendo a perguntas do tipo “o que precisaria mudar para o resultado mudar?”.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Fidelidade da explicação
+
+**Prioridade:** A
+
+**Definição:**
+Fidelidade mede o quanto uma explicação representa corretamente o comportamento efetivo do modelo que pretende explicar. Uma explicação compreensível pode ser enganosa se tiver baixa fidelidade ao mecanismo preditivo real.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Plausibilidade × fidelidade
+
+**Prioridade:** A
+
+**Definição:**
+Plausibilidade indica quanto uma explicação parece razoável ou convincente para uma pessoa; fidelidade indica quanto ela corresponde ao comportamento real do modelo. Uma explicação pode ser plausível sem ser fiel.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Explicação local × global
+
+**Prioridade:** B
+
+**Definição:**
+Explicação local procura descrever por que o modelo produziu uma predição específica ou seu comportamento em uma região restrita. Explicação global procura caracterizar o comportamento geral do modelo sobre o domínio analisado.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Model-specific × model-agnostic
+
+**Prioridade:** B
+
+**Definição:**
+Métodos model-specific exploram propriedades internas de determinada família de modelos. Métodos model-agnostic tratam o modelo principalmente por suas entradas e saídas, podendo ser aplicados a diferentes arquiteturas.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Feature attribution
+
+**Prioridade:** B
+
+**Definição:**
+Feature attribution atribui valores às características de entrada para representar sua contribuição para determinada predição ou comportamento do modelo.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## SHAP
+
+**Prioridade:** B
+
+**Definição:**
+SHAP é uma família de métodos de atribuição de características baseada em valores de Shapley, distribuindo a diferença entre uma referência e uma predição entre as features segundo sua contribuição marginal em diferentes coalizões.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Surrogate model / LIME
+
+**Prioridade:** B
+
+**Definição:**
+Um surrogate model aproxima o comportamento de outro modelo por uma representação mais interpretável. LIME constrói localmente esse tipo de aproximação a partir de perturbações próximas à instância cuja predição se deseja explicar.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Explicação ≠ causalidade
+
+**Prioridade:** B
+
+**Definição:**
+Uma explicação de XAI pode descrever características associadas à predição ou ao comportamento do modelo sem estabelecer que essas características sejam causas do fenômeno real. Interpretar atribuições preditivas como relações causais exige evidência adicional.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Estabilidade × robustez da explicação
+
+**Prioridade:** C
+
+**Definição:**
+Estabilidade avalia se entradas semelhantes produzem explicações semelhantes; robustez avalia a resistência da explicação a pequenas perturbações ou manipulações que não deveriam alterar substancialmente sua interpretação.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+# Totais
+
+- **Cards A:** 50
+- **Cards B:** 58
+- **Cards C:** 10
+- **Total:** 118
+
+# Possíveis omissões
+
+Nenhuma omissão evidente que justifique acrescentar um conceito fora do inventário autorizado.

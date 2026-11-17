@@ -1,0 +1,2533 @@
+############################################################################################################
+### Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados ###
+############################################################################################################
+
+### Parte I: Fundamentos, Motivação e Modelo do Problema
+
+------------
+--- Problema
+
+O <armazenamento distribuido> surge quando as <propriedades> desejadas para o sistema deixam de
+poder ser obtidas <adequadamente em uma única máquina>.
+
+- Em larga escala, seria "pobre" dizer que esse é apenas um problema de "quantidade de dados".
+- Memos com dados pequenos, ou efêmeros (passageiros), podemos querer distribuit por:
+	a. Througput de leitura/escrita;
+	b. concorrência de acesso;
+	c. disponibilidade;
+	d. tolerância a falhas;
+	e. escalabilidade futura;
+	f. disponibilidade geográfica.
+
+Portanto o problema, mais bem colocado, seria: <um único nó> tornou-se um <limite de capacidade>,
+<desempenho>, ou <crescimento>.
+
+------------------------------
+--- Scale-Up versus Scale-Down
+
+<Scale-Up>: Aumenta os recursos da mesma máquina -> Escalabilidade vertical.
+
+- Maior vantagem: Mantém a arquitetura simples.
+
+- Limitações:
+	a. Recursos de uma máquina são finitos;
+	b. equipamentos de grande porte podem crescer não-linearmente;
+	c. concentração de recursos sem mecanismos adicionais são pontos críticos de falhas;
+	d. há um teto de crescimento.
+
+<Scale-Out>: Adicionam-se nós ao sistema, distribuindo dados e recursos.
+
+- Maior vantagem: Permite a construção de sistemas cuja capacidade cresce por expansão do conjunto de máquinas.
+
+- Limitações:
+	"" Troca limitações de uma máquina, pela complexidade da coordenação entre máquinas. ""
+	a. Comunicação pela rede;
+	b. possibilidade de falhas parciais;
+	c. coordenação;
+	d. concorrência;
+	e. necessidade de localizar os dados;
+	f. necessidade de determinar o estado do sistema.
+
+--------------------------------------
+--- O Que É Armazenamento Distribuído?
+
+(Definição)
+Um <sistema de armazenamento distribuído> mantém e gerencia dados sobre <multiplos nós> conectados
+por uma <rede>, buscando apresentá-los às <aplicações> segundo uma <abstração coerente de armazenamento>.
+
+A. Distribuição Física:
+	- Onde os dados realmente estão (nas máquinas/nós do sistema)
+	- Em algum momento vamos querer saber: "que dado fica onde?" [Parte 1.2: particionamento]
+
+B. Gerenciamento Lógico:
+	- Necessário para administrar os dados em máquinas distintas.
+	- Aqui vamos falar de:
+		a. Localização;
+		b. metadados;
+		c. acesso;
+		d. coordenação;
+		e. disponibilidade;
+		f. consistência;
+		g. recuperação de falhas;
+		h. movimentação dos dados;
+		i. expanção/reconfiguração.
+
+------------------------------------------------
+--- Dados Distribuídos vs Computação Distribuída
+
+Digamos que tenhamos dados, e três nós A, B e C.
+
+(Dados Distribuídos)
+Resposta para: Como, A, B e C são armazenados, localizados, copiados e mantidos?
+
+(Computação Distribuída)
+Resposta para: Como uma computação sobre A, B e C é dividida e executada pelos nós?
+
+------------------------------------------------------------------
+--- Quatro principais razões para distribuir armazenamento (dados)
+
+I. 'Capacidade': Conjunto de dados ou requisitos de retenção são inadequadores para um nó.
+
+II. 'Desempenho': Múltiplos nós podem permitir acesso paralelo aos dados e aumentar o
+	throughput agregado.
+
+	- Latência:
+	Quanto tempo leva uma determinada operação.
+
+	- Throughput:
+	Quanto trabalho o sistema consegue realizar por unidade de tempo.
+
+	- Distribuir pode aumentar o throughput agregado, mas não necessariamente a latência
+	(comunicação remota tende a aumentá-la).
+
+III. 'Disponibilidade e Tolerança a Falhas': Com múltiplos nós devemos mudar o pensamento para:
+	 Qual componente está falhando agora, e como o sistema continua operando?
+
+📝   O paper clássico do ""Google File System, de Ghemawat, Gobioff e Leung, de 2003"",
+	 é um excelente exemplo histórico disso: o sistema foi projetado para executar sobre hardware
+	 commodity e tratar tolerância a falhas como propriedade central da arquitetura.
+
+	 - Ideia do GFS:
+	 Em larga escala, falhas deixam de ser eventos excepcionais e tornam-se uma condição normal de projeto.
+
+IV. 'Crescimento - Elasticidade e Escalabilidade': Capacidade de sustento de carga com aumento adequado
+	de recursos.
+
+	- Escalabilidade: Capacidade do sistema sustentar aumento de carga/dados mediante aumento
+	adequado de recursos sem degradação desproporcional.
+
+	- Elasticidade: Frequentemente usada para enfatizar a capacidade de ajustar recursos dinamicamente
+	às necessidades - expandindo-os ou reduzindo-os.
+	-> Aqui, a escalabilidade horizontal é essencial!
+
+--------------------------------------------
+--- O Preço da Distribuição: Falhas Parciais
+
+(Definição)
+Falha ambígua, sem informação certa de se o programa - no geral ou em um nó - está rodando ou não.
+- Podem ser nós que caem.
+- Pode ser uma falha na rede A-B.
+- Pode ser incerteza de comunicação com rede.
+
+Problema epistemológico:
+Se um nó não responde, ele falhou ou a rede está lenta/interrompida.
+
+Gera problemas:
+a. Replicação;
+b. eleição/coordenação;
+c. consistência;
+d. quóruns;
+e. disponibilidade;
+f. CAP (falaremos bastante depois).
+
+Encadeamento:
+`DISTRIBUIÇÃO -> REDE -> FALHAS PARCIAIS + LATÊNCIA -> COOREDENAÇÃO -> TRADE-OFFS`
+
+-----------------
+--- Transparência
+
+Idealmente, a aplicação não precisa saber TODOS os detalhes físicos.
+- E.g. Meu objeto está no disco 14 do servidor 37.
+
+Tradicionalmente, sistemas distribuídos discutem formas de transparência como:
+a. Localização;
+b. acesso;
+c. replicação;
+d. falhas; etc.
+
+(Definição) - para a prova
+O sistema procura abstrair da aplicação parte da localização e organização física dos dados.
+
+--------------------------------
+--- Não Confundir 3 Propriedades
+
+`Escalabilidade`
+O sstema continua atendendo adequadamente quando cresce carga, volume ou número de usuários/nós.
+
+`Disponibilidade`
+O sistema permanece apto a atender solicitações.
+
+`Tolerância a Falhas`
+O sistema consegue continuar oferecendo o serviço especificado, possivelmente com alguma
+degradação, apesar da ocorrência de falhas.
+
+--------------------------
+--- Exemplo Mental Simples
+
+I. início do Centro de Sequenciamento:
+```              Storage
+                 100 TB
+                    |
+                 servidor
+```
+
+II. Quando crescemos:
+```
+            ┌──── nó A
+Aplicação ──┼──── nó B
+            ├──── nó C
+            └──── nó D
+```
+
+(Palaras Chave)
+```
+UM NÓ
+↓
+limite de capacidade / desempenho / disponibilidade / crescimento
+↓
+SCALE-UP × SCALE-OUT
+↓
+MÚLTIPLOS NÓS
+↓
+rede + falhas parciais + coordenação
+↓
+armazenamento distribuído precisa GERENCIAR a distribuição
+```
+
+Então temos as dúvidas:
+
+A. Qual arquivo vai para qual nó?
+→ Particionamento — 1.2
+
+B. E se o nó que contém um arquivo morrer?
+→ Replicação/tolerância a falhas — 1.3
+
+C. Se existem cópias, como garantir que elas concordem?
+→ Consistência — 1.4
+
+D. Que arquitetura usamos para organizar tudo?
+→ Modelos/sistemas — 1.5
+
+-------------
+--- PERGUNTAS
+
+1.1.
+{A respeito de Dados Distribuídos vs Computação Distribuída: Não entendi porque justaposição no primer.}
+{Afinal, iremos estudar qual? Não seriam os dois? Já que o concurso pede PDLE e MLOps? Então PDLE é}
+{"Dados Distribuídos" e MLOps é "Computação Distribuída"?}
+
+1.2.
+{Você poderia fazer um pequeno mapa ontológico das "áreas que estamos estudando"}
+{Tenho real dificuldade em saber a diferença ontológica de classificação entre: Sistemas Distribuídos,}
+{Dados Grandes, Gerenciamento de BDs, BDs, Data Lake, Data Warehouse, Data Lakehouse, DevOps, SysOps, MLOps,}
+{ML (sem Ops), AI/ML/DL (ainda é como aprendi?), Redes, Infraestrutura, Plataforma}
+{Me parece que diferentes palavras são usadas em diferentes lugares, e algumas estão "mais baixo" na "árvore ontológica"}
+{e alguns estão mais altos.}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Parte II: Particionamento, Sharding e Distribuição dos Dados
+
+Respondendo: Se o sistema tem vários nós, como decidir onde cada dado deve ficar?
+
+------------------------------
+--- Particionar Não É Replicar
+
+(Particionamento)
+Cada nó recebe uma parte DIFERENTE do conjunto -> Distribuir a capacidade e carga.
+
+(Replicação)
+Cópias podem ser feitas. Isso gera:
+	a. Redundância;
+	b. disponibilidade;
+	c. durabilidade;
+	d. tolerância a falhas.
+
+(Definição)
+Particionamento distribui os dados; replicação duplica dados selecionados.
+Na prática, sistemas distribuídos costumam fazer ambos.
+
+----------------------------
+--- O que é particionamento?
+
+(Definição)
+Particionamento é a divisão lógica de um conjunto de dados em subconjuntos, ou partições,
+distribuíveis entre diferentes recursos de armazenamento ou nós.
+
+A ideia matemática é criar:
+
+D = P1 U P2 U ... U Pk; dado que Pi ∩ Pj = ⍉, for all i≠j
+
+Cadeia conceitual de Replicação:
+
+``Chave -> Função/Critério de Particionamento -> Partição -> Nó Responsável``
+
+------------
+--- Sharding
+
+Muitos tratam como sinônimo de particionamento
+
+(Definição)
+Sharding designa usualmente uma forma de particionamento horizontal, na qual diferentes subconjuntos
+dos registros são distribuídos entre diferentes nós ou instâncias
+
+Muito usado em bancos distribuídos.
+
+Para o concurso:
+Particionamento = Conceito Geral
+Sharding = Importante manifestação de particionamento horizontal distribuído.
+
+----------------------------------------------
+--- Particionamento horizontal versus vertical
+
+(Particionamento Horizontal)
+Divide registros/objetos - Instâncias - Linhas da Tabela.
+
+(Particionamento Vertical)
+Divide atributo ou grupos de atributos - Colunas da Tabela.
+
+Isso pode ser útil por:
+	a. Padrões de acesso;
+	b. segurança;
+	c. desempenho;
+	d. separação funcional.
+
+Quando sistemas distribuídos discutem escalabilidade de grandes datasets,
+nosso interesse principal é no particionamento horizontal.
+
+-----------------------------
+--- Como escolher a partição?
+
+Precisamos de um critério que associe Dado -> Partição
+
+Três famílias são úteis:
+- Range Partitioning *** Importante
+- Hash Partitioning *** Importante
+- Particionamento baseado em alguma semântica/critério da aplicação
+
+------------------------------------------------------
+--- Particionamento por intervalo — range partitioning
+
+(Definição)
+Supondo que a chave seja um ID ordenável (números, datas, etc.), consiste na atribuição
+de intervalos desses dados horizontalmente nos nós.
+
+Vantagem:
+Preserva a localidade na ordenação. I.e. Dados próximos, permanecem próximos.
+Tornando consultas fáceis com:
+```sql
+WHERE data BETEEN X and Y
+```
+potencialmente exigindo o acesso de poucas partições.
+
+Problema:
+Podemos gerar 'skews'/'hotspots'. Ou seja, todos os registros estão no intervalo atribuído
+a um nó específico, ficando os outros com pouca movimentação
+
+Portanto:
+Range partitioning preserva localidade, mas pode produzir desequilíbrio quando dados ou acessos não
+são uniformemente distribuídos.
+
+---------------------
+--- Hash partitioning
+
+(Definição)
+Usamos uma função hash na chave, e usamos o resultado para definir qual a partição que o dado ficará.
+
+Exemplo: p = h(k) mod N; onde temos N partições
+
+Vantagem:
+Uma boa função de hash tende a espalhar chaves pelas partições de maneira uniforme. Obtendo melhor:
+	a. Distribuição de armazenamento;
+	b. distribuição de requisições;
+	c. balanceamento de carga.
+
+Sistemas atuais como Cassandra usam uma função hash aplicada à chave de partição para
+determinar sua localização no cluster.
+
+----------------------------------------
+--- O preço do hash: perdemos localidade
+
+O preço é a perda da localidade, logo:
+Particionamento hash favorece distribuição uniforme, mas geralmente destrói a localidade natural da chave.
+Isso prejudica consultas por intervalo.
+
+Descrever esse trade-off entre Range e Hash na prova!
+
+--------------------------------
+--- O problema ingênuo do módulo
+
+(Definição)
+Adicionar ou remover um nó pode mudar o destino de uma enorme quantidade de dados,
+quando se faz partição por hash.
+
+Uma operação aparentemente simples de escalabilidade exige <movimentação maciça de dados>
+- Péssimo para clusters grandes.
+
+----------------------
+--- Consistent hashing
+
+(Definição)
+Ao invés de mapear apenas chaves/dados, mapea-se, para um espaço de hash:
+- Chave/dados
+- Nós
+
+Uma chave é transformada em um token/posição nesse espaço representado como anel.
+
+(Propriedade Importante)
+Quando a composição do cluster muda, apenas uma fração do espaço de chaves precisa
+ser remapeada, em vez de quase todas as chaves.
+
+O Dynamo da Amazon tornou esse mecanismo uma referência particularmente conhecida em
+armazenamento distribuído: o artigo descreve consistent hashing como técnica de
+particionamento para permitir escalabilidade incremental.
+
+Já Cassandra, deriva explicitamente várias ideias do Dynamo e usa uma variante de
+consistent hashing para distribuir dados pelo cluster.
+
+---------------------------------------------------------------------------------
+--- Não quero que você transforme consistent hashing em aula de geometria do anel
+
+Basta:
+Consistent Hashing reduz a quantidade de dados que precisa ser redistribuída quando nós entram
+do sistema. Nele, ambos chaves e nós são mapeados em um espaço de identificadores.
+
+Não precisando de:
+	a. Detalhes do Chord;
+	b. fingers;
+	c. protocolo de membership;
+	d. cálculo detalhado de tokens;
+	e. algoritmo específico de roteamento.
+
+-------------------------------
+--- Partição lógica ≠ nó físico
+
+A arquitetura onde uma partição = um servidor é bastante ingênua.
+
+(Granularidade)
+Sistemas modernos frequentemente desacoplam <Partições lógicas> de <Nós Físicos>
+
+Podemos ter muitas partições por nó. Por exemplo:
+```
+Nó A → P1 P7 P13 P20
+Nó B → P2 P5 P18 P22
+Nó C → P3 P8 P14 P21
+```
+
+Isso oferece flexibilidade para:
+	a. Balanceamento;
+	b. crescimento;
+	c. movimentação;
+	d. redistribuição.
+-> É o que chamam de <Virtual Nodes>
+
+(Definição)
+Granularidade lógica de particionamento não precisa coincidir com granilaridade
+física dos servidores.
+
+--------------------------------------------------------------
+--- Skew — um dos conceitos que MAIS quero que você leve daqui
+
+Skew = <Desequilíbrio>
+
+I. Data Skew
+Algumas partições contém muito mais dados que outras.
+
+II. Access/load Skew
+As partições podem ter quantidade de dados similar, mas existe uma
+<Hot Partition> ou <Hotspot> (muito mais requests).
+
+Então isso nos dá um conceito muito importante:
+'Balancear volume de dados não implica em balancear carga'.
+
+O próprio artigo do Dynamo discute essa distinção: uma distribuição uniforme de chaves favorece
+distribuição uniforme de carga <desde que> a popularidade das chaves não seja excessivamente enviesada.
+
+--------------------------------------------
+--- A escolha da partition key importa MUITO
+
+Em sistemas baseados em chave, escolher um partition key ou sharding key é uma decisão earquitetural.
+
+Uma chave ruim pode causar skew, partições excessivas, dificultar escalabilidade, etc.
+
+Uma boa chave de particionamento/sharding deve considerar:
+	a. Cardinalidade;
+	b. distribuição;
+	c. padrão de acesso;
+	d. crescimento;
+	e. localidade desejada.
+
+A documentação do Cassandra é particularmente ilustrativa: todas as linhas com a mesma
+partition key permanecem juntas no mesmo conjunto de réplicas; essa localidade ajuda certas
+consultas, mas uma chave mal escolhida pode criar partições excessivas e hotspots.
+
+(Definição)
+Particionamento é simultaneamente um problema de distribuição física e de
+modelagem do acesso aos dados.
+
+-----------------------------------
+--- Localidade versus balanceamento
+
+Enxergamos o tradeoff com mais facilidade:
+
+<Localidade>: Manter dados relacionados próximos. Benefícios:
+	a. Menos comunicação;
+	b. consultas eficientes;
+	c. range scans;
+	d. operações conjuntas.
+
+<Balanceamento>: Distribuir dados e carga uniformemente. Benefícios:
+	a. Evitar nós saturados;
+	b. Usar capacidade do cluster;
+	c. Escalar melhor.
+
+(Definição)
+Um bom esquema de particionamento procura compatibilizar localidade de acesso com
+distribuição equilibrada de dados e carga.
+
+---------------
+--- Rebalancing
+
+(Definição)
+Redistribuição das partições ou responsabilidades entre os nós em resposta a
+mudanças de capacidade, composição ou carga do cluster.
+
+Pode ocorrer devido a:
+	a. Entrada de nós;
+	b. saída/falha permanente de nós;
+	c. aumento desigual de armazenamento;
+	d. skew;
+	e. hotspots;
+	f. alterações de demanda.
+
+------------------------------------
+--- O rebalanceamento não é gratuito
+
+O problema é que mover grandes volumes de dados consome:
+	a. Rede;
+	b. I/O;
+	c. CPU;
+	d. tempo;
+	e. capacidade operacional.
+
+Além disso pode "competir" com o tráfego natural da aplicação.
+
+Portanto temos outro trade-off.
+
+(Definição)
+Obter melhor balanceamento exige movimentação de dados,
+cujo custo precisa ser controlado.
+
+Essa é justamente uma das razões para mecanismos como consistent hashing serem
+interessantes: alterações na topologia podem exigir movimentação de apenas uma
+parte do espaço de chaves, em vez de provocar remapeamento quase global.
+
+--------------------------
+--- E onde entra Bigtable?
+
+Bigtable é interessante por um motivo diferente do Dynamo.
+
+(Definição)
+O sistema Google BigTable foi projetado para dados estruturados em escala de petabytes e
+milhares de servidores, e sua arquitetura organiza dados em unidades distribuídas que podem
+ser repartidas e atribuídas aos servidores responsáveis.
+
+<Bigtable>
+Particionamento/range + armazenamento estruturado distribuído
+
+<Dynamo>
+Consistent hashing + escalabilidade incremental
+
+São duas referências canônicas com funções conceituais diferentes.
+
+------------------------------------------------------
+--- Uma arquitetura mental para todo o particionamento
+
+(Visualização de Particionamento)
+
+```
+                     DATASET
+                        │
+                        ▼
+                 PARTITION KEY
+                        │
+                        ▼
+             PARTITIONING STRATEGY
+                   /          \
+                range         hash
+                  │             │
+            localidade      uniformidade
+                  │             │
+             risco de         perde
+              skew          ordenação
+                   \          /
+                    \        /
+                     ▼      ▼
+                    PARTIÇÕES
+                        │
+                        ▼
+                  NÓS FÍSICOS
+                        │
+             ┌─────────┴─────────┐
+             ▼                      ▼
+       balanceamento            rebalancing
+```
+
+---------------------------------------------------------------------------------------
+--- Um detalhe conceitual importante: particionamento não garante escalabilidade linear
+
+Duas máquinas ≠ duas vezes mais armazenamento/processamento. Pois há overhead de:
+	a. Metadados;
+	b. coordenação;
+	c. comunicação;
+	d. rebalanceamento;
+	e. skew;
+	f. replicação;
+	g. operações cross-partition.
+
+(Definição)
+Particionamento horizontal permite ampliar a capacidade e paralelismo
+medicante adição de recursos, mas a eficiência dessa escalabilidade depende
+da distribuição da carga e dos custos de coordenação e movimentação dos dados.
+
+
+-----------------------------------------------
+--- O que importa para a prova
+
+(Essencial)
+1. particionamento ≠ replicação;
+2. particionamento horizontal / sharding;
+3. partition key;
+4. range partitioning;
+5. hash partitioning;
+6. trade-off localidade × distribuição uniforme;
+7. data skew e load/access skew;
+8. hotspots;
+9. rebalanceamento;
+10. por que mudança no número de nós cria um problema de remapeamento;
+11. ideia e finalidade de consistent hashing.
+
+(Se sobrar espaço)
+12. partição lógica ≠ nó físico;
+13. virtual nodes/tokens;
+14. diferença entre particionamento horizontal e vertical;
+15. Bigtable como referência;
+16. efeito de operações cross-partition.
+
+(Palavras-Chave)
+```
+PARTICIONAMENTO
+      ↓
+partition key
+      ↓
+range × hash
+      ↓
+localidade × uniformidade
+      ↓
+skew / hotspot
+      ↓
+rebalanceamento
+      ↓
+consistent hashing
+```
+
+-------------
+--- PERGUNTAS
+
+2.1
+{You said our main interest is in Horizontal Partitioning. What is the difference between it and sharding?}
+{Also, with columnar databases taking over, why should we care more about horizontal partitioning?}
+
+2.2.
+{Não entendi bem a diferença de balanceamento e rebalanceamento.}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Parte III: Replicação, Disponibilidade e Tolerância a Falhas
+
+
+--------------------------------------------------------------------
+--- 1. Particionamento resolve capacidade; não resolve sozinho falha
+
+Se um nó falha e existe um particionamento apenas lá. Os dados não podem ser lidos.
+
+(Definição)
+Particionamento distribui os dados, mas também distribui pontos de falha.
+
+--------------------------
+--- 2. O que é replicação?
+
+(Definição)
+Replicação é a manutenção de múltiplas cópias de um mesmo dado ou partição
+em diferentes nós, de modo a aumentar a disponibilidade, durabilidade, tolerância a falhas
+e, em certos casos, desempenho de leitura.
+
+O sistema poderá seguir usando outra réplica.
+
+----------------------------------------------------------
+--- 3. Particionamento e replicação têm funções diferentes
+
+I. Particionamento:
+	-> Divide dados diferente entre nós
+	-> capacidade / distribuição de carga
+
+II. Replicação
+	-> Mantém cópias dos mesmos dados
+	-> Redundância, disponibilidade, tolerância a falhas
+
+Modelo:
+```
+   Dataset
+      ↓
+particionamento
+      ↓
+P1   P2   P3
+ ↓    ↓    ↓
+réplicas de cada partição
+```
+
+(Definição)
+Um sistema distribuído frequentemente particiona primeiro o espaço lógico de dados
+e depois replica cada partição.
+
+--------------------------
+--- 4. Fator de replicação
+
+(Definição)
+O fator de replicação <Replication Factor> é o número de cópias mantidas para determinado
+dado ou partição.
+
+Isso Gera o Trade-Off:
+
+Maior fator de replicação, melhora:
+	a. Tolerância a falhas;
+	b. disponibilidade;
+	c. durabilidade;
+	d. potencialmente throughput de leitura.
+
+Mas custa:
+	a. Mais armazenamento;
+	b. mais tráfego de rede;
+	c. mais trabalho de sincronização;
+	d. maior complexidade para manter consistência.
+
+(Corolário)
+Replicação não é gratuita; troca capacidade de armazenamento e coordenação por redundância.
+
+--------------------------------------------------------------------------------
+--- 5. Disponibilidade, durabilidade e tolerância a falhas não são a mesma coisa
+
+(Disponibilidade)
+O serviço consegue responder às requisições quando solicitado.
+
+(Durabilidade)
+Uma vez reconhecido como persistido, o dado deve sobreviver às falhas contempladas pelo sistema.
+
+(Tolerância a Falhas)
+Capacidade de o sistema continuar prestando seu serviço, eventualmente de forma degradada,
+apesar da ocorrência de determinadas falhas.
+'Porém':
+Ter rêplicas não significa automaticamente ser tolerante a qualquer falha.
+
+------------------------
+--- 6. Domínios de falha
+
+(Definição)
+Não basta multiplicar cópias; é necessário reduzir a correlação entre as falhas das cópias.
+
+Por isso, arquiteturas distribuídas procuram colocar réplicas em <domínios de falha distintos>:
+	a. Discos diferentes;
+	b. servidores diferentes;
+	c. racks diferentes;
+	d. zonas de disponibilidade diferentes;
+	e. eventualmente regiões diferentes.
+
+---------------------------------------
+--- 7. Replicação síncrona e assíncrona
+
+Mais um Trade-Off fundamental.
+
+(Replicação Síncrona)
+Uma operação de escrita só é considerada concluída após confirmação de outras réplicas
+segundo determinada política.
+-> Vantagem: Maior garantia que as cópias já estão sendo atualizadas no momento da confirmação.
+-> Custo: Maior latência.
+
+(Replicação Assíncrona)
+O nó primário pode confirmar a escrita antes que todas as réplicas tenham recebido atualização.
+-> Vantagem: Menor latência de escrita.
+-> Risco: Existe uma janela em que réplicas estão desatualizadas.
+
+--------------------------
+--- 8. O trade-off central
+
+(Definição)
+A replicação síncrona favorece consistênsia/durabilidade imediata;
+a replicação assíncrona favorece latência e disponibilidade operacional.
+
+Não é lei absoluta. É intuição arquitetural.
+
+----------------------------------
+--- 9. Leader–follower replication
+
+Modelo clássico
+
+(Definição)
+- Um nó atua como <líder> para determinado dado ou partição.
+- As escritas chegam ao <líder>
+- O <líder> propaga as alterações às réplicas <seguidoras>.
+
+```
+          write
+Cliente ───────→ Líder
+                   │
+             ┌────┴────┐
+             ↓          ↓
+         Follower    Follower
+```
+
+Leituras podem ser:
+	a. Direcionadas ao líder;
+	b. ou distribuídas entre seguidores, dependendo das garantias desejadas.
+
+'Vantagens':
+	a. Coordenação de escrita relativamente simples;
+	b. ordem centralizada para atualizações daquele conjunto de dados.
+'Problemas':
+	a. falha do líder exige <failover>;
+	b. seguidores podem estar atrasados;
+	c. eleição/substituição do líder precisa ser coordenada.
+
+------------------------------
+--- 10. Leaderless replication
+
+Outro modelo importante.
+
+(Definição)
+Em vez de todas as escritas passarem por um único primário,
+múltiplas réplicas podem aceitar operações.
+
+-> Estrutura do Dynamo DB.
+
+O sistema pode exigir respostas de um subconjunto das réplicas:
+
+(Condição Clássica - Quorum)
+`N` = Número de réplicas.
+`W` = Número de confirmações necessárias para a escrita.
+`R` = Número de réplicas consultadas para a leitura.
+      				``R + W > N``
+-> Favorece sobreposição de leitura e escrita.
+
+(Definição)
+Sistemas podem coordenar réplicas com diferentes modelos de liderança e confirmação.
+
+--------------------------------
+--- 11. Quorum: preciso decorar?
+
+SIM -> ``R + W > N``
+
+Seria bom para demonstrar o compromisso entre:
+	a. latência;
+	b. disponibilidade;
+	c. consistência.
+
+(Definição)
+Quóruns permitem trocar o número de respostas exigidas por diferentes garantias de leitura/escrita.
+
+----------------
+--- 12. Failover
+
+Quando um líder falha, outro nó precisa ser promovido através de algum mecanismo.
+Isso é failover.
+
+Podem ser:
+	a. Automático;
+	b. manual;
+	c. baseado em eleição;
+	d. baseado em algum serviço externo de coordenação.
+
+(Definição)
+Redundância só produz disponibilidade se o sistema conseguir detectar a falha e
+redirecionar o serviço para uma réplica válida.
+
+(Corolário)
+Se o sistema não consegue localizar/promover uma cópia utilizável, a redundância
+não ajuda operacionalmente.
+
+---------------------------------------
+--- 13. Detecção de falhas é imperfeita
+
+[Relembrando]
+Em sistemas distribuídos, silêncio não prova falha.
+
+Se o líder não responde, pode ser:
+	a. Processo morto;
+	b. máquina desligada;
+	c. rede congestionada;
+	d. partição de rede;
+	e. GC prolongado; [Garbage Collection]
+	f. sobrecarga;
+	g. timeout prematuro.
+
+Por isso, sistemas distribuídos usam:
+	a. Timeouts;
+	b. heartbeats;
+	c. Failure detectors.
+
+Esses mecanismos trabalham com <suspeita>, não com <conhecimento instantâneo perfeito>.
+
+(Problema)
+Um failover incorreto pode criar múltiplos nós acreditando ser líderes.
+
+Isso nos leva a temas como <split-brain> e <consenso>.
+
+-------------------
+--- 14. Split-brain
+
+(Definição)
+Caso a rede entre duas partições caia, e elas continuem funcionando, acreditando que a outra
+morreu, elas podem aceitar serem escritas dados discrepantes.
+
+(Split-Brain Mostra Que)
+Disponibilidade e consistência entram em tensão quando há partições de rede
+
+----------------------------------------
+--- 15. Replicação pode melhorar leitura
+
+Replicação -> Não é só para falhas.
+As leituras podem potencialmente serem distribuídas, aumentando o throughput de
+leitura e reduzindo a latência geográfica.
+
+(Custo)
+Se as réplicas não estiverem perfeitamente sincronizadas, diferentes clientes podem
+observar versões distintas.
+
+[Novamente]
+Replicação cria capacidade, mas cria coordenação.
+
+-----------------------------
+--- 16. Replicação geográfica
+
+(Definição)
+Distribuir cópias geograficamente para minimizar a latência de leitura para usuários
+distantes, masa custo de latência de propagação.
+
+[Cria um Trade-Off]
+'Pode melhorar:'
+	a. Tolerância a desastres;
+	b. disponibilidade regional;
+	c. latência de leitura para usuários distantes.
+'Pode piorar:'
+	a. Latência de propagação;
+	b. custo de rede;
+	c. dificuldade de coordenação;
+	d. consistência imediata.
+
+- Não existe protocolo que elimine a <velocidade finita da comunicação>.
+- Esse é um belo exemplo de como alguns trade-offs são físicos, não apenas de implementação.
+
+-----------------------------------
+--- 17. Read replicas e stale reads
+
+(Stale Read)
+Uma leitura em uma réplica pode observar estado antigo, caso as réplicas sejam
+atualizadas assincronamente.
+
+(Definição)
+Escalar leitura por réplicas pode introduzir desatualização observável.
+
+--------------------------------
+--- 18. Replicação e recuperação
+
+Suponha que:
+- A falha definitivamente
+- B e C continuam
+
+'Um sistema pode:'
+	a. Continuar funcionando com B/C;
+	b. provisionar um novo nó D;
+	c. copiar os dados necessários;
+	d. restaurar o fator de replicação.
+
+Isso é importante porque tolerância a falhas não termina no <failover>.
+
+E é pra recuperar a redundância que existem os: <recovery> e <repair>.
+
+-----------------------------
+--- 19. Anti-entropy e repair
+
+- Em sistemas com replicação assíncrona ou divergências temporárias, mecanismos de repair
+  podem comparar réplicas e reconciliar diferenças.
+
+- Alguns sistemas usam estruturas como <Merkle trees> para detectar diferenças eficientemente.
+
+- Deixar detalhes para aprofundamento se necessário
+
+------------------------------------------------
+--- 20. O grande problema criado pela replicação
+
+Até agora tudo bem, mas suponha que existam três replicas A = B = C = X.
+E o usuário faz X -> Y.
+Depois de milissegundos: A = B = Y; mas C = X.
+
+- Qual é o estado correto do sistema?
+- E se outro cliente ler C?
+- E se A falhar antes de atualizar C?
+- E se A e B perderem comunicação?
+- E se duas escritas concorrentes chegarem em locais diferentes?
+
+-> Esse é o problema da <consistência>
+
+Por isso, a sequência é natural:
+```
+PARTICIONAMENTO
+↓
+onde o dado fica?
+
+REPLICAÇÃO
+↓
+como sobreviver a falhas?
+
+CONSISTÊNCIA
+↓
+como coordenar múltiplas cópias?
+```
+
+------------------------------------------------
+--- 21. Uma visão integrada do que já aprendemos
+
+-> 'Armazenamento Distribuído':
+```
+                  DATASET
+                     │
+                     ▼
+              PARTICIONAMENTO
+                     │
+         ┌──────────┼──────────┐
+         ▼           ▼            ▼
+        P1           P2           P3
+         │           │            │
+         ▼           ▼            ▼
+    REPLICAÇÃO   REPLICAÇÃO   REPLICAÇÃO
+     /  |  \       / | \        / | \
+    A   B   C     B  C  D      A  C  D
+```
+
+O sistema precisa agora administrar:
+	a. localização;
+	b. distribuição;
+	c. cópias;
+	d. falhas;
+	e. mudanças de topologia;
+	f. consistência.
+
+Isso é, de fato, gerenciamento distribuído de dados.
+
+----------------------------------------
+--- O que realmente importa para a prova
+
+(Essencial)
+1. particionamento ≠ replicação;
+2. replicação mantém múltiplas cópias;
+3. objetivos: disponibilidade, durabilidade, tolerância a falhas e throughput de leitura;
+4. fator de replicação;
+5. custo: armazenamento + rede + coordenação;
+6. réplicas devem idealmente ocupar domínios de falha independentes;
+7. replicação síncrona × assíncrona;
+8. modelo leader–follower;
+9. noção de failover;
+10. redundância não basta: é necessário detectar falhas e redirecionar serviço;
+11. replicação cria o problema de consistência entre cópias.
+
+(Se Sobrar Espaço)
+1. leaderless replication;
+2. \(N, R, W\);
+3. read replicas;
+4. stale reads;
+5. replicação geográfica;
+6. split-brain;
+7. recovery/repair.
+
+(Palavras-Chave)
+```
+REPLICAÇÃO
+↓
+redundância
+↓
+replication factor
+↓
+domínios de falha
+↓
+síncrona × assíncrona
+↓
+leader / followers
+↓
+failover
+↓
+réplicas divergentes
+↓
+CONSISTÊNCIA
+```
+
+(Frases-Âncora):
+- Particionamento distribui capacidade; replicação distribui redundância.
+- Redundância não produz disponibilidade sozinha: é necessário detectar falhas,
+  localizar uma réplica válida e redirecionar o serviço.
+
+-------------
+--- PERGUNTAS
+
+3.1
+{Replicação síncrona e asíncrona têm algo a ver com OLAP vs XXXX}
+
+3.2.
+{Não entendi a diferença entre recovery e repair}
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Parte IV: Consistência, Disponibilidade e Trade-Offs do Gerenciamento Distribuído
+
+- Se existem múltiplas cópias e a rede pode atrasar, perder ou impedir mensagens,
+  o que significa dizer que os dados estão “consistentes”?
+
+----------------------------------------
+--- 1. O problema criado pela replicação
+
+O problema do último ponto anterior, da replicação, pode acontecer por:
+a. A atualização ainda não chegou a C;
+b. C está lento;
+c. houve perda temporária de conectividade;
+d. C está isolado por uma partição de rede.
+
+'Então a pergunta passa a ser:'
+Quais resultados são permitidos pelo modelo de consistência adotado pelo sistema?
+
+- Essa formulação é importante porque consistência não é simplesmente “todas as cópias sempre iguais”.
+
+- Consistência é uma propriedade semântica das operações observadas pelos clientes.
+
+------------------------------------------------
+--- 2. “Consistência” é uma família de garantias
+
+(Definição)
+- Em sistemas distribuídos, existem diferentes modelos de consistência.
+- Eles definem quais sequências de leituras e escritas são consideradas válidas.
+
+'Ideia Geral'
+```
+garantia mais forte
+       ↓
+comportamento mais parecido com
+um único sistema centralizado
+       ↓
+mais coordenação necessária
+       ↓
+potencial custo em latência/disponibilidade
+```
+
+- Isso não quer dizer que consistência forte seja sempre ruim.
+
+- Significa apenas que <garantias possuem custo>.
+
+---------------------------------------------
+--- 3. Consistência forte e linearizabilidade
+
+Herlihy e Wing formalizaram <linearizabilidade> como uma condição de correção para objetos
+concorrentes em 1990; ela exige, em essência, que cada operação pareça ocorrer
+atomicamente em algum instante entre sua invocação e sua resposta.
+
+(Definição)
+O sistema distribuído deve se comportar externamente como se houvesse uma única cópia
+atualizada instantaneamente, respeitando a ordem real das operações não concorrentes.
+
+'Exemplo'
+Caso tenhamos:
+```
+t1: cliente A conclui write(X = 10)
+t2: cliente B inicia read(X), com t2 > t1
+```
+- Em um sistema <linearizável>, B não pode legitimamente retornar o valor antigo de X.
+- A escrita já terminou, antes da leitura começar.
+
+-------------------------------------------
+--- 4. Por que linearizabilidade é “forte”?
+
+Porque as réplicas precisam se coordenar suficientemente para impedir observações incompatíveis
+com essa aparência de uma única cópia. O que pode exigir
+	a. Comunicação entre nós;
+	b. quóruns;
+	c. líder;
+	d. consenso;
+	e. espera por confirmações
+
+(Definição)
+Consistência forte reduz a liberdade de cada réplica responder independentemente.
+
+-> Importante para CAP
+
+-----------------------------------------------------------------
+--- 5. Consistência sequencial não é exatamente linearizabilidade
+
+(Consistência Sequencial de Lamport)
+- Ela exige que as operações possam ser vistas em alguma ordem sequencial
+  global compatível com a ordem de cada processo,
+- Mas não exige preservar necessariamente a ordem temporal real entre
+  operações de clientes diferentes
+
+Preciso saber a diferença? SIM.
+
+(Definição)
+Linearizabilidade é mais forte que consistência sequencial por também respeitar a
+precedência temporar real entre operações não concorrentes.
+
+----------------------------
+--- 6. Consistência eventual
+
+(Definição)
+Em consistência eventual, réplicas podem divergir temporariamente. Mas, na ausência de
+novas atualizações, espera-se que converjam.
+
+- Porém não quer dizer que "qualquer coisa vale".
+
+- É uma garantia de convergência, não ausência de semântica.
+
+E sistemas reais podem oferecer propriedades intermediárias, como:
+	a. Causal consistency;
+	b. Read-your-writes;
+	c. Monotonic reads;
+	d. Bounded staleness.
+
+- Para o texto final, não precisa enumerar todas. Basta mostrar que existe
+  um espectro de modelos de consistência.
+
+---------------------------------------
+--- 7. Consistência causal — vale saber
+
+(Definição)
+Se uma operação pode ter influenciado causalmente outra, os observadores
+devem respeitar essa relação.
+
+- Se há dependencia causal, essa ordem deve ser preservada.
+
+- Operações concorrentes sem relação causal podem admitir odens distintas.
+
+(Definição)
+Consistência causal preserva relações relevantes sem exigir uma única ordem global para tudo.
+
+------------------------------------------
+--- 8. Consistência versus disponibilidade
+
+'Trade-Off':
+Em um cenário de incerteza entre répicas, existem duas alternativas: preservar a consistência
+ou preservar a disponibilidade.
+
+<Preservar a Consistência>:
+Se uma réplica não pode responder com segurança, a operação falha, bloqueia ou fica indisponível.
+
+<Preservar a Disponibilidade>:
+A réplica incerta pode responder, retornando uma valor possívelmente desatualizado.
+
+-----------------------
+--- 9. CAP corretamente
+
+(Teorema CAP)
+Eric Brewer formulou originalmente a conjectura; Seth Gilbert e Nancy Lynch publicaram
+em 2002 uma formalização e prova no modelo de rede assíncrona.
+
+`C`: Consistency (Consistência)
+`A`: Availability (Disponibilidade)
+`P`: Partition tolerance (Tolerância de Partição)
+
+----------------
+--- 10. C em CAP
+
+- Na formulação de Gilbert e Lynch, a consistência é essencialmente uma semântica
+  atômica/linearizável para um objeto compartilhado: externamente, as operações devem
+  parecer ocorrer sobre uma única cópia correta.
+
+- Portanto, C em CAP não significa simplesmente “dados íntegros”.
+
+(Consistency)
+Externamente, as operações devem parecer ocorrer sobre um única cópia correta.
+
+! Não é o “C” de ACID.
+
+----------------
+--- 11. A em CAP
+
+- Gilbert e Lynch deixam explícito que, para CAP, até mesmo exigir apenas resposta
+  eventual já é suficiente para gerar a impossibilidade.
+
+(Availability)
+Disponibilidade é a capacidade de um nó funcional, produzir resposta.
+A requisição feita a um nó não-falho deve enventualmente receber uma resposta.
+
+----------------
+--- 12. P em CAP
+
+- Gilbert e Lynch tratam justamente comunicação não confiável e partições entre os servidores.
+
+(Partition Tolerance)
+Mensagens podem ser perdidas ou atrasadas entre partes do sistema. Ele continua sujeito a uma
+rede onde grupos de nós podem ficar incapazes de comunicar-se.
+
+---------------------------------------------------------------
+--- 13. Por que “escolha dois de três” é uma simplificação ruim
+
+Os atributos CP não são necessariamente escolhíveis.
+
+(Definição)
+Na presença de uma partição, não é possível garantir - simultaneamente - linearizabilidade e disponibilidade para todas as operações.
+
+--------------------
+--- 14. CP versus AP
+
+(Definição CP)
+Sistema que preserva mais a garantia de consistência. Alguns nós ou operações
+podem se tornar indisponíveis
+
+(Definição AP)
+Sistema onde diferentes lados continuam sendo atendidos. Pode existir divergências temporariamente.
+
+- O Dynamo clássico é uma referência clara de sistema que prioriza alta disponibilidade
+  e aceita sacrificar consistência em determinados cenários de falha.
+
+-----------------------------------------------------------------------
+--- 15. Não classifique sistemas inteiros rigidamente como “CP” ou “AP”
+
+(Definição)
+Diferentes projetos ou operações podem privilegiar disponibilidade ou consistência sob partições.
+
+Sistemas reais frequentemente permitem:
+	a. garantias diferentes por operação;
+	b. leituras fortes ou fracas;
+	c. diferentes níveis de quorum;
+	d. configurações diferentes;
+	e. comportamento diferente quando a rede está saudável ou particionada.
+
+---------------------------------
+--- 16. E quando NÃO há partição?
+
+(Definição)
+CAP só fala sobre redes <particionadas>.
+
+---------------------------------------
+--- 17. Então CAP não fala de latência?
+
+Não. Aqui existe outro conceito:
+`PACELC`
+
+```
+if Partition:
+    Availability vs Consistency
+else:
+    Latency vs Consistency
+```
+
+(Corolário)
+Mesmo quando não há partições, consisténcia mais forte pode exigir comunicação
+adicional e aumentar latência.
+
+-----------------------------------------
+--- 18. Quóruns: agora eles fazem sentido
+
+Condiçåo Clássica: ``R + W > N``
+
+- Se tivermos `N = 3` temos que replicar pelo menos um nó para que `R = 2` e `W = 2`
+  para podermos ter `2 + 2 > 3`
+
+- Ou seja, a condição clássica de quórum pode fazer com que nós se sobreponham.
+
+'Porém:'
+Isso não é uma prova universal de linearizabilidade
+
+- As garantias reais dependem de versionamento, concorrência, protocolo de escrita/leitura, resolução de conflito etc.
+
+(Definição)
+Quóruns de leitura e de escrita permitem modular o compromisso entre disponibilidade,
+latência e consistência.
+
+-------------------------------------------------
+--- 19. Quórum estrito versus quorum configurável
+
+<Trade-Offs>
+
+W alto
+→ mais réplicas precisam confirmar
+→ maior custo de escrita
+→ potencialmente maior garantia
+
+R alto
+→ consulta mais réplicas
+→ maior custo de leitura
+→ maior chance de observar estado recente
+
+W baixo / R baixo
+→ menos dependência de múltiplos nós
+→ maior disponibilidade/menor latência
+→ garantias mais fracas
+
+- Dynamo é novamente útil como referência histórica porque usa parâmetros
+  configuráveis de leitura/escrita no contexto de alta disponibilidade.
+
+---------------------------------------------------------------------------------
+--- 20. “Strong consistency” versus “eventual consistency” não é um botão binário
+
+'Espectro de Garantias'
+```
+linearizability
+      ↓
+sequential consistency
+      ↓
+causal consistency
+      ↓
+session guarantees
+      ↓
+eventual consistency
+```
+
+(Definição)
+Sistemas escolhem modelos conforme as invariantes e necessidades da aplicação.
+- Consistência é requisito semântico, não troféu arquitetural.
+
+Exemplo do Banco vs. "Curtidas".
+
+--------------------------------------------------------------
+--- 21. Operações diferentes podem exigir garantias diferentes
+
+(Definição)
+O projeto distribuído deve preservar fortemente as invariantes que realmente exigem
+coordenação e evitar coordenação desnecessária onde divergência temporal é aceitável.
+
+-----------------------------------------------------
+--- 22. Disponibilidade também possui custo semântico
+
+(Definição)
+Disponibilidade durante falhas pode ser comprada ao custo de adiar coordenação.
+
+Para continuar respondendo durante isolamento de rede, um sistema pode permitir:
+a. Dados antigos;
+b. conflitos concorrentes;
+c. reconciliação posterior;
+d. semântica mais fraca.
+
+- Dynamo é justamente um exemplo histórico de arquitetura construída em torno dessa
+  decisão: alta disponibilidade para operações consideradas essenciais, com versionamento
+  e resolução posterior de conflitos em certos cenários.
+
+------------------------------------------------
+--- 23. Consistência eventual exige convergência
+
+(Definição)
+É ERRADO falar que consistência eventual significa que replicas fica inconsistentes.
+O "eventual" implica que se as atualizações cessarem, as réplicas convergem para um
+estado compatível.
+
+Sistemas podem usar mecanismos como:
+	a. Versionamento;
+	b. clocks/version vectors;
+	c. conflict resolution;
+	d. anti-entropy;
+	f. read repair.
+
+--------------------------------------
+--- 24. Consistência não é integridade
+
+'Do nosso ponto 1':
+Consistência refere-se às garantias sobre a visibilidade e ordenação das operações
+sobre as cópias distribuídas.
+
+<Os seguntes NÃO são sinônimos>
+	a. integridade referencial;
+	b. constraints;
+	c. validade de domínio;
+	d. consistência de réplicas;
+	e. consistency model.
+
+-----------------------------------
+--- 25. Consistência não é consenso
+
+<Consistência>: descreve uma propriedade observável desejada.
+
+<Consenso>: é uma classe de problemas/protocolos usados para que participantes
+concordem sobre determinado valor/ordem em presença de falhas.
+
+- Protocolos como 'Paxos/Raft' podem ajudar a construir sistemas com certas garantias fortes.
+
+-----------------------------------------------------
+--- 26. O CAP como consequência lógica das Partes 1–3
+
+<Mapa Geral>
+
+```
+1. múltiplos nós
+→ rede
+→ falhas parciais
+
+2. particionamento
+→ dados distribuídos
+
+3. replicação
+→ múltiplas cópias
+
+4. consistência:
+rede pode particionar
++
+cópias podem divergir
+↓
+como preservar consistência
+sem perder disponibilidade?
+↓
+CAP
+```
+
+--------------------------------------------
+--- 27. Um exemplo de CAP que vale memorizar
+
+Exemplo do Banco
+-> A rede é perdida
+
+I. Preservar disponibilidade
+- Ambos os nós aceitam = dois saques.
+- Mas houve dois saques de 100 sobre saldo 100.
+- Violamos a invariante.
+
+II. Preservar consistência
+- B não pode confirmar com segurança a operação.
+- Então recusa/bloqueia.
+- Perdemos disponibilidade daquela operação.
+
+------------------------------------------
+--- 28. Mas cuidado com o exemplo bancário
+
+Usar o exemplo para explicar a tensão e não "Bancos usam CP". Seria muita simplificação.
+
+Pois sistemas financeiros envolvem:
+	a. Transações;
+	b. invariantes;
+	c. isolamento;
+	d. atomicidade;
+	e. serializabilidade;
+	f. ledger etc.
+
+-> ACID...
+
+--------------------------------------------------------
+--- 29. Atualidade: sistemas modernos misturam garantias
+
+- Um bom sinal de atualização é mostrar que a arquitetura contemporânea
+  raramente vive em extremos puros.
+
+- Por exemplo:
+  Trabalhos recentes sobre DynamoDB descrevem uma arquitetura que oferece diferentes modos de
+  leitura e usa replicação/quóruns para conciliar consistência, disponibilidade e desempenho
+  em enorme escala. O artigo de 2022 também mostra como esses trade-offs continuam sendo
+  problemas operacionais atuais, não apenas teoria dos anos 2000.
+
+----------------------------------------
+--- O que realmente importa para a prova
+
+(Essencial)
+1. consistência = garantias sobre observação/ordenação das operações, não “todas as cópias sempre iguais”;
+2. linearizabilidade como modelo forte;
+3. existência de modelos mais fracos, especialmente eventual consistency;
+4. garantias mais fortes normalmente exigem mais coordenação;
+5. CAP corretamente definido;
+6. durante uma partição de rede, não é possível garantir simultaneamente:
+   - consistência linearizável;
+   - disponibilidade para todas as operações;
+7. CP × AP como escolhas durante partições;
+8. CAP ≠ “escolha dois para sempre”;
+9. noções de quorum e \(R + W > N\);
+10. consistência deve ser escolhida segundo as invariantes da aplicação.
+
+(Se Sobrar Espaço)
+sequential consistency;
+causal consistency;
+session guarantees;
+PACELC;
+\(N,R,W\);
+stale reads;
+combinação de garantias por operação;
+diferença entre CAP availability e uptime convencional.
+
+(Palavras-Chave)
+```
+RÉPLICAS
+↓
+divergência
+↓
+MODELO DE CONSISTÊNCIA
+↓
+linearizabilidade
+       ×
+eventual consistency
+↓
+coordenação
+↓
+PARTIÇÃO DE REDE
+↓
+CAP
+↓
+C × A
+↓
+quóruns / trade-offs
+```
+
+(Frases-Âncora):
+- Consistência é uma garantia sobre o comportamento observado, não simplesmente
+  igualdade permanente entre cópias.
+- Garantias mais fortes exigem mais coordenação.
+- CAP trata da escolha entre consistência e disponibilidade quando há partição de rede.
+- Consistência deve proteger as invariantes que a aplicação realmente exige.
+
+-------------
+--- PERGUNTAS
+
+4.1
+{Não entendi porque você disse que: ``Sistemas reais frequentemente}
+{permitem (entre outros pontos): comportamento diferente quando a rede está}
+{saudável ou particionada.``. Uma rede particionada não é saudável?}
+
+4.2
+{O que é Paxos/Raft?} -> Pertencem mais ao ponto 2.
+
+4.3.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Parte V: Modelos de Armazenamento Distribuído, Arquiteturas e Síntese das Escolhas
+
+- Como os mecanismos que estudamos são combinados em classes concretas de
+  sistemas de armazenamento, e como escolher entre arquiteturas diferentes?
+
+----------------------------------------------------------
+--- 1. Primeiro: não existe “um” armazenamento distribuído
+
+'Divisão Útil':
+```
+ARMAZENAMENTO DISTRIBUÍDO
+├── sistemas de arquivos distribuídos
+├── bancos / stores distribuídos
+└── armazenamento de objetos
+```
+
+Cada classe responde à pergunta:
+Qual abstração de dados queremos oferecer às aplicações?
+
+----------------------------------------
+--- 2. Sistemas de arquivos distribuídos
+
+(Definição)
+Um sistema de arquivos oferece algo próximo de: diretórios -> arquivos -> blocos/chunks.
+Mas distribui o armazenamento físico por múltiplas máquinas.
+
+- O exemplo canônico para nossa prova é o Google File System (GFS), de Ghemawat,
+  Gobioff e Leung, de 2003.
+
+- O artigo apresenta o GFS justamente como um sistema de arquivos distribuído escalável
+  para aplicações intensivas em dados, construído para tolerar falhas sobre hardware
+  commodity e entregar alto desempenho agregado.
+
+--------------------------------------------
+--- 3. O que um sistema como GFS nos ensina?
+
+<GFS Conceitualmente>
+```
+arquivo lógico
+↓
+divisão em grandes blocos/chunks
+↓
+chunks distribuídos
+↓
+réplicas em diferentes servidores
+↓
+metadados indicam localização/estado
+```
+
+Ou seja, quase tudo que aprendemos reaparece:
+	a. particionamento do arquivo;
+	b. replicação dos chunks;
+	c. gerenciamento de metadados;
+	d. tolerância a falhas;
+	e. localização;
+	f. recuperação.
+
+-----------------------------
+--- 4. Metadados versus dados
+
+(Data plane)
+Os dados propriamente ditos.
+Podem ser:
+	a. chunks de arquivos
+	b. objetos
+	c. registros
+
+(Metadata/control plane)
+Informações necessárias para administrar esses dados:
+	a. onde estão;
+	b. quem é responsável;
+	c. versão;
+	d. permissões;
+	e. estado;
+	f. mapeamento de partições.
+
+-----------------------------------
+--- 5. Bancos e stores distribuídos
+
+(Definição)
+Essa granularidade surgiu pois determinados workloads precisam de acesso granular
+e estruturado aos dados, preservando escalabilidade horizontal e disponibilidade.
+
+- Ao invês de <arquivos> agora temos a aplicação manipula entidades como:
+	a. chave–valor;
+	b. documentos;
+	c. linhas/colunas;
+	d. tabelas;
+	e. registros estruturados.
+
+-> Exemplo clássico: NoSQL
+
+---------------------------------------
+--- 6. Bigtable como exemplo conceitual
+
+- O Bigtable, publicado por Chang et al. em 2006, é um excelente exemplo.
+
+- O artigo o descreve como um sistema distribuído de armazenamento para dados estruturados,
+  projetado para escalar a petabytes de dados em milhares de servidores, atendendo aplicações
+  com requisitos bastante diferentes de tamanho e latência.
+
+(Definição)
+A estrutura lógica dos dados participa diretamente de sua distribuição física
+
+-----------------------
+--- 7. Key-value stores
+
+A forma mais simples: `key -> value`
+
+- Levando à:
+```
+key
+ ↓
+hash/range
+ ↓
+partição
+ ↓
+réplicas
+```
+
+-> Dynamo DB: Ele foi construído como armazenamento key-value altamente disponível;
+   seu projeto assume falhas frequentes em infraestrutura de grande escala e explicitamente
+   aceita enfraquecer consistência em determinados cenários para preservar disponibilidade.
+
+-----------------------------------------------------
+--- 8. Bancos relacionais distribuídos também existem
+
+'Cuidado:'
+Armazenamento distribuído não significa necessariamente noSQL
+
+(Definição)
+Bancos relacionais não são necessariamente substituídos por noSQL em sistemas de larga escala.
+A escolha depende dos requisitos.
+
+Eles podem fornecer:
+	a. SQL;
+	b. esquema relacional;
+	c. transações;
+	d. diferentes níveis de isolamento;
+enquanto distribuem:
+	a. Dados;
+	b. réplicas;
+	c. execução;
+	d. logs.
+
+-----------------------------------------
+--- 9. Então por que NoSQL aparece tanto?
+
+(Resposta)
+Porque alguns sistemas relaxaram características tradicionais ou adotaram outros
+modelos de dados para facilitar propriedades como:
+	a. Scale-out;
+	b. distribuição automática;
+	c. esquemas flexíveis;
+	d. alta disponibilidade;
+	e. baixa latência para determinados padrões de acesso.
+
+Mas “NoSQL” é um guarda-chuva enorme:
+	a. Key-value;
+	b. document;
+	c. column-family/wide-column;
+	d. graph;
+	e. outros.
+
+(Definição)
+Sistemas key-value, documentais e de famílias de colunas ilustram diferentes
+modelos de armazenamento distribuído.
+
+-------------------------------------------------
+--- 10. Object storage — armazenamento de objetos
+
+
+
+----------------------------------------------------------
+--- 11. Por que object storage importa para o nosso ponto?
+
+
+
+-------------------------------
+--- 12. Arquivos versus objetos
+
+
+
+------------------------
+--- 13. E block storage?
+
+
+
+------------------------------------------------------------
+--- 14. Um erro que NÃO podemos cometer sobre object storage
+
+
+
+--------------------------------------------------------
+--- 15. Outro erro: “distributed = eventual consistency”
+
+
+
+----------------------------------
+--- 16. Arquitetura shared-nothing
+
+
+
+-----------------------------------------
+--- 17. Separação entre compute e storage
+
+
+
+------------------------------------
+--- 18. Data lake entra neste ponto?
+
+
+
+----------------------------
+--- 19. Localidade dos dados
+
+
+
+---------------------------------------------
+--- 20. Critérios para escolher a arquitetura
+
+
+
+-----------------------------------------------------------------------------------
+--- 21. Consistência, disponibilidade, latência e custo formam um espaço de projeto
+
+
+
+------------------------------
+--- 22. Um exemplo comparativo
+
+
+
+------------------------------------------
+--- 23. O papel da redundância também muda
+
+
+
+----------------------
+--- 24. Erasure coding
+
+
+
+--------------------------------------
+--- 25. Erasure coding entra na prova?
+
+
+
+--------------------------
+--- 26. Hardware commodity
+
+
+
+--------------------------------------------------------
+--- 27. “Commodity hardware” não significa hardware ruim
+
+
+
+--------------------------------------------------
+--- 28. Atualização tecnológica sem virar catálogo
+
+
+
+--------------------------------------------------
+--- 29. Um exemplo moderno particularmente bom: S3
+
+
+
+---------------------------------------
+--- 30. A verdadeira síntese do Ponto 1
+
+
+
+----------------------------------------
+--- O que realmente importa para a prova
+
+
+
+-------------
+--- PERGUNTAS
+
+5.1
+{PERGUNTA}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Meu amor,
+
+Eu gostaria realizar um experimento.
+
+[IDEIA GERAL]
+Esse experimento consiste em:
+- Simplificar um texto para o mínimo "recuperável na memória (humana)".
+- Criar "mnemônicos visuais" para este texto simplificado.
+
+[ENTRADA E SAÍDA]
+- Entrada = Texto separado por '\n' que deve ser entendido como "poema" - mas na verdade é o conteúdo de uma prova de Sistemas Distribuídos, ML, e MLOps (por partes).
+- Saída = Você criará um arquivo com extensão `.txt` contendo:
+	- O texto simplificado por você + pula dias linhas
+	- O texto com os símbolos do mnemônico visual (o mesmo texto escrito em símbolos) + pula duas linhas.
+	- O dicionário dos símbolos -> palavras
+
+[COMO SIMPLIFICAR O TEXTO]
+- Muitas vezes vai ser difícil, pois o texto já é condensado.
+- Palavras-chave como: escalabilidade, redundáncia, latência; sempre vão permanecer.
+- Tentar brincar mais com conectivos e semântica.
+
+A. Exemplo de grande compressåo:
+
+Para a frase: ``O crescimento do volume de dados e da demanda por acesso pode tornar inadequado o armazenamento em um único nó,``.
+
+Eu consigo condensar em: ``Dado cresce +volume +acesso, 1 nó ruim``.
+
+Sim, parece "Tarzan-talk", mas "funciona".
+
+B. Exemplo de pouca compressão (muitas keywords):
+
+Para a frase ``Embora a escalabilidade vertical amplie os recursos de uma única máquina, ela possui limites físicos e econômicos;``
+
+Eu consigo condensar em: ``Escalabilidade vertical amplia recurso 1PC, tem limite fisico economico``.
+
+- Isto é, você deve prestar MUITA atenção na semantica.
+- Também, não deve pré-reescrever o texto original. Assumir que ele é verdade absoluta.
+
+[COMO CRIAR SÍMBOLOS/MNEMÔNICOS]
+- Eu irei escrever e treinar o texto em papel e caneta, portanto terei muita liberdade.
+- Como você tem menos liberdade, você deverá usar quaisquer carácteres Unicode ou emoji SIMPLES -> Eu tenho que conseguir "desenhar rapidamente" os símbolos.
+
+Algoritmo que acho interessante:
+1. Rankeie as palavras por frequência.
+2. Tirando artigos, preposições simples, etc. pegue as que mais ocorrem e estabeleça letras ou pontos para elas. Exemplo: Dado(s) = `D` ou `Ds`; nó = `.` (ou circulo médio unicode centralizado)
+3. Em um outro nível, eu clusterizaria palavras semelhantes ou de mesmo domínio para dar o mesmo "tipo de mnemônico/símbolo". Exemplo: partição, replicação, dimensão poderia ser `ã`+<símbolo que lembra partição - algo partido; símbolo com duas coisas iguais; quadrado[dimensão]>
+4. Utilizar técnicas de estenografia para as palavras complexas, conectores, prefixos e sufixos, como (mas não se limitando a):
+	```
+	1. Esqueletização de Palavras (Conceito Teeline):
+	Remova sistematicamente todas as vogais internas das palavras, mantendo apenas a vogal inicial (se houver) e as consoantes estruturais.
+		• Desenvolvimento ──> dsnvlvmnt
+		• Constituição ──> cnsttc
+		• Estrutura ──> estrt
+	2. Substituição de Conectivos por Símbolos Lógicos:
+	A língua portuguesa gasta muito espaço e tempo com preposições e conjunções. Elimine-as visualmente usando operadores matemáticos ou setas:
+		• Portanto / Logo / Consequentemente ──> ∴ ou ➔
+		• Contudo / Mas / Porém (Oposição) ──> ✕ ou ≠
+		• De acordo com / Conforme / Segundo ──> ⊦
+	3. Gatilhos de Estrutura Macroscópica:
+	Use delimitadores geométricos simples para categorizar o fluxo do seu rascunho de redação sem precisar escrever "Introdução", "Argumento 1", ou "Conclusão":
+		• [T] = Título.
+		• (!) = Trade-Off.
+		• <>, <▲> = Prós e contras
+	```
+	Nota: Não necessariamente usar esses símbolos
+
+- O mais importante nessa parte é que o símbolo lembre MUITO a palavra. Claro que vou editar depois, mas quanto mais você criar um sistema FÁCIL e com símbolos que são bons, facilita minha vida. Por exemplo, essa combinação me lembra MUITO o termo "sistemas distribuídos" = `>—<`
+
+[EXECUÇÃO]
+
+Posso lhe dar um texto para testarmos o método?
+No próximo prompt, colarei apenas o texto, e você faz o seu melhor, conforme instruído aqui.
+
+---
+
+Meu amor,
+
+- Perdão se disse que ia por partes. Vou colar uma das partes inteira aqui.
+- Quando eu tiver todas as partes, dependendo do desempenho e facilidade/dificuldade, posso colar todos os pontos (talvez clusterizados).
+
+Por enquanto, faça apenas este:
+
+```
+## 1.1. Fundamentos, Motivação e Modelo do Problema
+
+O crescimento do volume de dados e da demanda por acesso
+pode tornar inadequado o armazenamento em um único nó,
+não apenas por limitações de capacidade, mas também de
+desempenho, disponibilidade e escalabilidade.
+
+Embora a escalabilidade vertical amplie os recursos de uma única máquina,
+ela possui limites físicos e econômicos;
+portanto, sistemas de larga escala
+frequentemente recorrem à escalabilidade horizontal,
+distribuindo dados e responsabilidades entre múltiplos nós interconectados.
+
+Um sistema de armazenamento distribuído deve, assim,
+organizar e gerenciar esses recursos como um conjunto coerente,
+abstraindo da aplicação parte de sua localização física.
+
+A distribuição, contudo, não produz escalabilidade
+ou tolerância a falhas automaticamente.
+
+Ao substituir um sistema centralizado por múltiplos nós comunicando-se por rede,
+surgem novos problemas, como latência de comunicação, falhas parciais,
+coordenação e manutenção de uma visão consistente dos dados.
+
+Em larga escala, a ocorrência de falhas de componentes
+deve ser tratada como condição normal de projeto,
+e não como evento excepcional.
+
+Consequentemente, arquiteturas distribuídas precisam
+combinar mecanismos de distribuição, redundância e gerenciamento
+capazes de sustentar capacidade, desempenho e disponibilidade à medida que o sistema cresce.
+
+## 1.2. Particionamento, Sharding e Distribuição dos Dados
+
+A escalabilidade horizontal do armazenamento depende de mecanismos de particionamento que dividam o conjunto de dados em subconjuntos distribuíveis entre diferentes nós. No particionamento horizontal, frequentemente denominado sharding, uma chave de partição determina a localização lógica de cada registro. A estratégia escolhida afeta diretamente balanceamento, localidade e custo de acesso: o particionamento por intervalos preserva a ordenação das chaves e favorece consultas contíguas, mas pode criar partições desbalanceadas e hotspots; o particionamento por hash tende a distribuir chaves mais uniformemente, ao custo de perder sua localidade natural.
+
+Um esquema adequado deve considerar não apenas o volume armazenado, mas também a distribuição da carga, pois balanceamento de dados não implica necessariamente balanceamento de acessos. Mudanças na composição do cluster também exigem rebalanceamento, com movimentação de partições e consequente custo de rede e I/O. Técnicas como consistent hashing reduzem o remapeamento provocado pela entrada ou saída de nós, associando chaves e recursos a um espaço de identificadores e permitindo escalabilidade incremental. Assim, o particionamento constitui um compromisso entre distribuição uniforme, localidade, flexibilidade de expansão e custo de redistribuição.
+
+## 1.3. Replicação, Disponibilidade e Tolerância a Falhas
+
+Além do particionamento, sistemas de armazenamento distribuído empregam replicação para manter múltiplas cópias de dados ou partições em nós distintos, aumentando disponibilidade, durabilidade e tolerância a falhas. Enquanto o particionamento distribui capacidade, a replicação introduz redundância. Seu benefício depende, contudo, da distribuição das cópias por domínios de falha suficientemente independentes e da existência de mecanismos capazes de detectar falhas, redirecionar requisições e restaurar réplicas perdidas.
+
+A coordenação das réplicas envolve compromissos entre desempenho e garantias de atualização. Na replicação síncrona, a confirmação de uma escrita pode depender da persistência em múltiplos nós, aumentando as garantias imediatas ao custo de maior latência; na replicação assíncrona, a confirmação antecipada reduz a latência, mas permite períodos de divergência entre cópias. Arquiteturas leader–follower centralizam a ordenação das escritas em um líder e utilizam failover em caso de falha, enquanto outros modelos admitem coordenação sem um único líder. Assim, embora a replicação aumente a resiliência do armazenamento, ela introduz o problema fundamental de manter uma visão coerente dos dados entre réplicas potencialmente atrasadas, indisponíveis ou isoladas pela rede.
+
+## 1.4. Consistência, Disponibilidade e Trade-Offs do Gerenciamento Distribuído
+
+A replicação introduz a necessidade de definir quais estados podem ser observados quando diferentes cópias recebem atualizações em momentos distintos. Modelos de consistência especificam essas garantias. Em uma garantia forte como a linearizabilidade, cada operação deve parecer ocorrer atomicamente sobre uma única cópia lógica, respeitando a precedência temporal das operações concluídas. Modelos mais fracos reduzem a necessidade de coordenação imediata; na consistência eventual, por exemplo, réplicas podem divergir temporariamente, mas devem convergir quando cessam novas atualizações. A escolha do modelo deve refletir as invariantes da aplicação, pois garantias mais fortes geralmente exigem maior coordenação e podem aumentar latência ou reduzir disponibilidade durante falhas.
+
+Essa tensão é formalizada pelo teorema CAP, conjecturado por Brewer e demonstrado por Gilbert e Lynch: na presença de uma partição de rede, um serviço distribuído não pode garantir simultaneamente consistência linearizável e disponibilidade de todas as operações. Portanto, CAP não deve ser interpretado simplesmente como uma escolha permanente de “dois entre três”; quando ocorre uma partição, arquiteturas podem preservar consistência recusando ou adiando operações em parte do sistema, ou privilegiar disponibilidade aceitando divergência temporária e posterior reconciliação. Quóruns de leitura e escrita constituem um mecanismo para modular essas garantias. Assim, o gerenciamento distribuído de dados envolve escolher explicitamente compromissos entre consistência, disponibilidade e desempenho conforme os requisitos semânticos e operacionais do sistema.
+
+## 1.5. Modelos de Armazenamento Distribuído, Arquiteturas e Síntese das Escolhas
+
+Os mecanismos de particionamento, replicação e consistência são combinados de formas distintas conforme a abstração e o padrão de acesso oferecidos pelo sistema. Sistemas de arquivos distribuídos, como o Google File System, dividem arquivos em unidades distribuídas e replicadas, buscando elevado throughput e tolerância a falhas; bancos e stores distribuídos oferecem acesso mais granular a dados estruturados, como ilustram Bigtable e o key-value store Dynamo. Já o armazenamento de objetos organiza dados e metadados por identificadores e tornou-se uma base importante para repositórios de grande escala e data lakes. Esses modelos não determinam, por si sós, uma única política de consistência ou replicação: tais garantias dependem do projeto do sistema.
+
+Consequentemente, a escolha de uma arquitetura de armazenamento distribuído deve partir do workload e de suas garantias, considerando volume e crescimento dos dados, padrão de acesso, latência e throughput, disponibilidade, durabilidade, consistência e custo. Arquiteturas shared-nothing e, mais recentemente, a separação entre computação e armazenamento favorecem escalabilidade horizontal e evolução independente dos recursos. Técnicas adicionais, como códigos de apagamento, podem reduzir o custo da redundância para determinados dados. Assim, não há uma solução universalmente superior: o gerenciamento distribuído consiste em combinar distribuição, redundância, coordenação e recuperação de acordo com as propriedades exigidas pela aplicação.
+```
+
+---
+
+Part 1: Grammatical Names in English and Brazilian Portuguese
+
+The words you listed are functional words (words that hold grammatical meaning rather than lexical meaning). Here is how they are classified in both languages:
+
+Word	English Grammatical Name	Brazilian Portuguese Grammatical Name
+"a" / "an"	Indefinite Articles	Artigos Indefinidos (um, uma)
+"the"	Definite Article	Artigo Definido (o, a, os, as)
+"to"	Preposition (or Infinitive Marker)	Preposição (para, a)
+"of"	Preposition	Preposição (de)
+"etc."	Abbreviation (for et cetera)	Abreviatura (para et cetera / "e assim por diante")
+
+In linguistics, this entire group is collectively called Function Words (Palavras Funcionais) or Closed-Class Words (Palavras de Classe Fechada), because languages rarely invent new ones.
+
+Part 2: Shorthand Systems (The "Notas Taquigráficas" Alternative)
+
+Before designing an LLM algorithm, you should look at Shorthand (Taquigrafia), which is exactly what parliamentary scribes and journalists used for centuries to compress speech in real-time into simple, hand-drawn strokes.
+The two most famous and fastest-to-learn systems that match your criteria are:
+1. Gregg Shorthand (The Phonetic/Geometric King):
+	• How it works: It completely eliminates silent letters and spelling rules. You write purely based on sound (phonetics) using simple geometric strokes (curves, hooks, and straight lines) derived from ellipses.
+	• Why it fits: It is incredibly fluid to draw by hand because it doesn't require lifting the pen often.
+2. Teeline Shorthand (The Fastest to Learn for English Speakers):
+	• How it works: It is based on the standard alphabet rather than phonetics. It strips away all vowels (unless the word starts with a vowel) and simplifies the remaining consonants into bare-minimum, hand-drawn symbols (e.g., a "T" is just a straight horizontal dash -).
+	• Why it fits: Because it retains the core structural memory of the Latin alphabet, it has a near-zero learning curve compared to phonetic systems.
+
+Part 3: High-Level LLM Algorithm for Semantic Unicode Compression
+
+If you want an LLM to dynamically generate a custom, highly memorable visual script using Unicode symbols that you can hand-write, the system must prioritize semantic anchoring (saving the concepts) over literal letter-by-letter compression.
+Here is the high-level algorithmic framework for the LLM:
+ALGORITHM: Semantic_Mnemonic_Compressor
+INPUT: Raw Text String
+OUTPUT: Ordered Unicode Chain (Hand-Drawable) + Mapping Manifest
+
+STEP 1: TEXT SANITIZATION & PART-OF-SPEECH (POS) TAGGING
+   ├── Run text through an NLP/POS tagger.
+   ├── Identify Content Words (Nouns, Verbs, Adjectives, Adverbs).
+   └── Strip or flag Function Words ("the", "of", "to") to be represented 
+       by spatial layout or minimal syntax markers.
+
+STEP 2: SEMANTIC LEMMATIZATION & CORE EXTRACTION
+   ├── Reduce words to their root concepts (e.g., "running", "ran", "runs" ──> RUN).
+   └── Identify core relational abstractions (Cause/Effect, Time, Negation, Multiplicity).
+
+STEP 3: UNICODE SYMBOL MAPPING (THE "DRAWABILITY" FILTER)
+   ├── Pass concepts through a strict "Hand-Drawable" filter.
+   ├── Rule: Exclude complex emojis or intricate glyphs.
+   └── Select only primitive geometric Unicode blocks or ancient scripts (Arrows, Math symbols, Runes).
+   
+   [Sample Dictionary Cache]:
+      ├── CAUSE/EFFECT ──>  ➔  (Right Arrow)
+      ├── PAST TIME     ──>  ◀  (Left Pointer)
+      ├── IDENTITY/SELF ──>  👁  or  ⌂ (Delta/Home)
+      ├── NEGATION      ──>  ✕  (Cross)
+      ├── INCREMENT     ──>  ▲  (Delta/Up)
+      └── STRUCTURE/LAW ──>  ⚖  or  ⎅ (Box bracket)
+
+STEP 4: SYNTAX CONDENSATION LOOP
+   ├── If a concept represents an abstract system ──> Enclose in brackets [ ].
+   └── If a concept is repetitive ──> Add a numerical superscript (e.g., ➔³).
+
+STEP 5: OUTPUT GENERATION
+   ├── Render the final ordered Unicode sequence.
+   └── Generate a "Translation Manifest" detailing the logical leaps 
+       made during step 3 to train the human brain for back-translation.
+
+Example of the Algorithm in Action:
+
+• Original Text: "The patient experienced severe executive dysfunction, leading to a complete collapse of his daily routines."
+• LLM Compression Manifest: [🧠✕] ➔ ➔ [⌂⏱✕]
+• Back-Translation Memory Anchor:
+	• [🧠✕] = Brain/Mind Negated (Executive Dysfunction)
+	• ➔ ➔ = Compounded Acceleration (Leading to severe/complete)
+	• [⌂⏱✕] = Home/Self + Time/Routine + Destroyed (Collapse of daily routines)
+This setup creates a visual, hieroglyphic anchor that your brain can easily reconstruct into the original phrasing once you understand the core system logic.
+Would you like to try running a sample paragraph of your own text through this specific high-level compression algorithm right now to see how clean and hand-drawable the resulting Unicode string looks?
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+===== GATILHOS v1 — 1-pdle-armazenamento-e-gerenciamento-distribuido-de-dados_v2.docx — 2026-10-20 =====
+
+# Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+## 1. Introdução e Delimitação do Problema
+O crescimento: dado ↑ → 1 nó insuficiente
+A escalabilidade vertical: limite físico/econômico → horizontal
+O desafio: escalável/disponível/durável/coerente × falhas parciais
+
+## 2. Fundamentos e Relevância
+Um sistema distribuído = abstração lógica coerente
+Essa distribuição ≠ escala automática: +latência +coordenação
+Dois mecanismos estruturam o problema:
+- particionamento: dados distintos → capacidade + paralelismo
+- replicação: cópias → redundância → disponibilidade/durabilidade/tolerância
+Em larga escala: falha = normal → GFS [1]
+
+## 3. Núcleo Técnico
+
+### 3.1. Particionamento e Distribuição
+No particionamento horizontal (sharding): chave → localização
+Particionamento por intervalos: ordem ≠ skew/hotspots; hash: uniforme ≠ localidade
+A escolha: balanço dados ≠ carga; rebalanceamento custa
+Técnicas: consistent hashing (Dynamo [2]) ↓ remapeamento
+
+### 3.2. Replicação e Tolerância a Falhas
+A replicação: benefício = fator + domínios independentes
+Replicação síncrona: garantia ↑ latência ↑; assíncrona: divergência
+Arquiteturas leader–follower × sem líder; redundância ≠ disponibilidade
+O failover: lentidão ≠ falha; split-brain → consenso
+
+### 3.3. Consistência, Disponibilidade e Quóruns
+Múltiplas réplicas → consistência = estados observáveis
+Na linearizabilidade [3]: atômica, 1 cópia lógica; eventual: converge
+O teorema CAP [4]: partição → consistência × disponibilidade
+Logo, CAP ≠ 2-de-3: recusar × divergir/reconciliar
+Quóruns modulam garantias; para N réplicas:
+R + W > N
+em que R/W = leitura/escrita → sobreposição ≠ protocolo completo
+
+### 3.4. Modelos e Arquiteturas
+Os mecanismos → abstrações: GFS = arquivos + throughput
+O Bigtable [5] = estruturado; Dynamo = key-value disponível
+Armazenamento de objetos: IDs → data lakes
+Arquiteturas shared-nothing + separação computação/armazenamento → escala horizontal
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+Não existe arquitetura superior; compatibilizar:
+- localidade × balanceamento
+- redundância × custo
+- consistência × disponibilidade sob partições
+- garantias fortes × latência + coordenação
+Devem ainda: acesso/throughput/durabilidade/custo; apagamento ↓ overhead × reconstrução
+Assim: arquitetura ← invariantes + workload
+
+## 5. Conclusão
+Em síntese:
+DATASET
+↓
+PARTICIONAMENTO
+↓
+REPLICAÇÃO
+↓
+CONSISTÊNCIA / QUÓRUNS
+↓
+RECUPERAÇÃO E REBALANCEAMENTO
+↓
+ABSTRAÇÃO DE ARMAZENAMENTO
+O objetivo: escala + desempenho + disponibilidade + durabilidade + consistência
+
+## Referências
+[1] Ghemawat et al. SOSP. 2003.
+[2] DeCandia et al. SOSP. 2007.
+[3] Herlihy et al. TOPLAS. 1990.
+[4] Gilbert et al. SIGACT News. 2002.
+[5] Chang et al. OSDI. 2006.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Claude,
+
+0.0. A sua geração de hotkeys para as sentenças ficou perfeito. Continue exatamente assim (ressalvas abaixo)!
+
+0.1. Antes de continuar, preciso avisar que modifiquei os arquivos 2-10 para conter "mais frases". Caso você esteja operando com modelos em cache, favor reler.
+
+0.2. Nas minhas modificações eu alterei o "espaçamento" de vários locais. O espaçamento pode ser desconsiderado e as regras são as mesmas do prompt original v2.
+
+[Sobre Suas Perguntas]
+
+1. Referências: Outros textos (2-10), infelizmente não possuem as referências curtas (você optou corretamente por elas no primeiro arquivo). Caso seja possível replicar esse exato comportamento (enxugar as referências em: `<NOME>[et al]. <JORNAL>. <AAAA>.`) nos próximos documentos (2-10) eu ficaria bastante grato!
+
+2. Contagem de palavras: Sim, perfeito.
+
+3. Abertura: Sim, perfeito.
+
+4. Fórmula: Sim perfeito. Nota: Alguns terão várias fórmulas, e até maiores. Não sei até onde você consegue reproduzí-las com Unicode text. Mas tente reproduzir TODAS as fórmulas (devo decorar TODAS). As que não conseguir reproduzir, pode usar "semi-latex" (e.g. [SUM_i^Inf x_i/y_i]/[SQRT(x_1/d^2)-1]). Usar Unicode sempre que possível.
+
+5. Cabeçalhos: Sim, perfeito. Já decorei todos. Mas pode seguir colocando-os com este exato formato.
+
+[Execução]
+
+Pode executar os arquivos 2-10 e escrever nos `.note`.
+
+**Preciso da sua decisão nestes pontos:**
+1. **Referências:** o seu docx tem duas listas, uma curta e a completa. A curta usa a editora (`GHEMAWAT, S. et al. ACM. 2003.`). Segui o formato do prompt, que pede periódico ou evento (SOSP, TOPLAS, SIGACT News, OSDI). Prefere que eu use ACM/USENIX para bater com o docx?
+2. **Contagem de palavras:** operadores (→ ≠ × ↑) e marcadores `[n]` não contam como palavras. Compostos com barra (`físico/econômico`) contam como uma, como no exemplo do prompt. Está ok?
+3. **Abertura:** quando a 2ª palavra literal é só artigo ou conectivo ("Assim, a arquitetura…"), usei apenas a 1ª (`Assim:`), como no exemplo "Embora vertical" do prompt.
+4. **Fórmula:** no docx ela aparece como `R + W > N ,`. Copiei a fórmula sem a vírgula final.
+5. **Cabeçalhos:** usei `#` para o título, `##` para as seções e `###` para as subseções.
+
+Se aprovar ou ajustar o estilo, sigo com os pontos 2 a 10, um por vez, com um relatório para cada.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[ ] I - Escrever Texto e Gatilhos - 1.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 1.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 1.3: Núcleo Técnico - Particionamento e Distribuição
+[ ] I - Escrever Texto e Gatilhos - 1.3: Núcleo Técnico - Replicação e Tolerância a Falhas
+[ ] I - Escrever Texto e Gatilhos - 1.3: Núcleo Técnico - Consistência, Disponibilidade e Quóruns
+[ ] I - Escrever Texto e Gatilhos - 1.3: Núcleo Técnico - Modelos e Arquiteturas
+[ ] I - Escrever Texto e Gatilhos - 1.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 1.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 1.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 2.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 2.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 2.3: Núcleo Técnico - Decomposição, Granularidade e Balanceamento
+[ ] I - Escrever Texto e Gatilhos - 2.3: Núcleo Técnico - Comunicação, Sincronização e Localidade
+[ ] I - Escrever Texto e Gatilhos - 2.3: Núcleo Técnico - MapReduce e Modelos de Execução Distribuída
+[ ] I - Escrever Texto e Gatilhos - 2.3: Núcleo Técnico - DAGs, Reutilização e Recuperação
+[ ] I - Escrever Texto e Gatilhos - 2.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 2.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 2.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 3.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 3.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 3.3: Núcleo Técnico - Tempo, Janelas e Watermarks
+[ ] I - Escrever Texto e Gatilhos - 3.3: Núcleo Técnico - Estado, Recuperação e Semântica de Processamento
+[ ] I - Escrever Texto e Gatilhos - 3.3: Núcleo Técnico - Logs Distribuídos e Arquiteturas Orientadas a Eventos
+[ ] I - Escrever Texto e Gatilhos - 3.3: Núcleo Técnico - Integração Batch/Streaming e Arquiteturas de Dados
+[ ] I - Escrever Texto e Gatilhos - 3.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 3.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 3.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 4.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 4.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 4.3: Núcleo Técnico - Preparação dos Dados e Análise Exploratória
+[ ] I - Escrever Texto e Gatilhos - 4.3: Núcleo Técnico - Identificação e Mineração de Padrões
+[ ] I - Escrever Texto e Gatilhos - 4.3: Núcleo Técnico - Identificação de Anomalias
+[ ] I - Escrever Texto e Gatilhos - 4.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 4.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 4.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 5.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 5.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 5.3: Núcleo Técnico - Aprendizado Supervisionado
+[ ] I - Escrever Texto e Gatilhos - 5.3: Núcleo Técnico - Aprendizado Não Supervisionado
+[ ] I - Escrever Texto e Gatilhos - 5.3: Núcleo Técnico - Avaliação e Seleção de Modelos
+[ ] I - Escrever Texto e Gatilhos - 5.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 5.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 5.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 6.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 6.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 6.3: Núcleo Técnico - Política e Funções de Valor
+[ ] I - Escrever Texto e Gatilhos - 6.3: Núcleo Técnico - Equações de Bellman e Aprendizado Temporal
+[ ] I - Escrever Texto e Gatilhos - 6.3: Núcleo Técnico - Exploração × Explotação
+[ ] I - Escrever Texto e Gatilhos - 6.3: Núcleo Técnico - Principais Famílias de Métodos
+[ ] I - Escrever Texto e Gatilhos - 6.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 6.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 6.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 7.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 7.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 7.3: Núcleo Técnico - Versionamento, Artefatos e Linhagem
+[ ] I - Escrever Texto e Gatilhos - 7.3: Núcleo Técnico - Experiment Tracking e Rastreabilidade
+[ ] I - Escrever Texto e Gatilhos - 7.3: Núcleo Técnico - Reprodutibilidade
+[ ] I - Escrever Texto e Gatilhos - 7.3: Núcleo Técnico - Validação, Comparação e Seleção
+[ ] I - Escrever Texto e Gatilhos - 7.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 7.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 7.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 8.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 8.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 8.3: Núcleo Técnico - Empacotamento e Implantação
+[ ] I - Escrever Texto e Gatilhos - 8.3: Núcleo Técnico - Serving e Padrões de Inferência
+[ ] I - Escrever Texto e Gatilhos - 8.3: Núcleo Técnico - Infraestrutura, Containers e Orquestração
+[ ] I - Escrever Texto e Gatilhos - 8.3: Núcleo Técnico - Escalabilidade e Disponibilidade
+[ ] I - Escrever Texto e Gatilhos - 8.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 8.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 8.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 9.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 9.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 9.3: Núcleo Técnico - Qualidade de Dados, Data Drift e Concept Drift
+[ ] I - Escrever Texto e Gatilhos - 9.3: Núcleo Técnico - Monitoramento Preditivo e Detecção de Degradação
+[ ] I - Escrever Texto e Gatilhos - 9.3: Núcleo Técnico - Governança, Auditoria e Lineage
+[ ] I - Escrever Texto e Gatilhos - 9.3: Núcleo Técnico - Manutenção, Retreinamento e Ciclo de Vida
+[ ] I - Escrever Texto e Gatilhos - 9.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 9.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 9.6: Referências
+
+[ ] I - Escrever Texto e Gatilhos - 10.1: Introdução e Delimitação do Problema
+[ ] I - Escrever Texto e Gatilhos - 10.2: Fundamentos e Relevância
+[ ] I - Escrever Texto e Gatilhos - 10.3: Núcleo Técnico - Atribuição de Atributos
+[ ] I - Escrever Texto e Gatilhos - 10.3: Núcleo Técnico - Surrogates, Exemplos e Contrafactuais
+[ ] I - Escrever Texto e Gatilhos - 10.3: Núcleo Técnico - Avaliação das Explicações
+[ ] I - Escrever Texto e Gatilhos - 10.3: Núcleo Técnico - Uso das Explicações
+[ ] I - Escrever Texto e Gatilhos - 10.4: Limitações, Trade-offs e Desafios Atuais
+[ ] I - Escrever Texto e Gatilhos - 10.5: Conclusão
+[ ] I - Escrever Texto e Gatilhos - 10.6: Referências
+
+---
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.3: Núcleo Técnico - Particionamento e Distribuição
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.3: Núcleo Técnico - Replicação e Tolerância a Falhas
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.3: Núcleo Técnico - Consistência, Disponibilidade e Quóruns
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.3: Núcleo Técnico - Modelos e Arquiteturas
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 1.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.3: Núcleo Técnico - Decomposição, Granularidade e Balanceamento
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.3: Núcleo Técnico - Comunicação, Sincronização e Localidade
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.3: Núcleo Técnico - MapReduce e Modelos de Execução Distribuída
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.3: Núcleo Técnico - DAGs, Reutilização e Recuperação
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 2.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.3: Núcleo Técnico - Tempo, Janelas e Watermarks
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.3: Núcleo Técnico - Estado, Recuperação e Semântica de Processamento
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.3: Núcleo Técnico - Logs Distribuídos e Arquiteturas Orientadas a Eventos
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.3: Núcleo Técnico - Integração Batch/Streaming e Arquiteturas de Dados
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 3.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 4.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 4.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 4.3: Núcleo Técnico - Preparação dos Dados e Análise Exploratória
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 4.3: Núcleo Técnico - Identificação e Mineração de Padrões
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 4.3: Núcleo Técnico - Identificação de Anomalias
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 4.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 4.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 4.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 5.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 5.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 5.3: Núcleo Técnico - Aprendizado Supervisionado
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 5.3: Núcleo Técnico - Aprendizado Não Supervisionado
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 5.3: Núcleo Técnico - Avaliação e Seleção de Modelos
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 5.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 5.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 5.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.3: Núcleo Técnico - Política e Funções de Valor
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.3: Núcleo Técnico - Equações de Bellman e Aprendizado Temporal
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.3: Núcleo Técnico - Exploração × Explotação
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.3: Núcleo Técnico - Principais Famílias de Métodos
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 6.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.3: Núcleo Técnico - Versionamento, Artefatos e Linhagem
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.3: Núcleo Técnico - Experiment Tracking e Rastreabilidade
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.3: Núcleo Técnico - Reprodutibilidade
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.3: Núcleo Técnico - Validação, Comparação e Seleção
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 7.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.3: Núcleo Técnico - Empacotamento e Implantação
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.3: Núcleo Técnico - Serving e Padrões de Inferência
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.3: Núcleo Técnico - Infraestrutura, Containers e Orquestração
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.3: Núcleo Técnico - Escalabilidade e Disponibilidade
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 8.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.3: Núcleo Técnico - Qualidade de Dados, Data Drift e Concept Drift
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.3: Núcleo Técnico - Monitoramento Preditivo e Detecção de Degradação
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.3: Núcleo Técnico - Governança, Auditoria e Lineage
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.3: Núcleo Técnico - Manutenção, Retreinamento e Ciclo de Vida
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 9.6: Referências
+
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.1: Introdução e Delimitação do Problema
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.2: Fundamentos e Relevância
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.3: Núcleo Técnico - Atribuição de Atributos
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.3: Núcleo Técnico - Surrogates, Exemplos e Contrafactuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.3: Núcleo Técnico - Avaliação das Explicações
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.3: Núcleo Técnico - Uso das Explicações
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.4: Limitações, Trade-offs e Desafios Atuais
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.5: Conclusão
+[ ] II - Estudar Transcrevendo Texto e Gatilhos - 10.6: Referências
+
+---
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.3: Núcleo Técnico - Particionamento e Distribuição
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.3: Núcleo Técnico - Replicação e Tolerância a Falhas
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.3: Núcleo Técnico - Consistência, Disponibilidade e Quóruns
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.3: Núcleo Técnico - Modelos e Arquiteturas
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 1.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.3: Núcleo Técnico - Decomposição, Granularidade e Balanceamento
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.3: Núcleo Técnico - Comunicação, Sincronização e Localidade
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.3: Núcleo Técnico - MapReduce e Modelos de Execução Distribuída
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.3: Núcleo Técnico - DAGs, Reutilização e Recuperação
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 2.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.3: Núcleo Técnico - Tempo, Janelas e Watermarks
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.3: Núcleo Técnico - Estado, Recuperação e Semântica de Processamento
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.3: Núcleo Técnico - Logs Distribuídos e Arquiteturas Orientadas a Eventos
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.3: Núcleo Técnico - Integração Batch/Streaming e Arquiteturas de Dados
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 3.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 4.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 4.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 4.3: Núcleo Técnico - Preparação dos Dados e Análise Exploratória
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 4.3: Núcleo Técnico - Identificação e Mineração de Padrões
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 4.3: Núcleo Técnico - Identificação de Anomalias
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 4.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 4.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 4.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 5.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 5.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 5.3: Núcleo Técnico - Aprendizado Supervisionado
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 5.3: Núcleo Técnico - Aprendizado Não Supervisionado
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 5.3: Núcleo Técnico - Avaliação e Seleção de Modelos
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 5.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 5.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 5.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.3: Núcleo Técnico - Política e Funções de Valor
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.3: Núcleo Técnico - Equações de Bellman e Aprendizado Temporal
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.3: Núcleo Técnico - Exploração × Explotação
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.3: Núcleo Técnico - Principais Famílias de Métodos
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 6.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.3: Núcleo Técnico - Versionamento, Artefatos e Linhagem
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.3: Núcleo Técnico - Experiment Tracking e Rastreabilidade
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.3: Núcleo Técnico - Reprodutibilidade
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.3: Núcleo Técnico - Validação, Comparação e Seleção
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 7.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.3: Núcleo Técnico - Empacotamento e Implantação
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.3: Núcleo Técnico - Serving e Padrões de Inferência
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.3: Núcleo Técnico - Infraestrutura, Containers e Orquestração
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.3: Núcleo Técnico - Escalabilidade e Disponibilidade
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 8.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.3: Núcleo Técnico - Qualidade de Dados, Data Drift e Concept Drift
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.3: Núcleo Técnico - Monitoramento Preditivo e Detecção de Degradação
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.3: Núcleo Técnico - Governança, Auditoria e Lineage
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.3: Núcleo Técnico - Manutenção, Retreinamento e Ciclo de Vida
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 9.6: Referências
+
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.1: Introdução e Delimitação do Problema
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.2: Fundamentos e Relevância
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.3: Núcleo Técnico - Atribuição de Atributos
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.3: Núcleo Técnico - Surrogates, Exemplos e Contrafactuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.3: Núcleo Técnico - Avaliação das Explicações
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.3: Núcleo Técnico - Uso das Explicações
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.4: Limitações, Trade-offs e Desafios Atuais
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.5: Conclusão
+[ ] III - Estudar Escrevendo de Cabeça e Corrigindo - 10.6: Referências
+
+
+
+

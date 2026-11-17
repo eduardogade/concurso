@@ -1,0 +1,49 @@
+# Ponto 6 — Aprendizado por Reforço
+
+## 6.1. Introdução e Delimitação do Problema
+
+Diferentemente do aprendizado supervisionado, não há, em geral, um rótulo informando a ação correta em cada estado. O agente deve descobrir, pelas consequências de suas decisões, comportamentos capazes de maximizar resultados ao longo do tempo:
+
+recompensa imediata ≠ objetivo de longo prazo
+
+## 6.3. Núcleo Técnico
+### 6.3.1. Política e Funções de Valor
+
+A relação entre comportamento e aprendizado pode ser sintetizada por:
+
+política → ações → retorno → valor → melhoria da política
+
+### 6.3.2. Equações de Bellman e Aprendizado Temporal
+
+\[
+V^{\pi}(s) = \mathbb{E}_{\pi}\left\lbrack R_{t + 1} + \gamma V^{\pi}(S_{t + 1}) \mid S_{t} = s \right\rbrack
+\]
+
+valor presente = recompensa imediata + futuro descontado
+
+### 6.3.3. Exploração × Explotação
+
+Como o agente inicialmente desconhece as consequências das ações, surge o compromisso entre:
+
+- **exploração**: testar ações pouco conhecidas para adquirir informação;
+- **explotação**: selecionar a melhor ação segundo o conhecimento atual.
+
+### 6.3.4. Principais Famílias de Métodos
+
+Arquiteturas **Actor–Critic** combinam essas perspectivas:
+
+- **ator**: seleciona ações segundo a política;
+- **crítico**: estima valor e fornece sinal para melhorar a política.
+
+## 6.4. Limitações, Trade-offs e Desafios Atuais
+
+Outro desafio fundamental é a especificação da recompensa:
+
+maximizar recompensa especificada ≠ maximizar objetivo real
+
+Também existem importantes trade-offs:
+
+- exploração × segurança;
+- desempenho × eficiência amostral;
+- capacidade de representação × estabilidade;
+- planejamento explícito × custo computacional.

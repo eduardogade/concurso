@@ -1,0 +1,16 @@
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+PROBLEMA
+↓
+DECOMPOSIÇÃO
+↓
+ESCALONAMENTO E BALANCEAMENTO
+↓
+COMUNICAÇÃO / SHUFFLE
+↓
+MODELO DE EXECUÇÃO
+↓
+REEXECUÇÃO / CHECKPOINT
+↓
+ESCALABILIDADE
+

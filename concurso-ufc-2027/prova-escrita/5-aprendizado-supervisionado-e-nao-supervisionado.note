@@ -1,0 +1,95 @@
+===== GATILHOS v1 — 5-aprendizado-supervisionado-e-nao-supervisionado_v2.docx — 2026-10-21 =====
+
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+## 1. Introdução e Delimitação do Problema
+O aprendizado: variável-alvo organiza [1, 2]
+No supervisionado: par (xᵢ, yᵢ); aprender f: X → Y generalizável
+No não supervisionado: só xᵢ → estrutura
+supervisionado → aprender a relação X → Y
+não supervisionado → aprender a estrutura em X
+No primeiro: classificação/regressão; segundo: agrupamento/redução/densidade/anomalias
+Em ambos: aprender ≠ ajustar → generalizar
+
+## 2. Fundamentos e Relevância
+No caso supervisionado: f(x;θ) → ŷ; ajusta θ minimizando perda:
+θ* = argmin_θ L(θ)
+A função: perda quadrática/entropia; objetivo = generalizar
+Por isso, dados separados em:
+treino → ajustar parâmetros
+validação → escolher modelo e hiperparâmetros
+teste → estimar o desempenho final
+A distinção: parâmetros (dados) × hiperparâmetros (externos)
+Também: simples → underfitting/viés; flexível → overfitting/variância [3]
+A regularização penaliza a complexidade:
+objetivo = erro empírico + λ · complexidade
+pois baixo erro de treino ≠ generalização
+
+## 3. Núcleo Técnico
+
+### 3.1. Aprendizado Supervisionado
+As tarefas: classificação discreta × regressão contínua
+As famílias de métodos refletem hipóteses:
+- modelos lineares: simples + interpretáveis
+- árvores: particionam espaço → não linear
+- ensembles (Random Forests, boosting): combinam → robustez
+- k-NN: proximidade entre exemplos
+- SVM: fronteira de máxima margem
+- redes neurais: altamente não lineares [4]
+A escolha ← hipótese estrutural imposta:
+método = algoritmo + hipótese sobre os dados
+
+### 3.2. Aprendizado Não Supervisionado
+Sem alvo: caracterizar estrutura dos dados
+Entre os métodos representativos:
+- k-means: grupos compactos em centroides
+- clustering hierárquico: múltiplos níveis
+- DBSCAN: regiões densas; isolado = ruído
+- PCA: reduz dimensão, preserva variância
+- modelos de mistura: agrupamento probabilístico
+A ausência ≠ sem critério: dispersão/densidade/variância
+
+### 3.3. Avaliação e Seleção de Modelos
+A avaliação ← tarefa + custo; classificação: acurácia/precisão/recall/F1/ROC-AUC
+Em desbalanceados: acurácia alta ≠ útil (majoritária)
+Em regressão: MAE/MSE/RMSE/R² enfatizam erros distintos
+No não supervisionado: indireta (coesão/separação/silhouette/estabilidade/externo/utilidade)
+Quando amostra limitada: validação cruzada; k-fold:
+dados → k partes → treina em k−1 → valida em 1 → repete k vezes
+É essencial: teste independente de escolhas
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+A escolha envolve múltiplos trade-offs:
+- desempenho × interpretabilidade
+- viés × variância
+- precisão × recall
+- custo computacional × ganho preditivo
+Há riscos: leakage (normalização com teste) → aparente > real
+Além disso: teste ≠ fora-da-distribuição (mudança/ruído/desbalanceamento)
+Não existe algoritmo superior; considerar:
+dados + objetivo + hipótese do modelo + métrica + restrições → método
+Entre essas restrições: amostra/dimensionalidade/custo/interpretabilidade/robustez/latência/erros
+
+## 5. Conclusão
+Em síntese:
+PROBLEMA
+↓
+DADOS E RÓTULOS DISPONÍVEIS?
+↓
+FORMULAÇÃO SUPERVISIONADA / NÃO SUPERVISIONADA
+↓
+TREINAMENTO
+↓
+VALIDAÇÃO E SELEÇÃO
+↓
+AVALIAÇÃO
+↓
+GENERALIZAÇÃO
+Aprendizado difere por alvo: relações × estrutura latente
+Em ambos: adequação problema/dados/hipótese/perda/métrica/uso real
+
+## Referências
+[1] Bishop, C. M. Springer. 2006.
+[2] Murphy, K. P. MIT Press. 2012.
+[3] Hastie, T. et al. Springer. 2009.
+[4] Goodfellow, I. et al. MIT Press. 2016.

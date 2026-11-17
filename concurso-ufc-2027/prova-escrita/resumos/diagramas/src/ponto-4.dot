@@ -1,0 +1,65 @@
+digraph mapa {
+  graph [fontname="Arial" fontsize=11 fontcolor="#111111" bgcolor="white" rankdir=TB newrank=true nodesep=0.55 ranksep=0.24 labelloc="t" labeljust="c" margin=0.1 pad=0.2];
+  node [shape=box style="filled" fillcolor="white" color="#2b2b2b" penwidth=1.2 fontname="Arial" fontsize=12 fontcolor="#111111" margin="0.14,0.06" height=0.36];
+  edge [color="#333333" penwidth=1.3 arrowsize=0.8];
+  label=<<FONT POINT-SIZE="16"><B>Ponto 4</B></FONT><BR/><FONT POINT-SIZE="12">Mineração de Dados:<BR/>Descoberta de Conhecimento, Análise Exploratória<BR/>de Dados, Identificação de Padrões e Anomalias</FONT><BR/> >;
+  subgraph cluster_4_1 {
+    label=<<B>4.1</B>&#160;&#160;Introdução e Delimitação do Problema>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n4_1_0_0 [label=<mineração = etapa do <B>KDD</B>> group="eixo"];
+    n4_1_1_0 [label=<padrão: <B>4 qualidades</B> → decisão> group="eixo"];
+    n4_1_0_0 -> n4_1_1_0;
+  }
+  subgraph cluster_4_2 {
+    label=<<B>4.2</B>&#160;&#160;Fundamentos e Relevância>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n4_2_0_0 [label=<<B>KDD</B>: seleção → … → conhecimento (iterativo)> group="eixo"];
+    n4_2_1_0 [label=<dado → padrão → <B>conhecimento</B>> group="eixo"];
+    n4_2_0_0 -> n4_2_1_0;
+    n4_2_2_0 [label=<detectável pode ser trivial · <B>espúrio</B> · irrelevante> group="eixo"];
+    n4_2_1_0 -> n4_2_2_0;
+  }
+  subgraph cluster_4_3 {
+    label=<<B>4.3</B>&#160;&#160;Núcleo Técnico>; labeljust="l"; style="dashed"; color="#bdbdbd"; margin=10;
+    subgraph cluster_4_3_1 {
+      label=<<B>4.3.1</B>&#160;&#160;Preparação dos Dados e Análise Exploratória>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n4_3_1_0_0 [label=<preparação <B>não é neutra</B>> group="eixo"];
+      n4_3_1_1_0 [label=<<B>EDA</B> (Tukey): boxplot · <B>IQR</B> · Pearson ↔ Spearman> group="eixo"];
+      n4_3_1_0_0 -> n4_3_1_1_0;
+      n4_3_1_2_0 [label=<achados = <B>hipóteses</B>> group="eixo"];
+      n4_3_1_1_0 -> n4_3_1_2_0;
+    }
+    subgraph cluster_4_3_2 {
+      label=<<B>4.3.2</B>&#160;&#160;Identificação e Mineração de Padrões>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n4_3_2_0_0 [label=<pão → manteiga: sup · conf · <B>lift &gt; 1</B>> group="eixo"];
+      n4_3_2_1_0 [label=<padrão <B>global</B> ↔ <B>local</B>> group="eixo"];
+      n4_3_2_0_0 -> n4_3_2_1_0;
+      n4_3_2_2_0 [label=<frequente ≠ <B>relevante</B>> group="eixo"];
+      n4_3_2_1_0 -> n4_3_2_2_0;
+    }
+    subgraph cluster_4_3_3 {
+      label=<<B>4.3.3</B>&#160;&#160;Identificação de Anomalias>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n4_3_3_0_0 [label=<desvio do esperado ≠ <B>erro</B> · 3 tipos (madrugada)> group="eixo"];
+      n4_3_3_1_0 [label=<normalidade: z · IQR · <B>LOF</B> · <B>Isolation Forest</B>> group="eixo"];
+      n4_3_3_0_0 -> n4_3_3_1_0;
+      n4_3_3_2_0 [label=<alta dimensão → perde <B>poder discriminativo</B>> group="eixo"];
+      n4_3_3_1_0 -> n4_3_3_2_0;
+    }
+  }
+  subgraph cluster_4_4 {
+    label=<<B>4.4</B>&#160;&#160;Limitações, Trade-offs e Desafios Atuais>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n4_4_0_0 [label=<aparente ≠ válido: <B>múltiplas comparações</B>> group="eixo"];
+    n4_4_1_0 [label=<<B>associação</B> ≠ causalidade> group="eixo"];
+    n4_4_0_0 -> n4_4_1_0;
+    n4_4_2_0 [label=<conhecimento de <B>domínio</B> (2 sentidos)> group="eixo"];
+    n4_4_1_0 -> n4_4_2_0;
+  }
+  subgraph cluster_4_5 {
+    label=<<B>4.5</B>&#160;&#160;Conclusão>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n4_5_0_0 [label=<padrão <B>robusto</B> ≠ artefato → conhecimento> group="eixo"];
+  }
+  n4_1_1_0 -> n4_2_0_0 [style=invis];
+  n4_2_2_0 -> n4_3_1_0_0 [style=invis];
+  n4_3_1_2_0 -> n4_3_2_0_0 [style=invis];
+  n4_3_2_2_0 -> n4_3_3_0_0 [style=invis];
+  n4_3_3_2_0 -> n4_4_0_0 [style=invis];
+  n4_4_2_0 -> n4_5_0_0 [style=invis];
+}

@@ -1,0 +1,58 @@
+# Ponto 7 — MLOps: Desenvolvimento, Versionamento e Experimentação de Modelos
+
+## 7.1. Introdução e Delimitação do Problema
+
+Um modelo treinado não resulta apenas do código que implementa o algoritmo, mas da combinação entre dados, configuração, hiperparâmetros, ambiente computacional e procedimento de treinamento [1]:
+
+modelo treinado ≠ código isolado
+
+## 7.2. Fundamentos e Relevância
+
+Cada execução relevante pode ser entendida como uma unidade experimental:
+
+experimento = entradas + procedimento + saídas + metadados
+
+Uma melhoria de desempenho somente é interpretável quando se conhecem as condições responsáveis pelo resultado: uma métrica isolada não constitui evidência experimental suficiente. O princípio central é:
+
+resultado confiável = resultado + proveniência
+
+## 7.3. Núcleo Técnico
+### 7.3.1. Versionamento, Artefatos e Linhagem
+
+A **proveniência** identifica a origem de um artefato, enquanto a **linhagem** (*lineage*) representa as relações de transformação entre os componentes:
+
+dados brutos → dados processados → features → treinamento → modelo → métricas
+
+### 7.3.2. Experiment Tracking e Rastreabilidade
+
+O **experiment tracking** registra sistematicamente as condições e os resultados de cada execução:
+
+- versões de dados e código;
+- hiperparâmetros e configuração;
+- *seed* e ambiente;
+- métricas, logs e artefatos;
+- estado e identificador da execução.
+
+### 7.3.3. Reprodutibilidade
+
+O mesmo script não constitui o mesmo experimento se dados, dependências ou ambiente forem diferentes. Reprodutibilidade, contudo, não é determinismo absoluto:
+
+reprodutível ≠ idêntico bit a bit
+
+### 7.3.4. Validação, Comparação e Seleção
+
+Logo, o melhor modelo não é o de maior métrica isolada: a seleção deve ocorrer sob critérios explícitos de aceitação e protocolo comparável.
+
+EXPERIMENTO → VALIDAÇÃO DE DADOS E DO MODELO → COMPARAÇÃO COM BASELINE → CRITÉRIOS DE ACEITAÇÃO → MODELO CANDIDATO
+
+## 7.4. Limitações, Trade-offs e Desafios Atuais
+
+A automação pode reduzir erro manual e aumentar a consistência de validação, rastreamento e registro. Entretanto:
+
+automatizar processo ruim ≠ criar processo bom
+
+## 7.5. Conclusão
+
+Todo esse fluxo é atravessado por:
+
+PROVENIÊNCIA + LINEAGE + REPRODUTIBILIDADE

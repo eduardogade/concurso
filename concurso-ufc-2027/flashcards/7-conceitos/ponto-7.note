@@ -1,0 +1,136 @@
+# Ponto 7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+## Lineage de dados/modelos
+
+**Prioridade:** A
+
+**Definição:**
+Lineage representa as relações de transformação e dependência que ligam dados, código, configurações, features, treinamento, modelos e resultados. Permite reconstruir como determinado artefato foi produzido e quais componentes participaram de sua geração.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Experiment tracking
+
+**Prioridade:** A
+
+**Definição:**
+Experiment tracking é o registro sistemático de entradas, configurações, hiperparâmetros, métricas, artefatos e metadados de execuções experimentais, permitindo comparar resultados e recuperar as condições em que foram obtidos.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+—
+
+## Reprodutibilidade
+
+**Prioridade:** A
+
+**Definição:**
+Reprodutibilidade é a capacidade de repetir um procedimento experimental sob condições suficientemente especificadas e obter resultados consistentes. Em ML, requer controlar não apenas código, mas também dados, configuração, dependências, ambiente e aleatoriedade relevante.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+4 — Mineração de Dados
+
+## Artefato
+
+**Prioridade:** B
+
+**Definição:**
+Artefato é um objeto consumido ou produzido durante o ciclo de ML, como conjunto de dados processado, modelo serializado, checkpoint, previsão, métrica ou transformação aprendida.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Versionamento de ML
+
+**Prioridade:** B
+
+**Definição:**
+Versionamento de ML identifica estados específicos dos componentes que determinam um resultado experimental, incluindo código, dados, configurações, ambiente e modelos. Seu objetivo é tornar estados recuperáveis, comparáveis e auditáveis.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Proveniência
+
+**Prioridade:** B
+
+**Definição:**
+Proveniência descreve a origem de um artefato e as condições responsáveis por sua produção. Permite responder de quais dados, código, configuração e execução surgiu determinado resultado.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Rastreabilidade experimental
+
+**Prioridade:** B
+
+**Definição:**
+Rastreabilidade experimental é a capacidade de relacionar uma execução aos seus insumos, configurações, artefatos e resultados, permitindo compreender e auditar o caminho que levou a uma conclusão experimental.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Baseline
+
+**Prioridade:** B
+
+**Definição:**
+Baseline é uma referência explicitamente definida contra a qual um modelo, execução ou comportamento posterior é comparado. Ela permite interpretar se uma alteração representa melhoria, degradação ou mudança relevante.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Validação de dados × validação de modelo
+
+**Prioridade:** B
+
+**Definição:**
+Validação de dados verifica propriedades e qualidade das entradas, como esquema, tipos, faixas e integridade. Validação de modelo verifica propriedades do artefato aprendido, como métricas, robustez ou adequação aos critérios definidos.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Critérios de aceitação / quality gates
+
+**Prioridade:** B
+
+**Definição:**
+Quality gates são condições explícitas que um artefato ou execução deve satisfazer antes de avançar para uma etapa posterior, como promoção ou implantação. Transformam decisões de qualidade em verificações reproduzíveis e controláveis.
+
+**Ponto principal:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+

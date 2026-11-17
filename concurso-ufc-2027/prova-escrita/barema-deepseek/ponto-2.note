@@ -1,0 +1,44 @@
+
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de processamento paralelo × distribuído: memória compartilhada × distribuída, acoplamento e implicações | 0,30 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Taxonomia de paralelismo: paralelismo de dados, de tarefas e pipeline; granularidade e escala | 0,25 | Essencial | Distinção fundamental para classificar modelos de execução |
+| 1.1 | Modelos de execução: MapReduce, DAG/dataflow e BSP; propriedades e critérios de adequação | 0,35 | Essencial | Núcleo conceitual dos paradigmas de processamento distribuído |
+| 1.1 | Métricas de desempenho: speedup, eficiência, throughput, latência; leis de Amdahl e Gustafson | 0,30 | Essencial | Rigor técnico exigido para analisar escalabilidade |
+| 1.1 | Sincronização e comunicação: barreiras, shuffle, dependências e custos de rede | 0,25 | Essencial | Conceito central para explicar coordenação distribuída |
+| 1.1 | Tolerância a falhas: reexecução de tarefas, lineage, checkpoints e execução especulativa | 0,30 | Essencial | Exigência técnica sobre robustez em larga escala |
+| 1.1 | Análise crítica: overhead de comunicação, skew, stragglers, limites de escala e quando não distribuir | 0,30 | Essencial | A banca valoriza limitações, pressupostos e decisões justificadas |
+| 1.1 | Localidade de dados e relação entre armazenamento e processamento (fronteira com o Ponto 1) | 0,20 | Desejável | Aprofunda a integração entre camadas de armazenamento e execução |
+| 1.1 | Coordenação de recursos e consenso para escalonamento em cluster (fronteira com o Ponto 1) | 0,25 | Desejável | Diferencial sobre mecanismos de coordenação distribuída |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Modelo MapReduce: funções map, shuffle/sort e reduce; exemplo canônico de contagem de palavras | 0,35 | Essencial | Paradigma fundacional do processamento distribuído em larga escala |
+| 1.2 | Hadoop MapReduce e YARN: arquitetura de job, ResourceManager, NodeManager e containers | 0,30 | Essencial | Implementação clássica indispensável ao ponto |
+| 1.2 | Spark: RDDs, linhagem, transformações/ações e avaliação preguiçosa | 0,35 | Essencial | Modelo atual central para processamento distribuído em memória |
+| 1.2 | DataFrames/Datasets e otimizador Catalyst no Spark SQL | 0,15 | Desejável | Diferencial sobre otimização de consultas distribuídas |
+| 1.2 | Escalonamento por DAG: estágios, dependências narrow/wide e barreiras de shuffle | 0,30 | Essencial | Ideia fundamental para entender execução distribuída |
+| 1.2 | Particionamento e paralelismo: partições, repartition/coalesce e número de tarefas | 0,25 | Essencial | Conceito central para controle de escala e desempenho |
+| 1.2 | Operações distribuídas: joins broadcast e shuffle, groupBy e agregações | 0,35 | Essencial | Cobre operadores essenciais em pipelines de larga escala |
+| 1.2 | Tolerância a falhas em Spark: lineage, reexecução de tarefas e checkpoints | 0,25 | Essencial | Núcleo de recuperação em processamento distribuído |
+| 1.2 | Escalonamento de tarefas: localidade de dados, speculative execution e stragglers | 0,20 | Desejável | Aprofunda mecanismos de execução e mitigação de atrasos |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Dean & Ghemawat, MapReduce (2004) | 0,15 | Essencial | Obra fundacional do modelo MapReduce |
+| 1.4 | Zaharia et al., Resilient Distributed Datasets (2012) | 0,15 | Essencial | Referência canônica do modelo RDD/Spark |
+| 1.4 | Malewicz et al., Pregel (2010) | 0,10 | Desejável | Referência clássica para processamento BSP em grafos |
+| 1.4 | Valiant, modelo BSP (1990) | 0,05 | Desejável | Formalização clássica de paralelismo por superpassos |
+| 1.4 | Kleppmann, Designing Data-Intensive Applications (2017) | 0,15 | Essencial | Referência atual e abrangente sobre sistemas distribuídos de dados |
+| 1.4 | Dean & Barroso, The Tail at Scale (2013) | 0,10 | Essencial | Referência sobre latência de cauda e stragglers |
+| 1.4 | Documentação técnica atual de Apache Hadoop/MapReduce/YARN e Apache Spark (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Apache Flink para processamento batch/stream unificado (fronteira com o Ponto 3) | 0,10 | Desejável | Indica tendência de unificação entre batch e stream |
+| 1.4 | Benchmarks HiBench e TPCx-HS (verificar versões) | 0,05 | Desejável | Ferramentas relevantes para avaliação de desempenho |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de speedup S(n) = T1/Tn, eficiência e limites de Amdahl/Gustafson | 0,20 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Análise de custo de shuffle: rede, disco, serialização e efeito de particionamento | 0,20 | Essencial | Relação não trivial entre operadores e desempenho |
+| 1.5 | Stragglers e speculative execution: causas e impacto na latência de cauda | 0,15 | Essencial | Caso-limite central em execução distribuída |
+| 1.5 | Casos-limite: falha de executor, perda de partição e recomputação longa por lineage | 0,15 | Essencial | A banca rigorosa espera análise de falhas e recuperação |
+| 1.5 | Trade-offs: memória × disco, broadcast join × shuffle join e repartition × coalesce | 0,15 | Essencial | Exige nuances e decisões justificadas de projeto |
+| 1.5 | Relação não trivial entre localidade de dados, elasticidade e custo de serialização | 0,10 | Desejável | Diferencial sobre tensões de projeto em clusters |
+| 1.5 | Exemplo aplicado: pipeline de agregação em larga escala com escolha justificada de operadores | 0,05 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

@@ -1,0 +1,8 @@
+# Ponto 8 — MLOps: Automação, Implantação e Infraestrutura de Aprendizado de Máquina
+
+8.1 Validado ≠ confiável | Código pequena parte [1] | Entrega e operação
+8.2 Pipelines de ML [2] | CI / CD / CT | Quality gates [3]
+8.3 Empacotamento canary rollback | Batch, online, skew | Container × orquestração | Escalabilidade ≠ disponibilidade
+8.4 Latência × custo | Capacidade ≈ demanda | Sofisticado ≠ melhor | Degradação graciosa
+8.5 Automação → implantação → serving | Validação, versionamento, recuperação | Requisitos, não complexidade
+

@@ -1,0 +1,92 @@
+===== GATILHOS v1 — 7-mlops-desenvolvimento-versionamento-e-experimentacao-de-modelos_v2.docx — 2026-10-21 =====
+
+# Ponto 7 — MLOps: Desenvolvimento, Versionamento e Experimentação de Modelos
+
+## 1. Introdução e Delimitação do Problema
+O desenvolvimento: iterativo/experimental/dependente de contexto
+Um modelo treinado = dados/configuração/hiperparâmetros/ambiente/procedimento [1]:
+modelo treinado ≠ código isolado
+O desenvolvimento: ciclos hipótese → avaliação → refinamento [2]
+O objetivo: ad hoc → controlado/rastreável/comparável/reproduzível [3]
+Implantação fora: termina em candidato validado
+
+## 2. Fundamentos e Relevância
+Cada execução = unidade experimental:
+experimento = entradas + procedimento + saídas + metadados
+As entradas (dados/código/config) → saídas (modelos/métricas/logs)
+Uma melhoria ← condições; métrica isolada ≠ evidência:
+resultado confiável = resultado + proveniência
+
+## 3. Núcleo Técnico
+
+### 3.1. Versionamento, Artefatos e Linhagem
+Em MLOps: código insuficiente; versionar dados/config/ambiente/modelos
+Um artefato = produzido/consumido no pipeline
+A proveniência = origem; linhagem = transformações:
+dados brutos → dados processados → features → treinamento → modelo → métricas
+Uma cadeia: quais dados/código/config? versão imutável (hash/commit/ID)
+
+### 3.2. Experiment Tracking e Rastreabilidade
+O experiment tracking registra condições + resultados:
+- versões de dados + código
+- hiperparâmetros + configuração
+- seed + ambiente
+- métricas, logs + artefatos
+- estado + identificador da execução
+O tracking + artefatos + linhagem = rastreabilidade experimental
+A comparação: protocolo compatível + baselines
+
+### 3.3. Reprodutibilidade
+A reprodutibilidade ← controle coordenado:
+reprodutibilidade ≈ D + C + H + E + S
+em que D dados, C código, H hiperparâmetros, E ambiente, S seed
+O mesmo script ≠ mesmo experimento; ≠ determinismo:
+reprodutível ≠ idêntico bit a bit
+Paralelismo, aceleradores → inexato; meta: reconstruível + compatível
+
+### 3.4. Validação, Comparação e Seleção
+Antes de selecionar: validar dados + modelo [4]
+A validação: dados (esquema/ausentes/distribuição) + modelo (métricas/robustez/latência)
+Logo: melhor ≠ maior métrica; aceitação explícita
+EXPERIMENTO
+↓
+VALIDAÇÃO DE DADOS E DO MODELO
+↓
+COMPARAÇÃO COM BASELINE
+↓
+CRITÉRIOS DE ACEITAÇÃO
+↓
+MODELO CANDIDATO
+Um candidato: identidade + proveniência + métricas + evidências
+Um registro (model registry): versões/metadados/estados → promoção
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+Rastreabilidade + reprodutibilidade = custo (armazenamento/metadados/validação)
+O objetivo: suficiente ≠ tudo (reconstruir/comparar/auditar)
+Outros desafios: mutáveis/dependências/não-determinismo + proliferação/divergência/documentação
+A automação: erro ↓ consistência ↑; entretanto:
+automatizar processo ruim ≠ criar processo bom
+Existe trade-off: rigor × velocidade → retrabalho
+
+## 5. Conclusão
+Em síntese:
+HIPÓTESE
+↓
+EXPERIMENTO
+↓
+VERSIONAMENTO
+↓
+TRACKING
+↓
+VALIDAÇÃO
+↓
+MODELO CANDIDATO
+Todo esse fluxo é atravessado por:
+PROVENIÊNCIA + LINEAGE + REPRODUTIBILIDADE
+Assim: valor = demonstrar condições + validação + reconstrução
+
+## Referências
+[1] Sculley, D. et al. NeurIPS. 2015.
+[2] Amershi, S. et al. ICSE-SEIP. 2019.
+[3] Kreuzberger, D. et al. IEEE Access. 2023.
+[4] Breck, E. et al. IEEE BigData. 2017.

@@ -1,0 +1,76 @@
+digraph mapa {
+  graph [fontname="Arial" fontsize=11 fontcolor="#111111" bgcolor="white" rankdir=TB newrank=true nodesep=0.55 ranksep=0.24 labelloc="t" labeljust="c" margin=0.1 pad=0.2];
+  node [shape=box style="filled" fillcolor="white" color="#2b2b2b" penwidth=1.2 fontname="Arial" fontsize=12 fontcolor="#111111" margin="0.14,0.06" height=0.36];
+  edge [color="#333333" penwidth=1.3 arrowsize=0.8];
+  label=<<FONT POINT-SIZE="16"><B>Ponto 7</B></FONT><BR/><FONT POINT-SIZE="12">MLOps: Desenvolvimento, Versionamento<BR/>e Experimentação de Modelos</FONT><BR/> >;
+  subgraph cluster_7_1 {
+    label=<<B>7.1</B>&#160;&#160;Introdução e Delimitação do Problema>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n7_1_0_0 [label=<ciclo <B>iterativo</B> e experimental> group="eixo"];
+    n7_1_1_0 [label=<modelo ≠ só <B>código</B> (Sculley)> group="eixo"];
+    n7_1_0_0 -> n7_1_1_0;
+    n7_1_2_0 [label=<escopo: até o <B>candidato validado</B>> group="eixo"];
+    n7_1_1_0 -> n7_1_2_0;
+  }
+  subgraph cluster_7_2 {
+    label=<<B>7.2</B>&#160;&#160;Fundamentos e Relevância>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n7_2_0_0 [label=<execução = <B>unidade experimental</B> (4 componentes)> group="eixo"];
+    n7_2_1_0 [label=<entradas → procedimento → saídas> group="eixo"];
+    n7_2_0_0 -> n7_2_1_0;
+    n7_2_2_0 [label=<acurácia subiu ≠ <B>evidência</B>> group="eixo"];
+    n7_2_1_0 -> n7_2_2_0;
+  }
+  subgraph cluster_7_3 {
+    label=<<B>7.3</B>&#160;&#160;Núcleo Técnico>; labeljust="l"; style="dashed"; color="#bdbdbd"; margin=10;
+    subgraph cluster_7_3_1 {
+      label=<<B>7.3.1</B>&#160;&#160;Versionamento, Artefatos e Linhagem>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n7_3_1_0_0 [label=<só código <B>não basta</B> → artefatos> group="eixo"];
+      n7_3_1_1_0 [label=<proveniência ↔ <B>linhagem</B>: dados brutos → métricas> group="eixo"];
+      n7_3_1_0_0 -> n7_3_1_1_0;
+      n7_3_1_2_0 [label=<versões <B>imutáveis</B>: Git · DVC · MLflow> group="eixo"];
+      n7_3_1_1_0 -> n7_3_1_2_0;
+    }
+    subgraph cluster_7_3_2 {
+      label=<<B>7.3.2</B>&#160;&#160;Experiment Tracking e Rastreabilidade>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n7_3_2_0_0 [label=<tracking + versão + linhagem → <B>rastreabilidade</B>> group="eixo"];
+      n7_3_2_1_0 [label=<comparar: mesmo <B>protocolo</B> + <B>baseline</B>> group="eixo"];
+      n7_3_2_0_0 -> n7_3_2_1_0;
+    }
+    subgraph cluster_7_3_3 {
+      label=<<B>7.3.3</B>&#160;&#160;Reprodutibilidade>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n7_3_3_0_0 [label=<resultado = f(<B>D, C, H, E, S</B>)> group="eixo"];
+      n7_3_3_1_0 [label=<mesmo script ≠ mesmo experimento> group="eixo"];
+      n7_3_3_0_0 -> n7_3_3_1_0;
+      n7_3_3_2_0 [label=<reprodutível ≠ idêntico <B>bit a bit</B>> group="eixo"];
+      n7_3_3_1_0 -> n7_3_3_2_0;
+    }
+    subgraph cluster_7_3_4 {
+      label=<<B>7.3.4</B>&#160;&#160;Validação, Comparação e Seleção>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n7_3_4_0_0 [label=<validar <B>dados</B> ↔ validar <B>modelo</B>> group="eixo"];
+      n7_3_4_1_0 [label=<busca de hiperparâmetros → superajuste à <B>validação</B>> group="eixo"];
+      n7_3_4_0_0 -> n7_3_4_1_0;
+      n7_3_4_2_0 [label=<teste <B>uma vez</B> → candidato → registro> group="eixo"];
+      n7_3_4_1_0 -> n7_3_4_2_0;
+    }
+  }
+  subgraph cluster_7_4 {
+    label=<<B>7.4</B>&#160;&#160;Limitações, Trade-offs e Desafios Atuais>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n7_4_0_0 [label=<guardar o <B>suficiente</B>, não tudo> group="eixo"];
+    n7_4_1_0 [label=<automatizar processo ruim ≠ criar <B>bom</B>> group="eixo"];
+    n7_4_0_0 -> n7_4_1_0;
+    n7_4_2_0 [label=<<B>rigor</B> × velocidade> group="eixo"];
+    n7_4_1_0 -> n7_4_2_0;
+  }
+  subgraph cluster_7_5 {
+    label=<<B>7.5</B>&#160;&#160;Conclusão>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n7_5_0_0 [label=<<B>3 elementos</B> atravessam o fluxo> group="eixo"];
+    n7_5_1_0 [label=<valor = condições + validação + <B>reconstrução</B>> group="eixo"];
+    n7_5_0_0 -> n7_5_1_0;
+  }
+  n7_1_2_0 -> n7_2_0_0 [style=invis];
+  n7_2_2_0 -> n7_3_1_0_0 [style=invis];
+  n7_3_1_2_0 -> n7_3_2_0_0 [style=invis];
+  n7_3_2_1_0 -> n7_3_3_0_0 [style=invis];
+  n7_3_3_2_0 -> n7_3_4_0_0 [style=invis];
+  n7_3_4_2_0 -> n7_4_0_0 [style=invis];
+  n7_4_2_0 -> n7_5_0_0 [style=invis];
+}

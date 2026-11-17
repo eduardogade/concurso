@@ -1,0 +1,48 @@
+
+# Ponto 10 — Inteligência Artificial Explicável (XAI): Métodos, Interpretabilidade, Avaliação e Uso das Explicações
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de interpretabilidade, explicabilidade e transparência; distinção entre modelo interpretável e explicação post-hoc | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Distinção entre explicações globais e locais; model-specific × model-agnostic; ante-hoc × post-hoc | 0,30 | Essencial | Classificação fundamental dos métodos e do escopo explicativo |
+| 1.1 | Definição de fidelidade (faithfulness), estabilidade, robustez e compreensibilidade como critérios de qualidade | 0,30 | Essencial | Rigor técnico exigido para avaliar explicações |
+| 1.1 | Pressupostos e limites: explicações como aproximações, multiplicidade de explicações (Rashomon) e risco de explicações enganosas | 0,30 | Essencial | A banca valoriza análise crítica dos limites do paradigma |
+| 1.1 | Análise crítica do trade-off entre desempenho preditivo e interpretabilidade; crítica à suposição de sacrifício inevitável de acurácia | 0,25 | Essencial | Demonstra capacidade crítica sobre decisões de modelagem |
+| 1.1 | Adequação da explicação ao público-alvo: desenvolvedores, usuários finais, auditores e reguladores | 0,25 | Essencial | Explicações precisam ser compreensíveis e acionáveis para quem as usa |
+| 1.1 | Quando não usar XAI: explicação não acionável, risco de confiança excessiva e casos de modelos intrinsecamente interpretáveis | 0,20 | Essencial | A banca rigorosa espera explicitar contraindicações e pressupostos |
+| 1.1 | Distinção entre explicabilidade e causalidade; explicações preditivas não estabelecem relações causais | 0,20 | Desejável | Diferencial sobre interpretação correta do alcance das explicações |
+| 1.1 | Limitações de explicabilidade em modelos de alta dimensionalidade e dados não estruturados (texto, imagem, áudio) | 0,20 | Desejável | Aprofunda limites técnicos dos métodos atuais |
+| 1.1 | Crítica à XAI como substituto de governança, validação humana e controle institucional (fronteira com o Ponto 9) | 0,25 | Desejável | Diferencial sobre uso responsável e limites das explicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Modelos intrinsecamente interpretáveis: regressão linear/logística, árvores de decisão, rule lists e GAMs | 0,30 | Essencial | Alternativa canônica e central à explicação post-hoc |
+| 1.2 | Importância de features: permutation importance, PDP/ICE e suas limitações | 0,30 | Essencial | Técnicas fundamentais de interpretabilidade global e local |
+| 1.2 | LIME: perturbações locais, modelo substituto e escopo de aplicação | 0,30 | Essencial | Método canônico e obrigatório de explicação local |
+| 1.2 | SHAP: valores de Shapley, propriedades (eficiência, simetria, dummy, aditividade) e TreeSHAP/KernelSHAP | 0,35 | Essencial | Núcleo teórico e prático da explicabilidade baseada em atribuição |
+| 1.2 | Gradientes de saliência e Integrated Gradients para entradas contínuas e imagens | 0,25 | Essencial | Família central de métodos para modelos profundos |
+| 1.2 | Explicações contrafactuais e âncoras (anchors): definição, geração e uso | 0,25 | Essencial | Abordagem fundamental de explicação acionável |
+| 1.2 | Explicações baseadas em exemplos/protótipos e k-NN explicável | 0,20 | Desejável | Diferencial sobre explicações por analogia |
+| 1.2 | Surrogate models globais (árvore substituta) e regras de decisão | 0,20 | Desejável | Complementa a interpretabilidade global aproximada |
+| 1.2 | Visualizações de explicabilidade: heatmaps, SHAP force plots, PDP/ICE | 0,15 | Desejável | Recurso central de comunicação e análise de explicações |
+| 1.2 | Explicações baseadas em atenção em modelos de linguagem/visão e suas limitações | 0,20 | Desejável | Diferencial sobre métodos populares e sua fidelidade questionável |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Ribeiro, Singh & Guestrin (2016), "Why Should I Trust You?": Explaining the Predictions of Any Classifier (LIME) | 0,10 | Essencial | Artigo fundacional do LIME |
+| 1.4 | Lundberg & Lee (2017), A Unified Approach to Interpreting Model Predictions (SHAP) | 0,10 | Essencial | Artigo canônico do SHAP |
+| 1.4 | Sundararajan, Taly & Yan (2017), Axiomatic Attribution for Deep Networks (Integrated Gradients) | 0,10 | Essencial | Referência central para atribuição axiomática em redes profundas |
+| 1.4 | Wachter, Mittelstadt & Russell (2017), Counterfactual Explanations Without Opening the Black Box | 0,10 | Essencial | Referência fundacional de explicações contrafactuais |
+| 1.4 | Molnar, Interpretable Machine Learning (2ª ed., 2022) (verificar) | 0,10 | Essencial | Obra abrangente e atual sobre interpretabilidade |
+| 1.4 | Doshi-Velez & Kim (2017), Towards A Rigorous Science of Interpretable Machine Learning | 0,10 | Essencial | Referência sobre avaliação rigorosa de interpretabilidade |
+| 1.4 | Rudin (2019), Stop Explaining Black Box Machine Learning Models for High Stakes Decisions and Use Interpretable Models Instead | 0,10 | Essencial | Referência crítica central sobre modelos interpretáveis em decisões sensíveis |
+| 1.4 | Miller (2019), Explanation in Artificial Intelligence: Insights from the Social Sciences | 0,10 | Desejável | Diferencial sobre fundamentos sociais e cognitivos das explicações |
+| 1.4 | Documentação atual de SHAP, LIME, InterpretML, Captum e Alibi (verificar versões) | 0,10 | Desejável | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | LGPD (Lei 13.709/2018) e GDPR: direito à explicação (fronteira com o Ponto 9) | 0,10 | Desejável | Indica uso regulatório e implicações jurídicas das explicações |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização dos valores de Shapley e das propriedades de eficiência, simetria, dummy e aditividade | 0,15 | Essencial | Formalização que demonstra profundidade teórica sobre SHAP |
+| 1.5 | Formalização de fidelidade: correlação entre importância atribuída e mudança na predição; métricas de deletion/insertion | 0,15 | Essencial | Rigor formal exigido para avaliar explicações |
+| 1.5 | Trade-offs: fidelidade × compreensibilidade, estabilidade × sensibilidade e custo computacional de SHAP/LIME | 0,15 | Essencial | Exige análise de decisões justificadas sobre métodos |
+| 1.5 | Casos-limite: explicadores instáveis, dependência entre features, colinearidade distorcendo SHAP/permutation importance | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Avaliação de explicações: métricas funcionais (fidelidade, estabilidade) e estudos humanos (compreensibilidade, confiança) | 0,15 | Essencial | Núcleo metodológico da avaliação de XAI |
+| 1.5 | Relação entre explicabilidade e causalidade; explicações preditivas × causais | 0,10 | Desejável | Diferencial sobre interpretação correta e limites inferenciais |
+| 1.5 | Exemplo aplicado: explicação local com SHAP/LIME para decisão de crédito e análise de contrafactual | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | Limitações em modelos de linguagem e imagens: risco de explicações plausíveis, porém infiéis | 0,05 | Desejável | Aprofunda riscos atuais em modelos complexos |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

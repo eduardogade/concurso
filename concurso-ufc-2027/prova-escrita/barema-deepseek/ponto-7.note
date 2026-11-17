@@ -1,0 +1,46 @@
+
+# Ponto 7 — Operações de Aprendizado de Máquina (MLOps): Desenvolvimento, Versionamento e Experimentação de Modelos
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de MLOps e delimitação do escopo de desenvolvimento, versionamento e experimentação frente à operação | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Ciclo de vida de ML e diferenças em relação ao software tradicional: dados como código, não determinismo e dívida técnica | 0,30 | Essencial | Distinção fundamental para justificar práticas específicas de MLOps |
+| 1.1 | Reprodutibilidade formal: determinismo, sementes, ambientes, linhagem e artefatos imutáveis | 0,30 | Essencial | Rigor técnico exigido para experimentação confiável |
+| 1.1 | Versionamento de código, dados, modelo, configuração e ambiente; identificação e rastreabilidade | 0,30 | Essencial | Núcleo conceitual do ponto |
+| 1.1 | Experimentação: hipótese, variáveis, métricas, validação e comparação justa de experimentos | 0,25 | Essencial | Delimita o método científico aplicado ao desenvolvimento de modelos |
+| 1.1 | Dívida técnica em ML: entanglement, undeclared consumers, pipeline jungles e glue code | 0,30 | Essencial | Análise crítica esperada sobre riscos de desenvolvimento |
+| 1.1 | Análise crítica: vazamento de dados, overfitting de benchmark, seleção enviesada e comparação não controlada | 0,30 | Essencial | A banca valoriza limitações e pressupostos metodológicos |
+| 1.1 | Distinção entre avaliação offline e online (fronteira com o Ponto 9) | 0,25 | Desejável | Diferencial sobre os limites da experimentação antes da operação |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Processo CRISP-DM e ciclo iterativo de desenvolvimento de modelos | 0,25 | Essencial | Referência canônica para organizar o desenvolvimento |
+| 1.2 | Estruturação de projeto: organização de código, notebooks versus scripts, módulos e configuração | 0,25 | Essencial | Ideia fundamental para manutenibilidade e reprodutibilidade |
+| 1.2 | Controle de versão de código com Git e boas práticas de branches, commits e tags | 0,25 | Essencial | Prática básica e indispensável de versionamento |
+| 1.2 | Versionamento de dados: DVC, hashes, armazenamento remoto e reprodutibilidade | 0,30 | Essencial | Núcleo do versionamento em projetos de ML |
+| 1.2 | Versionamento de modelos e artefatos: model registry, metadados, estágios e linhagem | 0,30 | Essencial | Conceito central para rastrear e promover modelos |
+| 1.2 | Rastreamento de experimentos: parâmetros, métricas, artefatos, runs e comparação (MLflow, W&B, TensorBoard) | 0,30 | Essencial | Ferramenta e prática centrais de experimentação |
+| 1.2 | Gestão de hiperparâmetros: grid/random/Bayesian optimization e registro dos trials | 0,25 | Essencial | Técnica fundamental para experimentação controlada |
+| 1.2 | Ambientes reprodutíveis: dependências, containers, seeds e configuração | 0,25 | Essencial | Garante repetibilidade dos experimentos |
+| 1.2 | Documentação de experimentos e model cards | 0,20 | Desejável | Diferencial sobre comunicação e rastreabilidade |
+| 1.2 | Testes de dados e validação de esquema | 0,15 | Desejável | Complementa a qualidade do desenvolvimento |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Sculley et al. (2015), Hidden Technical Debt in Machine Learning Systems | 0,15 | Essencial | Referência fundacional sobre dívida técnica em ML |
+| 1.4 | Breck et al. (2017), The ML Test Score | 0,10 | Essencial | Referência sobre prontidão e qualidade de sistemas de ML |
+| 1.4 | Zaharia et al. (2018), Accelerating the Machine Learning Lifecycle with MLflow | 0,15 | Essencial | Referência central sobre rastreamento e gestão do ciclo de vida |
+| 1.4 | Shearer (2000), CRISP-DM | 0,10 | Essencial | Processo padrão amplamente adotado no desenvolvimento |
+| 1.4 | Mitchell et al. (2019), Model Cards for Model Reporting | 0,10 | Essencial | Referência atual sobre documentação de modelos |
+| 1.4 | Gebru et al. (2021), Datasheets for Datasets | 0,10 | Essencial | Referência atual sobre documentação e versionamento de dados |
+| 1.4 | Vartak et al. (2016), ModelDB | 0,10 | Desejável | Diferencial sobre gestão de modelos e metadados |
+| 1.4 | Snoek et al. (2012), Practical Bayesian Optimization of Machine Learning Algorithms | 0,10 | Desejável | Referência sobre otimização de hiperparâmetros |
+| 1.4 | Documentação atual de Git, DVC, MLflow, Weights & Biases e TensorBoard (verificar versões) | 0,15 | Desejável | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Pineau et al., Machine Learning Reproducibility Checklist (verificar) | 0,05 | Desejável | Indica preocupação formal com reprodutibilidade |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização da reprodutibilidade: mesma tupla (código, dados, ambiente, hiperparâmetros, seed) produz o mesmo artefato | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Linhagem e grafo de dependências entre datasets, runs e modelos; auditoria | 0,15 | Essencial | Relação não trivial entre artefatos e rastreabilidade |
+| 1.5 | Trade-offs: tracking detalhado versus overhead; registry centralizado versus autonomia; versionamento de dados versus custo | 0,15 | Essencial | Exige análise de decisões de projeto justificadas |
+| 1.5 | Casos-limite: dados mutáveis, dependências não fixadas, seeds não controladas, experimentos concorrentes e conflitos de versão | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Comparação justa de experimentos: mesmos splits, mesma métrica, controle de variáveis e significância | 0,10 | Essencial | Nuance metodológica central para experimentação válida |
+| 1.5 | Relação entre versionamento de dados e vazamento temporal/leakage | 0,10 | Desejável | Diferencial sobre integridade experimental |
+| 1.5 | Estratégias de tuning: espaço de busca, orçamento e early stopping | 0,10 | Desejável | Aprofunda a prática de experimentação |
+| 1.5 | Exemplo aplicado: pipeline reprodutível com Git + DVC + MLflow e registro de modelo | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

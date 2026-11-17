@@ -1,0 +1,78 @@
+
+1. Paulo de Tarso Guerra Oliveira | MEMBRO EFETIVO (PRESIDENTE) | UFC
+- Grau Máximo: Doutorado - 2016
+- Posição: Professor Adjunto C
+- Área: Lógica e Inteligência Artificial, atuando principalmente nos seguintes temas: lógica de árvore computacional, revisão de crenças e verificação de modelos.
+- Google Scholar: -
+- Lattes: http://lattes.cnpq.br/5228033768526863
+- Concurso CIn/2024: N
+- Projeto com CIn: N
+- Dificuldade: 60%
+
+2. Marcos Antonio de Oliveira | MEMBRO EFETIVO | UFC
+- Grau Máximo: Doutorado - 2012
+- Posição: Professor Associado
+- Área: Sistemas Multiagentes, Inteligência Artificial Distribuída, Engenharia de Requisitos, Gerência de Projetos, Análise e Projeto de Sistemas, Sistemas Colaborativos, Reputação, Confiança e Normas em Sistemas Multiagentes, Ciência de Dados, Processamento de Linguagem Natural e Desenvolvimento de ChatBots.
+- Google Scholar: https://scholar.google.com/citations?user=TPEJ9I4AAAAJ&hl=en
+- Research Gate: https://www.researchgate.net/profile/Marcos-De-Oliveira-3
+- Lattes: http://lattes.cnpq.br/7658234102718482
+- Concurso CIn/2024: N
+- Projeto com CIn: N
+- Dificuldade: 60%
+
+3. José Wellington Franco da Silva | MEMBRO EFETIVO | UFC
+- Grau Máximo: Doutorado - 2022
+- Posição: Professor Adjunto
+- Área: Suas áreas de pesquisa incluem Web Semântica, Lógicas Não-Clássicas, Agricultura 5.0, Odontologia aplicada a IA, Processamento de Linguagem Natural, Aprendizado de Máquina e Modelos de Linguagem de Grande Porte (LLMs).
+- Google Scholar: https://scholar.google.com/citations?user=3ivVWKkAAAAJ&hl=pt-BR
+- Lattes: http://lattes.cnpq.br/5168415467086883
+- Concurso CIn/2024: N
+- Projeto com CIn: N
+- Dificuldade: 80%
+
+4. Cristiano Bacelar de Oliveira | MEMBRO EFETIVO | UFC
+- Grau Máximo: Doutorado - 2015
+- Posição: Professor Adjunto
+- Área: Computação Reconfigurável, Arquitetura de Computadores, Inteligência Artifical, Processamento de Imagens e Visão Computacional. Outros assuntos de interesse são: Robótica, Realidade Aumentada, Criptografia e Jogos Digitais.4-cristiano-
+- Google Scholar: https://scholar.google.com/citations?user=oeqaiU8AAAAJ&hl=pt-BR
+- Lattes: http://lattes.cnpq.br/2508107070431411
+- Concurso CIn/2024: N
+- Projeto com CIn: N
+- Dificuldade: 70%
+
+5. Dmontier Pinheiro Aragão Júnior | MEMBRO EFETIVO | UFC
+- Grau Máximo: Doutorado - 2014
+- Posição: Professor Adjunto
+- Área: Transporte, logística, arranjos produtivos, sistemas de informações e software livre. Atualmente pesquisa principalmente Roteirização Dinâmica de Veículos, Sistemas Especialistas e Metodologias de Benchmarking.
+- Google Scholar: https://www.researchgate.net/profile/Dmontier-Jr
+- Lattes: http://lattes.cnpq.br/3013523217842300
+- Concurso CIn/2024: N
+- Projeto com CIn: N
+- Dificuldade: 60%
+
+-----
+
+PROBLEMAS
+
+Prof. Ricardo Bastos Cavalcante Prudêncio - UFPE
+http://lattes.cnpq.br/2984888073123287
+Prof. Vander Ramos Alves - UnB
+http://lattes.cnpq.br/7500979195469357
+Prof. Manoel Gomes de Mendonça Neto - UFBA
+http://lattes.cnpq.br/1608062196337851
+Prof. André Luís de Medeiros Santos - UFPE
+http://lattes.cnpq.br/0084300900034108
+Prof. Thais Vasconcelos Batista - UFRN
+http://lattes.cnpq.br/5521922960404236
+
+-----
+
+for f in \
+  /Users/egg/Desktop/5-dmonthier-pinheiro-aragao-junior.gif \
+  /Users/egg/Desktop/4-cristiano-bacelar-de-oliveira.gif \
+  /Users/egg/Desktop/2-marcos-antonio-de-oliveira.gif \
+  /Users/egg/Desktop/3-jose-wellington-franco-da-silva.gif \
+  /Users/egg/Desktop/1-paulo-de-tarso-guerra-oliveira.gif
+do
+  magick "$f" -coalesce -delete 1--1 -quality 100 "${f%.gif}.jpg"
+done

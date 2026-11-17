@@ -1,0 +1,26 @@
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+## 2.3. Núcleo Técnico
+### 2.3.3. MapReduce e Modelos de Execução Distribuída
+
+O paradigma **MapReduce** [3] expressa a computação por funções *map*, que produzem pares intermediários, e *reduce*, que agregam valores de uma mesma chave; entre ambas, o *shuffle* redistribui e agrupa os dados intermediários:
+
+ENTRADA → MAP → SHUFFLE → REDUCE → SAÍDA
+
+### 2.3.4. DAGs, Reutilização e Recuperação
+
+Surge um compromisso entre:
+
+- **replicação**, que consome armazenamento;
+- **recomputação**, que consome processamento;
+- **checkpointing**, que persiste estados intermediários e reduz o custo de recuperação ao preço de I/O adicional.
+
+## 2.4. Limitações, Trade-offs e Desafios Atuais
+
+Existe, assim, um compromisso permanente entre:
+
+- **granularidade e overhead**;
+- **localidade e balanceamento**;
+- **paralelismo e comunicação**;
+- **redundância e recomputação**;
+- e **desempenho e custo de recursos**.

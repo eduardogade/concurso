@@ -1,0 +1,95 @@
+===== GATILHOS v1 — 9-mlops-monitoramento-governanca-e-manutencao-de-modelos_v2.docx — 2026-10-21 =====
+
+# Ponto 9 — MLOps: Monitoramento, Governança e Manutenção de Modelos
+
+## 1. Introdução e Delimitação do Problema
+A entrada em produção ≠ fim
+Dados, usuários, regras, infraestrutura, relações mudam [1]:
+modelo implantado ≠ modelo permanentemente válido
+O objetivo: identificar → diagnosticar → intervir
+Construção e implantação pressupostas: observar/governar/manter
+
+## 2. Fundamentos e Relevância
+A saúde do sistema: duas dimensões:
+sistema disponível ≠ modelo correto
+O monitoramento operacional: latência/throughput/disponibilidade/erros/recursos
+O monitoramento de ML: dados/predições/desempenho ≈ validação
+A observabilidade: métricas/logs/traces → se/o quê/onde
+SLIs + SLOs → alertas; sinal ≠ diagnóstico
+
+## 3. Núcleo Técnico
+
+### 3.1. Qualidade de Dados, Data Drift e Concept Drift
+Problemas de qualidade: esquema/ausentes/faixa/pipeline → entradas inválidas
+O data drift = distribuição muda:
+Pₜ(X) ≠ P_train(X)
+Um caso: covariate shift, P(X) muda, P(Y | X) estável
+O concept drift: relação entrada-alvo muda [2]:
+Pₜ(Y | X) ≠ P_train(Y | X)
+DATA QUALITY → os dados são válidos?
+DATA DRIFT → P(X) mudou?
+CONCEPT DRIFT → P(Y|X) mudou?
+DEGRADAÇÃO → o desempenho piorou?
+Esses eventos ≠ equivalentes: drift ≠ degradação
+Uma mudança: estatística ≠ relevante; concept drift sem P(X)
+A detecção: testes/distâncias × baseline; significância ≠ relevância
+
+### 3.2. Monitoramento Preditivo e Detecção de Degradação
+Quando ground truth: Mₜ vs M_baseline no tempo [3]
+Em muitos: feedback delay → indiretos ≠ prova
+A detecção: Mₜ < τ ⇒ alerta; sensibilidade × estabilidade
+A análise: segmentos (média ≠ todos); detectar → diagnosticar → agir
+
+### 3.3. Governança, Auditoria e Lineage
+governança = responsabilidade + rastreabilidade + controle
+Para cada modelo: versão/finalidade/responsável/dados/validações/riscos
+O lineage: origem/transformação/uso [4]; auditoria registra eventos
+A governança ∝ risco (críticos → mais controle)
+Governança ≠ XAI: ciclo de vida × comportamento
+
+### 3.4. Manutenção, Retreinamento e Ciclo de Vida
+A manutenção orientada por diagnóstico:
+drift detectado ≠ retreinamento obrigatório
+Se coluna corrompida/unidade/pipeline: retreinar incorpora erro
+As intervenções possíveis: corrigir/recalibrar/retreinar/rollback/substituir/aposentar
+O retreinamento: periódico simples × eventos adaptativo
+Mesmo retreinado ≠ promovido: validar + baseline (champion–challenger)
+O modelo = artefato com ciclo (aposentadoria)
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+A primeira: ground truth tardio/ausente
+Há ainda trade-offs entre:
+- sensibilidade × falsos alarmes
+- frequência de monitoramento × custo
+- retreinamento frequente × estabilidade operacional
+- governança rigorosa × agilidade
+Monitorar demais → excesso de alertas irrelevantes
+Automatizar demais: retreino automático → erros amplificados:
+detecção automática ≠ correção automática obrigatória
+
+## 5. Conclusão
+Em síntese:
+OBSERVAR
+↓
+DETECTAR
+↓
+DIAGNOSTICAR
+↓
+AGIR
+↓
+VALIDAR
+↓
+PROMOVER / REVERTER
+↓
+OBSERVAR NOVAMENTE ↺
+Todo esse ciclo é atravessado por:
+GOVERNANÇA + LINEAGE + AUDITORIA + GESTÃO DE RISCO
+Monitoramento + manutenção: observações → decisões controladas
+Manter ≠ executar: dados/desempenho/finalidade/risco/histórico sob controle
+
+## Referências
+[1] Sculley, D. et al. NeurIPS. 2015.
+[2] Gama, J. et al. ACM Computing Surveys. 2014.
+[3] Breck, E. et al. IEEE BigData. 2017.
+[4] Kreuzberger, D. et al. IEEE Access. 2023.
+

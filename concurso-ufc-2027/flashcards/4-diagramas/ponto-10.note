@@ -1,0 +1,42 @@
+# Ponto 10 — XAI: Métodos, Interpretabilidade, Avaliação e Uso das Explicações
+
+## 10.1. Introdução e Delimitação do Problema
+
+A primeira distinção é:
+
+interpretabilidade intrínseca ≠ explicação post hoc
+
+O problema pode ser organizado por quatro perguntas:
+
+1. O QUE está sendo explicado?
+2. COMO a explicação é produzida?
+3. A explicação é FIEL?
+4. PARA QUEM e PARA QUÊ ela será utilizada?
+
+## 10.2. Fundamentos e Relevância
+
+XAI descreve primordialmente o comportamento preditivo do modelo:
+
+importância para o modelo ≠ efeito causal
+
+## 10.3. Núcleo Técnico
+### 10.3.2. Surrogates, Exemplos e Contrafactuais
+
+Um bom contrafactual deve ser, além de válido, **plausível, viável e acionável**. Essas famílias respondem perguntas distintas:
+
+- ATRIBUIÇÃO → quais variáveis contribuíram?
+- SURROGATE → qual regra simples aproxima o modelo?
+- EXEMPLOS → com quais casos a decisão se parece?
+- CONTRAFACTUAL → o que mudaria a decisão?
+
+### 10.3.3. Avaliação das Explicações
+
+Uma explicação pode parecer convincente e ainda representar mal o modelo:
+
+plausibilidade ≠ fidelidade
+
+## 10.4. Limitações, Trade-offs e Desafios Atuais
+
+A limitação mais fundamental é:
+
+explicar o modelo ≠ explicar o fenômeno

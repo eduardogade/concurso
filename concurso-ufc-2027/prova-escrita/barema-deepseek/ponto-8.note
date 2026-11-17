@@ -1,0 +1,48 @@
+
+# Ponto 8 — Operações de Aprendizado de Máquina (MLOps): Automação, Implantação e Infraestrutura de Aprendizado de Máquina
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de automação de pipeline de ML e distinção entre CI, CD e Continuous Training (CT) | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Distinção entre implantação batch, online (tempo real) e streaming; critérios técnicos de escolha | 0,30 | Essencial | Delimita corretamente os paradigmas de implantação |
+| 1.1 | Infraestrutura como código (IaC): declaração, idempotência, versionamento e reprodutibilidade da infraestrutura | 0,25 | Essencial | Conceito central para automação e gestão de infraestrutura |
+| 1.1 | Conteinerização e isolamento de dependências; imagens reprodutíveis e imutáveis | 0,25 | Essencial | Base técnica para implantação consistente |
+| 1.1 | Orquestração de pipelines e agendamento de tarefas; dependências e paralelismo | 0,25 | Essencial | Núcleo da automação de fluxos de ML |
+| 1.1 | Serving de modelos: APIs REST/gRPC, inferência em lote versus tempo real e escalabilidade horizontal | 0,30 | Essencial | Precisão conceitual sobre entrega de modelos em produção |
+| 1.1 | Feature store: definição, consistência treino/serving e camadas online/offline | 0,25 | Essencial | Componente arquitetural central em infraestrutura de ML |
+| 1.1 | Análise crítica: custos, complexidade operacional, vendor lock-in, automação prematura e riscos de segurança | 0,30 | Essencial | A banca valoriza limitações e decisões justificadas |
+| 1.1 | Distinção entre infraestrutura de ML e infraestrutura de software tradicional | 0,20 | Essencial | Evita confusão conceitual e delimita o escopo do ponto |
+| 1.1 | Quando não automatizar: fase exploratória, baixa frequência de retreino e custo superior ao benefício | 0,15 | Desejável | A banca rigorosa espera explicitar contraindicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | CI/CD para ML: testes de código, dados e modelo; pipeline automatizado de build, teste e implantação | 0,30 | Essencial | Ideia canônica de automação em MLOps |
+| 1.2 | Continuous Training (CT): gatilhos por novos dados, agendamento e drift (fronteira com o Ponto 9) | 0,25 | Essencial | Núcleo da automação do ciclo de vida |
+| 1.2 | Padrões de implantação: shadow, canário, blue-green e A/B testing | 0,30 | Essencial | Conjunto fundamental de estratégias de implantação segura |
+| 1.2 | Empacotamento e serving: Docker, Kubernetes, KServe/Seldon e TorchServe/TF Serving | 0,30 | Essencial | Ferramentas e arquiteturas centrais de serving |
+| 1.2 | Orquestração de pipelines: Airflow, Kubeflow Pipelines e MLflow (fronteira com o Ponto 7) | 0,25 | Essencial | Tecnologias canônicas de automação de fluxos |
+| 1.2 | Infraestrutura em nuvem e escalabilidade: instâncias, autoscaling, GPUs e balanceamento de carga | 0,25 | Essencial | Ideia fundamental para operar ML em larga escala |
+| 1.2 | Feature store: Feast/Tecton e padrões de acesso online/offline | 0,20 | Essencial | Componente central de infraestrutura de features |
+| 1.2 | Batch scoring e pipelines agendados para inferência em lote | 0,20 | Essencial | Modalidade fundamental de implantação |
+| 1.2 | API de inferência e contrato de entrada/saída; versionamento de endpoints | 0,15 | Essencial | Garante integração e compatibilidade em produção |
+| 1.2 | IaC com Terraform e gestão declarativa de recursos | 0,15 | Essencial | Prática central de infraestrutura automatizada |
+| 1.2 | Edge deployment e otimização de modelos (quantização, pruning) | 0,15 | Desejável | Diferencial sobre implantação em dispositivos restritos |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Huyen, Designing Machine Learning Systems (2022) | 0,15 | Essencial | Obra atual e abrangente sobre sistemas de ML em produção |
+| 1.4 | Treveil et al., Introducing MLOps (2020) | 0,10 | Essencial | Referência introdutória consolidada sobre MLOps |
+| 1.4 | Kreuzberger, Kühl & Hirschl (2023), Machine Learning Operations (MLOps): Overview, Definition, and Architecture (verificar) | 0,10 | Essencial | Referência recente sobre definição e arquitetura de MLOps |
+| 1.4 | Humble & Farley, Continuous Delivery (2010) | 0,10 | Essencial | Obra clássica que fundamenta CI/CD |
+| 1.4 | Breck et al. (2017), The ML Test Score | 0,10 | Essencial | Referência sobre prontidão para produção de sistemas de ML |
+| 1.4 | Documentação atual de Kubernetes, Docker e Terraform (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Documentação atual de Kubeflow, Feast, KServe/Seldon e TorchServe/TF Serving (verificar versões) | 0,15 | Essencial | Cobre ferramentas centrais de orquestração, features e serving |
+| 1.4 | MLPerf Inference benchmark (verificar versão) | 0,10 | Essencial | Referência para avaliação de desempenho de inferência |
+| 1.4 | Sato, Wider & Windheuser (2019), Continuous Delivery for Machine Learning (verificar) | 0,05 | Desejável | Diferencial sobre CD específico para ML |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de SLO/SLA de inferência: latência p95/p99, throughput e disponibilidade | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Trade-offs entre padrões de implantação: canário, blue-green e shadow; risco, custo e complexidade | 0,15 | Essencial | Exige comparação arquitetural justificada |
+| 1.5 | Autoscaling e custo: cold start, scale-to-zero, utilização de GPU e elasticidade | 0,15 | Essencial | Relação não trivial entre desempenho e custo |
+| 1.5 | Casos-limite: skew treino/serving, falha de feature store e indisponibilidade de endpoint | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Trade-off entre serving online e batch: latência, custo e atualidade das previsões | 0,10 | Essencial | Nuance central na escolha de infraestrutura |
+| 1.5 | Segurança e isolamento multi-tenant; supply chain de imagens e assinatura de artefatos | 0,10 | Desejável | Diferencial sobre riscos de infraestrutura |
+| 1.5 | Relação entre IaC e reprodutibilidade; detecção de drift de infraestrutura | 0,10 | Desejável | Aprofunda gestão declarativa e consistência ambiental |
+| 1.5 | Exemplo aplicado: pipeline CI/CD/CT com implantação canário e rollback automatizado | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

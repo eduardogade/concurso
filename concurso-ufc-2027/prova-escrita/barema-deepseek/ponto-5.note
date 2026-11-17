@@ -1,0 +1,51 @@
+
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de aprendizado supervisionado (dados rotulados) e não supervisionado (sem rótulos), com objetivos distintos | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Formulação das tarefas: classificação, regressão, agrupamento e redução de dimensionalidade | 0,25 | Essencial | Delimita corretamente os problemas de cada paradigma |
+| 1.1 | Risco esperado, risco empírico e minimização do risco empírico (ERM); função de perda | 0,30 | Essencial | Rigor formal exigido para fundamentar o aprendizado |
+| 1.1 | Trade-off viés-variância; overfitting, underfitting e capacidade de generalização | 0,30 | Essencial | Núcleo conceitual da teoria de aprendizado |
+| 1.1 | Regularização L1/L2 e seu papel no controle de complexidade | 0,20 | Essencial | Conceito central para generalização e seleção de modelos |
+| 1.1 | Validação: holdout, k-fold, validação estratificada e vazamento de dados (data leakage) | 0,25 | Essencial | Exigência metodológica para avaliação honesta |
+| 1.1 | Métricas de classificação: acurácia, precisão, recall, F1, ROC-AUC e PR-AUC; limitações | 0,30 | Essencial | Precisão conceitual sobre avaliação supervisionada |
+| 1.1 | Métricas de regressão: MSE, MAE e R²; interpretação e limitações | 0,15 | Essencial | Complementa a avaliação de modelos supervisionados |
+| 1.1 | Análise crítica: desbalanceamento de classes, custos assimétricos de erro e métrica única enganosa | 0,20 | Essencial | A banca valoriza análise crítica e decisões justificadas |
+| 1.1 | Distinção entre avaliação supervisionada e não supervisionada: critérios objetivos versus validação interna | 0,15 | Desejável | Diferencial sobre os limites epistemológicos dos paradigmas |
+| 1.1 | Quando não usar aprendizado supervisionado (rótulos escassos) ou não supervisionado (sem critério objetivo de validação) | 0,15 | Desejável | A banca rigorosa espera explicitar pressupostos e contraindicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Regressão linear e regressão logística: hipóteses, funções de custo e estimação | 0,35 | Essencial | Modelos canônicos do aprendizado supervisionado |
+| 1.2 | Árvores de decisão: impureza (Gini/entropia), divisão e poda | 0,25 | Essencial | Paradigma fundamental e base para ensembles |
+| 1.2 | Ensembles: bagging/Random Forest e boosting (AdaBoost/Gradient Boosting) | 0,35 | Essencial | Técnicas centrais e atuais em dados tabulares |
+| 1.2 | SVM: margem máxima, vetores de suporte, kernels e parâmetro C | 0,25 | Essencial | Modelo clássico de classificação com forte base teórica |
+| 1.2 | Redes neurais: perceptron/MLP, funções de ativação e backpropagation | 0,20 | Essencial | Cobre a família dominante de modelos supervisionados |
+| 1.2 | k-means: funcionamento, inicialização k-means++, escolha de k e limitações | 0,30 | Essencial | Algoritmo canônico de aprendizado não supervisionado |
+| 1.2 | DBSCAN: eps, minPts, ruído e agrupamentos de forma arbitrária | 0,20 | Essencial | Técnica central de agrupamento por densidade |
+| 1.2 | PCA: componentes principais, variância explicada e redução de dimensionalidade | 0,25 | Essencial | Método canônico de redução dimensional não supervisionada |
+| 1.2 | Avaliação não supervisionada: silhouette, Davies-Bouldin, inércia e limitações | 0,15 | Essencial | Mostra critérios e limites de validação sem rótulos |
+| 1.2 | k-NN e maldição da dimensionalidade | 0,10 | Desejável | Diferencial sobre método simples e seus limites |
+| 1.2 | Agrupamento hierárquico: linkage e dendrograma | 0,10 | Desejável | Complementa as principais famílias de clustering |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Hastie, Tibshirani & Friedman, The Elements of Statistical Learning (verificar edição) | 0,15 | Essencial | Obra de referência abrangente em aprendizado estatístico |
+| 1.4 | Bishop, Pattern Recognition and Machine Learning (2006) | 0,10 | Essencial | Referência consolidada em aprendizado de máquina |
+| 1.4 | Murphy, Machine Learning: A Probabilistic Perspective (2012) | 0,10 | Essencial | Obra atual e rigorosa sobre fundamentos probabilísticos |
+| 1.4 | James et al., An Introduction to Statistical Learning (verificar edição) | 0,10 | Essencial | Referência acessível e atual sobre métodos supervisionados |
+| 1.4 | Cortes & Vapnik (1995), Support-Vector Networks | 0,10 | Essencial | Artigo fundacional das SVMs |
+| 1.4 | Breiman (2001), Random Forests | 0,10 | Essencial | Artigo canônico de ensembles |
+| 1.4 | Arthur & Vassilvitskii (2007), k-means++ | 0,10 | Essencial | Referência central para inicialização de k-means |
+| 1.4 | Ester et al. (1996), A Density-Based Algorithm for Discovering Clusters (DBSCAN) | 0,10 | Essencial | Artigo fundacional do DBSCAN |
+| 1.4 | Documentação atual do scikit-learn (verificar versão) | 0,10 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Jolliffe, Principal Component Analysis (verificar edição) | 0,05 | Desejável | Referência clássica sobre PCA |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de ERM e decomposição viés-variância | 0,15 | Essencial | Formalização que demonstra profundidade teórica |
+| 1.5 | Regularização L1/L2: trade-off entre ajuste e complexidade; seleção de hiperparâmetros | 0,10 | Essencial | Relação não trivial entre regularização e generalização |
+| 1.5 | SVM: trade-offs de kernels e dos parâmetros C e gamma | 0,10 | Essencial | Nuance técnica sobre fronteiras de decisão |
+| 1.5 | k-means: complexidade, sensibilidade à inicialização e escolha de k; papel do k-means++ | 0,15 | Essencial | A banca rigorosa espera análise de robustez |
+| 1.5 | DBSCAN: sensibilidade a eps/minPts e degradação em alta dimensionalidade | 0,15 | Essencial | Caso-limite central em agrupamento por densidade |
+| 1.5 | PCA: variância explicada, limite linear e perda de interpretabilidade | 0,10 | Essencial | Nuance sobre redução dimensional |
+| 1.5 | Casos-limite: desbalanceamento, data leakage, overfitting em alta dimensão e validação inadequada | 0,15 | Essencial | Exige análise de falhas e limites metodológicos |
+| 1.5 | Relação não trivial entre redução dimensional e clustering/classificação | 0,05 | Desejável | Diferencial sobre integração entre etapas do pipeline |
+| 1.5 | Exemplo aplicado: pipeline com validação, escolha de modelo e comparação supervisionado × não supervisionado | 0,05 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

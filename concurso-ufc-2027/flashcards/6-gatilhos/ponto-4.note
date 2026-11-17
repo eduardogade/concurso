@@ -1,0 +1,8 @@
+# Ponto 4 — Mineração de Dados: Descoberta de Conhecimento, Análise Exploratória de Dados, Identificação de Padrões e Anomalias
+
+4.1 Válidos novos úteis | Data Mining ⊂ KDD [1]
+4.2 Seleção → transformação → mineração | Processo não linear | Padrão + validação → conhecimento
+4.3 EDA → hipóteses [2] | Suporte confiança lift [3] | Frequência ≠ relevância | Global contextual coletiva [4]
+4.4 Estrutura aparente ≠ conhecimento | Múltiplas comparações | Associação ≠ causalidade | Conhecimento domínio
+4.5 EDA → padrões → validação | Retroalimentação iterativa | Robusto × artefato
+

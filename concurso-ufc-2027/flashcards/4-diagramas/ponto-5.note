@@ -1,0 +1,61 @@
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+## 5.1. Introdução e Delimitação do Problema
+
+No **aprendizado não supervisionado**, observam-se apenas os \(x_{i}\), sem rótulo-alvo explícito, e busca-se identificar estrutura nos próprios dados:
+
+supervisionado → aprender a relação X → Y
+não supervisionado → aprender a estrutura em X
+
+## 5.2. Fundamentos e Relevância
+
+Por isso, os dados são tipicamente separados em:
+
+treino → ajustar parâmetros
+validação → escolher modelo e hiperparâmetros
+teste → estimar o desempenho final
+
+## 5.3. Núcleo Técnico
+### 5.3.1. Aprendizado Supervisionado
+
+As famílias de métodos refletem diferentes hipóteses sobre a estrutura dos dados:
+
+- modelos lineares oferecem simplicidade e interpretabilidade;
+- árvores de decisão representam relações não lineares por particionamento do espaço de atributos;
+- *ensembles*, como **Random Forests** e *boosting*, combinam múltiplos modelos para aumentar robustez e desempenho;
+- k-NN baseia-se em proximidade entre exemplos;
+- SVM busca fronteiras de máxima margem; e
+- redes neurais permitem representar relações altamente não lineares [4].
+
+A escolha depende, portanto, da hipótese estrutural que o método impõe:
+
+método = algoritmo + hipótese sobre os dados
+
+### 5.3.2. Aprendizado Não Supervisionado
+
+Entre os métodos mais representativos estão:
+
+- **k-means**, que busca grupos compactos em torno de centroides;
+- **clustering hierárquico**, que constrói agrupamentos em múltiplos níveis;
+- **DBSCAN**, que identifica regiões densas e pode tratar pontos isolados como ruído;
+- **PCA**, que reduz a dimensionalidade preservando direções de maior variância;
+- **modelos de mistura**, que representam agrupamentos de forma probabilística.
+
+### 5.3.3. Avaliação e Seleção de Modelos
+
+Quando a amostra é limitada, a **validação cruzada** ajuda a estimar a generalização. No esquema k-fold:
+
+dados → k partes → treina em k−1 → valida em 1 → repete k vezes
+
+## 5.4. Limitações, Trade-offs e Desafios Atuais
+
+A escolha de um modelo envolve múltiplos trade-offs:
+
+- desempenho × interpretabilidade;
+- viés × variância;
+- precisão × recall;
+- custo computacional × ganho preditivo.
+
+Não existe, portanto, algoritmo universalmente superior. A escolha deve considerar:
+
+dados + objetivo + hipótese do modelo + métrica + restrições → método

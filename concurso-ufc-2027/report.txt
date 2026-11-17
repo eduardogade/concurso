@@ -1,0 +1,122 @@
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/1-pdle-armazenamento-e-gerenciamento-distribuido-de-dados_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/10-xai-metodos-interpretabilidade-avaliacao-e-uso-das-explicacoes_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/2-pdle-processamento-paralelo-e-distribuido-em-larga-escala_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/3-pdle-processamento-de-fluxos-e-arquiteturas-de-dados_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/4-mineracao-de-dados-descoberta-de-conhecimento-aed-identificacao-de-padroes-e-anomalias_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/5-aprendizado-supervisionado-e-nao-supervisionado_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/6-aprendizado-por-reforco_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/7-mlops-desenvolvimento-versionamento-e-experimentacao-de-modelos_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/8-mlops-automacao-implantacao-e-infraestrutura-de-aprendizado-de-maquina_v2.docx
+/Users/egg/projects/concurso-ufc-2027/prova-escrita/9-mlops-monitoramento-governanca-e-manutencao-de-modelos_v2.docx
+
+============================================================
+ DOCX COUNTER | 10 document(s)
+============================================================
+
+ [1/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/1-pdle-armazenamento-e-gerenciamento-distribuido-de-dados_v2.docx
+
+Document: 1-pdle-armazenamento-e-gerenciamento-distribuido-de-dados_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,610
+Characters (excluding invisible): 5,667
+Words + equations: 896
+Words (excluding equations): 892
+Equations: 4
+
+ [2/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/10-xai-metodos-interpretabilidade-avaliacao-e-uso-das-explicacoes_v2.docx
+
+Document: 10-xai-metodos-interpretabilidade-avaliacao-e-uso-das-explicacoes_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,570
+Characters (excluding invisible): 5,595
+Words + equations: 923
+Words (excluding equations): 910
+Equations: 13
+
+ [3/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/2-pdle-processamento-paralelo-e-distribuido-em-larga-escala_v2.docx
+
+Document: 2-pdle-processamento-paralelo-e-distribuido-em-larga-escala_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,537
+Characters (excluding invisible): 5,596
+Words + equations: 886
+Words (excluding equations): 878
+Equations: 8
+
+ [4/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/3-pdle-processamento-de-fluxos-e-arquiteturas-de-dados_v2.docx
+
+Document: 3-pdle-processamento-de-fluxos-e-arquiteturas-de-dados_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,561
+Characters (excluding invisible): 5,592
+Words + equations: 913
+Words (excluding equations): 907
+Equations: 6
+
+ [5/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/4-mineracao-de-dados-descoberta-de-conhecimento-aed-identificacao-de-padroes-e-anomalias_v2.docx
+
+Document: 4-mineracao-de-dados-descoberta-de-conhecimento-aed-identificacao-de-padroes-e-anomalias_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,498
+Characters (excluding invisible): 5,564
+Words + equations: 864
+Words (excluding equations): 857
+Equations: 7
+
+ [6/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/5-aprendizado-supervisionado-e-nao-supervisionado_v2.docx
+
+Document: 5-aprendizado-supervisionado-e-nao-supervisionado_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,460
+Characters (excluding invisible): 5,508
+Words + equations: 876
+Words (excluding equations): 863
+Equations: 13
+
+ [7/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/6-aprendizado-por-reforco_v2.docx
+
+Document: 6-aprendizado-por-reforco_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,481
+Characters (excluding invisible): 5,522
+Words + equations: 881
+Words (excluding equations): 845
+Equations: 36
+
+ [8/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/7-mlops-desenvolvimento-versionamento-e-experimentacao-de-modelos_v2.docx
+
+Document: 7-mlops-desenvolvimento-versionamento-e-experimentacao-de-modelos_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,499
+Characters (excluding invisible): 5,566
+Words + equations: 868
+Words (excluding equations): 862
+Equations: 6
+
+ [9/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/8-mlops-automacao-implantacao-e-infraestrutura-de-aprendizado-de-maquina_v2.docx
+
+Document: 8-mlops-automacao-implantacao-e-infraestrutura-de-aprendizado-de-maquina_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,527
+Characters (excluding invisible): 5,586
+Words + equations: 850
+Words (excluding equations): 850
+Equations: 0
+
+ [10/10] /Users/egg/projects/concurso-ufc-2027/prova-escrita/9-mlops-monitoramento-governanca-e-manutencao-de-modelos_v2.docx
+
+Document: 9-mlops-monitoramento-governanca-e-manutencao-de-modelos_v2.docx
+-------------------------------------------------------
+Characters (including invisible): 6,567
+Characters (excluding invisible): 5,581
+Words + equations: 922
+Words (excluding equations): 914
+Equations: 8
+
+============================================================
+ SUMMARY
+============================================================
+ Processed successfully : 10
+ Failed                 : 0
+ Total                  : 10
+============================================================

@@ -1,0 +1,48 @@
+
+# Ponto 9 — Operações de Aprendizado de Máquina (MLOps): Monitoramento, Governança e Manutenção de Modelos
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de monitoramento de modelos e distinção de observabilidade (métricas, logs e traces) | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Distinção entre monitoramento de sistema, de modelo e de negócio | 0,30 | Essencial | Delimita corretamente as camadas de monitoramento em produção |
+| 1.1 | Data drift, concept drift, label drift e covariate shift: definições e critérios de detecção | 0,35 | Essencial | Núcleo conceitual da manutenção de modelos em operação |
+| 1.1 | Métricas de desempenho em produção e problema do atraso de rótulos (label delay) | 0,30 | Essencial | Rigor técnico exigido para avaliação contínua de modelos |
+| 1.1 | Governança de ML: definição, papéis, accountability, políticas e gestão de risco | 0,30 | Essencial | Conceito central do ponto e exigência de controle institucional |
+| 1.1 | Manutenção de modelos: tipos (corretiva, adaptativa e perfectiva) e gatilhos de retreino | 0,25 | Essencial | Delimita o escopo de manutenção ao longo do ciclo de vida |
+| 1.1 | Análise crítica: falsos alarmes, drift sem degradação, métricas agregadas enganosas e feedback loops | 0,30 | Essencial | A banca valoriza limitações, pressupostos e riscos reais |
+| 1.1 | Distinção entre monitoramento offline e online e avaliação contínua em produção | 0,20 | Essencial | Evita confusão entre validação experimental e operação |
+| 1.1 | Quando não retreinar automaticamente: riscos de feedback loops, degradação silenciosa e instabilidade | 0,15 | Desejável | A banca rigorosa espera explicitar contraindicações |
+| 1.1 | Segurança e privacidade no monitoramento: PII em logs, anonimização e retenção | 0,10 | Desejável | Diferencial sobre conformidade e proteção de dados |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Métricas operacionais: latência, throughput, taxa de erros, disponibilidade e uso de recursos | 0,20 | Essencial | Ideia fundamental de monitoramento de sistemas de ML |
+| 1.2 | Monitoramento de dados: schema, estatísticas, valores ausentes, ranges e freshness | 0,25 | Essencial | Núcleo da qualidade e atualidade dos dados em produção |
+| 1.2 | Detecção de drift: PSI, KS, Jensen-Shannon e testes estatísticos | 0,30 | Essencial | Técnicas canônicas de monitoramento de distribuição |
+| 1.2 | Monitoramento de performance: métricas de modelo, janelas, segmentação e label delay | 0,30 | Essencial | Ideia central para verificar degradação real |
+| 1.2 | Alertas: SLI/SLO, limiares, severidade, on-call e runbooks | 0,20 | Essencial | Prática fundamental de operação e resposta |
+| 1.2 | Logging e auditoria: predições, entradas, versões, lineage e retenção | 0,25 | Essencial | Garante rastreabilidade e diagnóstico em produção |
+| 1.2 | Governança: políticas, catálogo, model registry, aprovação, auditoria e conformidade | 0,30 | Essencial | Núcleo canônico de governança de modelos |
+| 1.2 | Gestão de risco de modelo: inventário, classificação, revisão periódica e validação independente | 0,25 | Essencial | Ideia fundamental de controle e accountability |
+| 1.2 | Manutenção: retreino agendado/por gatilho, rollback, aposentadoria e versionamento | 0,25 | Essencial | Cobre o ciclo de manutenção e substituição de modelos |
+| 1.2 | Feedback loop e coleta de rótulos em produção | 0,20 | Essencial | Conecta monitoramento à melhoria contínua do modelo |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Sculley et al. (2015), Hidden Technical Debt in Machine Learning Systems | 0,10 | Essencial | Referência fundacional sobre dívida técnica e manutenção |
+| 1.4 | Breck et al. (2017), The ML Test Score | 0,10 | Essencial | Referência sobre prontidão e qualidade de sistemas de ML |
+| 1.4 | Huyen, Designing Machine Learning Systems (2022) | 0,15 | Essencial | Obra atual e abrangente sobre operação de sistemas de ML |
+| 1.4 | Gama et al. (2014), A Survey on Concept Drift Adaptation | 0,15 | Essencial | Survey canônico sobre drift e adaptação de modelos |
+| 1.4 | Lu et al. (2018), Learning under Concept Drift: A Review (verificar) | 0,10 | Desejável | Diferencial sobre detecção e adaptação a drift |
+| 1.4 | NIST AI Risk Management Framework (AI RMF 1.0, 2023) | 0,10 | Essencial | Referência atual de governança e gestão de risco de IA |
+| 1.4 | ISO/IEC 42001:2023 — AI management system | 0,10 | Essencial | Norma atual de governança de sistemas de IA |
+| 1.4 | LGPD (Lei 13.709/2018) e GDPR (Regulamento UE 2016/679) | 0,10 | Essencial | Base legal indispensável para governança e privacidade |
+| 1.4 | Documentação atual de Evidently AI, WhyLabs, Prometheus/Grafana e MLflow (verificar versões) | 0,10 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de drift: mudança em P(X) versus mudança em P(y|X), com testes estatísticos e poder | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Label delay e avaliação retardada: estratégias de estimação e viés associado | 0,10 | Essencial | Relação não trivial entre monitoramento e disponibilidade de rótulos |
+| 1.5 | Trade-offs de alertas: sensibilidade versus especificidade e custo de falsos positivos/negativos | 0,10 | Essencial | Exige decisão justificada sobre limiares e resposta |
+| 1.5 | Casos-limite: drift sem degradação, degradação sem drift, feedback loops e sazonalidade | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Governança: auditoria e rastreabilidade fim a fim; retenção e privacidade de dados | 0,10 | Essencial | Nuance central entre controle, conformidade e operação |
+| 1.5 | Manutenção: retreino automático versus manual; validação pós-retreino e rollback | 0,10 | Essencial | Trade-off central do ciclo de manutenção de modelos |
+| 1.5 | Relação entre monitoramento e versionamento/linhagem (fronteira com o Ponto 7) | 0,10 | Desejável | Diferencial sobre rastreabilidade entre artefatos e produção |
+| 1.5 | Exemplo aplicado: monitoramento de modelo de crédito com PSI, performance e alertas segmentados | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | Riscos adversariais e envenenamento de dados em produção (data poisoning) | 0,10 | Desejável | Aprofunda segurança e robustez operacional |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

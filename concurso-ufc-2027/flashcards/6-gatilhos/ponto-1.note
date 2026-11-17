@@ -1,0 +1,8 @@
+# Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+1.1 Crescimento dados | Vertical × horizontal | Falhas parciais
+1.2 Abstração lógica | Distribuição ≠ escalabilidade | Particionamento + replicação | Falhas normais GFS [1]
+1.3 Sharding intervalos × hash | Replicação líder failover | CAP [4], R+W>N | GFS Bigtable Dynamo
+1.4 Localidade × balanceamento | Redundância × custo | Códigos apagamento | Workload invariantes
+1.5 Partição → réplica → quórum | Recuperação → abstração | Necessidades aplicação
+

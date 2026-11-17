@@ -1,0 +1,8 @@
+# Ponto 7 — MLOps: Desenvolvimento, Versionamento e Experimentação de Modelos
+
+7.1 Modelo ≠ código isolado | Ad hoc → rastreável | Candidato validado
+7.2 Entradas + procedimento + saídas | Métrica isolada insuficiente | Resultado + proveniência
+7.3 Versionar além código | Tracking + baselines | D+C+H+E+S | Validação → registry
+7.4 Suficiente, não tudo | Automatizar ruim ≠ bom | Rigor × velocidade
+7.5 Hipótese → tracking → candidato | Proveniência + lineage + reprodutibilidade | Condições → reconstrução
+

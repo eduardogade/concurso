@@ -1,0 +1,46 @@
+
+# Ponto 3 — Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de stream e distinção entre dados limitados (batch) e ilimitados (stream) | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Tempo de evento × tempo de ingestão × tempo de processamento; desordem e atrasos | 0,30 | Essencial | Distinção central para correção semântica em fluxos |
+| 1.1 | Semânticas de entrega: at-most-once, at-least-once e exactly-once; implicações práticas | 0,30 | Essencial | Precisão conceitual exigida sobre garantias de processamento |
+| 1.1 | Processamento com estado: estado chaveado, backends e recuperação | 0,25 | Essencial | Núcleo técnico de operadores stateful em streaming |
+| 1.1 | Watermarks e tratamento de eventos atrasados; allowed lateness | 0,25 | Essencial | Conceito indispensável para janelas e completude |
+| 1.1 | Janelas tumbling, sliding, session e global; triggers e eviction | 0,30 | Essencial | Cobre o modelo canônico de agregação sobre fluxos |
+| 1.1 | Backpressure e controle de fluxo em pipelines de stream | 0,15 | Desejável | Diferencial sobre robustez e desempenho |
+| 1.1 | Log distribuído, partições, offsets e consumer groups (fronteira com o Ponto 1) | 0,25 | Essencial | Explica a base de brokers e ingestão em arquiteturas de stream |
+| 1.1 | Análise crítica: quando não usar streaming; custos, complexidade e limites do exactly-once | 0,30 | Essencial | A banca valoriza limitações, pressupostos e decisões justificadas |
+| 1.1 | Trade-offs entre motores unificados batch/stream e pipelines especializados (fronteira com o Ponto 2) | 0,15 | Desejável | Aprofunda decisões arquiteturais não triviais |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Arquitetura Lambda: camadas batch, speed e serving; funcionamento e limitações | 0,30 | Essencial | Paradigma clássico de arquitetura de dados em larga escala |
+| 1.2 | Arquitetura Kappa: log imutável, reprocessamento e stream único; limitações | 0,30 | Essencial | Contraponto canônico e atual ao Lambda |
+| 1.2 | Ingestão de dados: conectores, CDC e pipelines de eventos | 0,25 | Essencial | Ideia fundamental para entrada de dados em arquiteturas |
+| 1.2 | Kafka: tópicos, partições, replicação, offsets, retenção e consumer groups | 0,35 | Essencial | Componente central de arquiteturas orientadas a eventos |
+| 1.2 | Motores de stream: Flink, Kafka Streams e Spark Structured Streaming; operadores e janelas | 0,35 | Essencial | Núcleo tecnológico do processamento de fluxos |
+| 1.2 | Exactly-once fim a fim: checkpoints, transações e idempotência em sinks | 0,25 | Essencial | Garantia central em pipelines de stream confiáveis |
+| 1.2 | Camadas de arquitetura: ingestão, armazenamento, processamento e serving; data lake/lakehouse (fronteira com o Ponto 1) | 0,25 | Essencial | Organiza a visão arquitetural exigida pelo ponto |
+| 1.2 | Orquestração de pipelines, DAGs e lineage | 0,20 | Desejável | Diferencial sobre operação e rastreabilidade |
+| 1.2 | Padrões de serving: materialized views, CQRS e stores de leitura | 0,25 | Essencial | Conecta processamento de fluxos à entrega de dados |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Kreps et al., Kafka (2011) | 0,15 | Essencial | Referência fundacional para log distribuído e mensageria |
+| 1.4 | Akidau et al., The Dataflow Model (2015) | 0,15 | Essencial | Formaliza event time, watermarks e janelas |
+| 1.4 | Carbone et al., Apache Flink (2015) | 0,10 | Essencial | Referência técnica sobre motor de stream stateful |
+| 1.4 | Akidau, Chernyak & Lax, Streaming Systems (2018) | 0,10 | Essencial | Obra atual e abrangente sobre processamento de fluxos |
+| 1.4 | Marz & Warren, Big Data (2015) | 0,10 | Essencial | Referência clássica da arquitetura Lambda |
+| 1.4 | Kreps, Questioning the Lambda Architecture (2014) | 0,10 | Essencial | Referência canônica da arquitetura Kappa |
+| 1.4 | Kleppmann, Designing Data-Intensive Applications (2017) | 0,10 | Essencial | Referência atual sobre sistemas distribuídos e streams |
+| 1.4 | Documentação atual de Apache Kafka, Apache Flink e Spark Structured Streaming (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Documentação de Apache Iceberg/Hudi/Delta Lake (fronteira com o Ponto 1) | 0,05 | Desejável | Indica tendência de tabelas abertas em arquiteturas de dados |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de watermarks: completude versus latência e heurísticas de avanço | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Janelas e triggers: allowed lateness, modos de acumulação e emissão de resultados | 0,15 | Essencial | Nuance central para corretude em fluxos desordenados |
+| 1.5 | Exactly-once fim a fim: transações, idempotência e trade-offs com latência e custo | 0,15 | Essencial | Relação não trivial entre garantia e desempenho |
+| 1.5 | Casos-limite: eventos além da latência permitida, partições quentes e falha de checkpoint | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Trade-offs Lambda × Kappa: reprocessamento, duplicação de código, latência e custo operacional | 0,15 | Essencial | Exige comparação arquitetural justificada |
+| 1.5 | Relação entre ordenação por chave, partições e paralelismo em operadores stateful | 0,10 | Desejável | Diferencial sobre garantias e escalabilidade |
+| 1.5 | Backpressure e skew em operadores stateful | 0,10 | Desejável | Aprofunda desempenho e estabilidade de pipelines |
+| 1.5 | Exemplo aplicado: detecção de fraude/anomalia em tempo real com janelas e exactly-once | 0,05 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

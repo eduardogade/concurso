@@ -1,0 +1,43 @@
+
+# Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de sistema de armazenamento distribuído e propriedades de particionamento, replicação e tolerância a falhas | 0,30 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Distinção entre armazenamento em bloco, arquivo e objeto, com critérios de escolha | 0,25 | Essencial | Diferenciação técnica fundamental para justificar decisões de projeto |
+| 1.1 | Modelos de consistência: forte, eventual, causal e leituras/escritas monotônicas | 0,35 | Essencial | Precisão conceitual exigida para analisar garantias de armazenamento |
+| 1.1 | Teorema CAP e PACELC: interpretação correta e crítica a leituras simplistas | 0,30 | Essencial | Demonstra rigor científico e capacidade crítica sobre trade-offs |
+| 1.1 | Transações distribuídas: ACID, 2PC e limitações; BASE como contraponto | 0,30 | Essencial | Cobre o núcleo transacional e seus limites em ambientes distribuídos |
+| 1.1 | Particionamento/sharding: hash, range, consistência e hotspots | 0,25 | Essencial | Conceito central para escalabilidade e distribuição de dados |
+| 1.1 | Replicação: líder-seguidor, multi-líder, sem líder; quóruns e consistência | 0,30 | Essencial | Exigência técnica para explicar disponibilidade e tolerância a falhas |
+| 1.1 | Consenso e coordenação: Paxos/Raft, leader election, relógios lógicos e vector clocks (fronteira com o Ponto 2) | 0,20 | Desejável | Aprofunda mecanismos de coordenação indispensáveis em armazenamento distribuído |
+| 1.1 | Análise crítica: quando não usar NoSQL/eventual; custos de consistência, latência e complexidade operacional | 0,25 | Essencial | A banca valoriza limitações, pressupostos e decisões justificadas |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Arquitetura de DFS: namenode/datanodes, blocos, replicação e rack awareness (GFS/HDFS) | 0,35 | Essencial | Núcleo canônico de armazenamento distribuído em arquivos |
+| 1.2 | Object storage: buckets, objetos, metadados, durabilidade e consistência (modelo S3-like) | 0,30 | Essencial | Paradigma atual indispensável em larga escala |
+| 1.2 | Key-value e wide-column stores: Bigtable/HBase, Dynamo/Cassandra e modelos de dados | 0,35 | Essencial | Cobre famílias de bancos distribuídos centrais ao ponto |
+| 1.2 | Bancos relacionais distribuídos/NewSQL: sharding, replicação e transações distribuídas | 0,30 | Essencial | Mostra domínio de alternativas relacionais escaláveis |
+| 1.2 | Data lake e tabelas abertas: Parquet/ORC, catálogo e layout por partições (fronteira com o Ponto 3) | 0,25 | Desejável | Conecta armazenamento a formatos e organização física modernos |
+| 1.2 | Estratégias de particionamento e rebalanceamento | 0,30 | Essencial | Ideia fundamental para distribuição e elasticidade |
+| 1.2 | Estratégias de replicação e recuperação de falhas | 0,30 | Essencial | Núcleo de disponibilidade e durabilidade |
+| 1.2 | Consistência e versionamento: MVCC, snapshots e timestamps | 0,20 | Desejável | Diferencial técnico sobre controle de concorrência |
+| 1.2 | Gerenciamento de metadados e catálogo | 0,15 | Desejável | Relevante para governança e descoberta de dados |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | GFS (Ghemawat et al., 2003) e HDFS como referências clássicas | 0,15 | Essencial | Obra fundacional do armazenamento distribuído de arquivos |
+| 1.4 | Bigtable (Chang et al., 2006) e Dynamo (DeCandia et al., 2007) | 0,15 | Essencial | Referências canônicas para wide-column e key-value distribuídos |
+| 1.4 | Kleppmann, Designing Data-Intensive Applications (2017) | 0,15 | Essencial | Referência atual e abrangente sobre sistemas distribuídos de dados |
+| 1.4 | Abadi (2012), consistency tradeoffs e PACELC | 0,10 | Essencial | Atualiza a discussão de consistência para além do CAP simplificado |
+| 1.4 | Documentação técnica atual de Apache Hadoop/HDFS, Apache Cassandra, Apache HBase e Amazon S3 (verificar versões) | 0,20 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Parquet/ORC e catálogos (Apache Hive Metastore, Apache Iceberg) (fronteira com o Ponto 3) | 0,10 | Desejável | Indica estado da arte em formatos e tabelas abertas |
+| 1.4 | Özsu & Valduriez, Principles of Distributed Database Systems (verificar edição/ano) | 0,10 | Desejável | Obra de referência acadêmica consolidada |
+| 1.4 | YCSB (Yahoo! Cloud Serving Benchmark) para avaliação de armazenamentos distribuídos | 0,05 | Desejável | Ferramenta relevante para comparação técnica |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de quórum R + W > N e trade-offs entre latência e consistência | 0,20 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | CAP/PACELC com análise de latência e partição em cenários concretos | 0,15 | Essencial | Exige relação não trivial entre teoria e prática |
+| 1.5 | Complexidade e custos de replicação: fan-out, largura de banda e latência de consenso | 0,15 | Desejável | Diferencial sobre custos operacionais e de rede |
+| 1.5 | Hotspots e skew em sharding; técnicas de salting e rebalanceamento | 0,15 | Essencial | Caso-limite central em distribuição de dados |
+| 1.5 | Casos-limite: falha de coordenador, split-brain, stale reads e perda de quórum | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Relação entre MVCC, snapshots e isolamento; anomalias de concorrência | 0,10 | Essencial | Nuance técnica que diferencia resposta aprofundada |
+| 1.5 | Exemplo aplicado: modelagem de armazenamento para sessões/telemetria com escolha justificada de store | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

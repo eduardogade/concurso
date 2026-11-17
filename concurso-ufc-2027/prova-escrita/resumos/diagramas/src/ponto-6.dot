@@ -1,0 +1,78 @@
+digraph mapa {
+  graph [fontname="Arial" fontsize=11 fontcolor="#111111" bgcolor="white" rankdir=TB newrank=true nodesep=0.55 ranksep=0.24 labelloc="t" labeljust="c" margin=0.1 pad=0.2];
+  node [shape=box style="filled" fillcolor="white" color="#2b2b2b" penwidth=1.2 fontname="Arial" fontsize=12 fontcolor="#111111" margin="0.14,0.06" height=0.36];
+  edge [color="#333333" penwidth=1.3 arrowsize=0.8];
+  label=<<FONT POINT-SIZE="16"><B>Ponto 6</B></FONT><BR/><FONT POINT-SIZE="12">Aprendizado por Reforço</FONT><BR/> >;
+  subgraph cluster_6_1 {
+    label=<<B>6.1</B>&#160;&#160;Introdução e Delimitação do Problema>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n6_1_0_0 [label=<agente: estado → <B>ação</B> → recompensa> group="eixo"];
+    n6_1_1_0 [label=<ninguém informa a ação <B>correta</B>> group="eixo"];
+    n6_1_0_0 -> n6_1_1_0;
+    n6_1_2_0 [label=<<B>política</B> que maximiza retorno de longo prazo> group="eixo"];
+    n6_1_1_0 -> n6_1_2_0;
+  }
+  subgraph cluster_6_2 {
+    label=<<B>6.2</B>&#160;&#160;Fundamentos e Relevância>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n6_2_0_0 [label=<<B>MDP</B> (S, A, P, R, γ) · Markov> group="eixo"];
+    n6_2_1_0 [label=<<B>retorno</B>: G<FONT POINT-SIZE="9"><SUB>t</SUB></FONT> = Σ γ<FONT POINT-SIZE="9"><SUP>k</SUP></FONT> R<FONT POINT-SIZE="9"><SUB>t+k+1</SUB></FONT>> group="eixo"];
+    n6_2_0_0 -> n6_2_1_0;
+    n6_2_2_0 [label=<ruim agora, ótima no total → <B>atribuição de crédito</B>> group="eixo"];
+    n6_2_1_0 -> n6_2_2_0;
+  }
+  subgraph cluster_6_3 {
+    label=<<B>6.3</B>&#160;&#160;Núcleo Técnico>; labeljust="l"; style="dashed"; color="#bdbdbd"; margin=10;
+    subgraph cluster_6_3_1 {
+      label=<<B>6.3.1</B>&#160;&#160;Política e Funções de Valor>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n6_3_1_0_0 [label=<política <B>π(a|s)</B>> group="eixo"];
+      n6_3_1_1_0 [label=<<B>V</B><B><FONT POINT-SIZE="9"><SUP>π</SUP></FONT></B><B>(s)</B>: estado ↔ <B>Q</B><B><FONT POINT-SIZE="9"><SUP>π</SUP></FONT></B><B>(s,a)</B>: estado + ação> group="eixo"];
+      n6_3_1_0_0 -> n6_3_1_1_0;
+      n6_3_1_2_0 [label=<conhecer <B>Q</B> → melhorar π → repetir> group="eixo"];
+      n6_3_1_1_0 -> n6_3_1_2_0;
+    }
+    subgraph cluster_6_3_2 {
+      label=<<B>6.3.2</B>&#160;&#160;Equações de Bellman e Aprendizado Temporal>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n6_3_2_0_0 [label=<<B>Bellman</B>: V(s) = E[R + γ V(s′)]> group="eixo"];
+      n6_3_2_1_0 [label=<programação dinâmica (modelo) ↔ <B>model-free</B>> group="eixo"];
+      n6_3_2_0_0 -> n6_3_2_1_0;
+      n6_3_2_2_0 [label=<<B>MC</B> ↔ <B>TD</B> (bootstrapping): viés × variância> group="eixo"];
+      n6_3_2_1_0 -> n6_3_2_2_0;
+    }
+    subgraph cluster_6_3_3 {
+      label=<<B>6.3.3</B>&#160;&#160;Exploração × Explotação>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n6_3_3_0_0 [label=<<B>explorar</B> ↔ <B>explotar</B>> group="eixo"];
+      n6_3_3_1_0 [label=<estratégia <B>ε-greedy</B>> group="eixo"];
+      n6_3_3_0_0 -> n6_3_3_1_0;
+      n6_3_3_2_0 [label=<risco: explorar demais ↔ de menos> group="eixo"];
+      n6_3_3_1_0 -> n6_3_3_2_0;
+    }
+    subgraph cluster_6_3_4 {
+      label=<<B>6.3.4</B>&#160;&#160;Principais Famílias de Métodos>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n6_3_4_0_0 [label=<<B>valor</B>: Q-learning (max → off-policy) ↔ SARSA> group="eixo"];
+      n6_3_4_1_0 [label=<<B>política</B> + valor → <B>ator–crítico</B>> group="eixo"];
+      n6_3_4_0_0 -> n6_3_4_1_0;
+      n6_3_4_2_0 [label=<RL profundo → <B>deadly triad</B> → DQN (2 mecanismos)> group="eixo"];
+      n6_3_4_1_0 -> n6_3_4_2_0;
+    }
+  }
+  subgraph cluster_6_4 {
+    label=<<B>6.4</B>&#160;&#160;Limitações, Trade-offs e Desafios Atuais>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n6_4_0_0 [label=<recompensa <B>esparsa</B> · experiência cara> group="eixo"];
+    n6_4_1_0 [label=<recompensa ≠ objetivo → <B>reward hacking</B>> group="eixo"];
+    n6_4_0_0 -> n6_4_1_0;
+    n6_4_2_0 [label=<exploração livre arrisca → <B>safe RL</B>> group="eixo"];
+    n6_4_1_0 -> n6_4_2_0;
+  }
+  subgraph cluster_6_5 {
+    label=<<B>6.5</B>&#160;&#160;Conclusão>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n6_5_0_0 [label=<decisão <B>sequencial</B>: agora + futuro> group="eixo"];
+    n6_5_1_0 [label=<prática: <B>4 exigências</B>> group="eixo"];
+    n6_5_0_0 -> n6_5_1_0;
+  }
+  n6_1_2_0 -> n6_2_0_0 [style=invis];
+  n6_2_2_0 -> n6_3_1_0_0 [style=invis];
+  n6_3_1_2_0 -> n6_3_2_0_0 [style=invis];
+  n6_3_2_2_0 -> n6_3_3_0_0 [style=invis];
+  n6_3_3_2_0 -> n6_3_4_0_0 [style=invis];
+  n6_3_4_2_0 -> n6_4_0_0 [style=invis];
+  n6_4_2_0 -> n6_5_0_0 [style=invis];
+}

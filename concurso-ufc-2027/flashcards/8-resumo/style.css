@@ -1,0 +1,193 @@
+@charset "UTF-8";
+/* Tema escuro do player. As quatro cores-base são sobrescritas pelo "theme" do cards.json. */
+
+:root {
+  --bg: #0B0B0B;
+  --text: #E8E6E3;
+  --border: #C8C6C2;
+  --muted: #9A9893;
+  --surface: #121212;
+  --rule: #2C2B2A;
+
+  --t-meta: clamp(14px, 1vw, 17px);
+  --t-titulo: clamp(26px, min(2.5vw, 4.3vh), 36px);
+  --t-secao: clamp(19px, min(1.75vw, 3vh), 26px);
+  --t-linha: clamp(21px, min(2.15vw, 3.6vh), 31px);
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; height: 100%; }
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--bg);
+  color: var(--text);
+  /* Geneva (do macOS) cobre subscritos que a fonte do sistema não tem, como o ⱼ de φⱼ;
+     sem ela o navegador cai na Menlo, monoespaçada, e o índice fica afastado */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Geneva, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- topo e rodapé: discretos ---------- */
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 14px clamp(16px, 3vw, 40px) 12px;
+  color: var(--muted);
+  font-size: var(--t-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+.teclas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35em 1.4em;
+  padding: 12px clamp(16px, 3vw, 40px) 16px;
+  color: var(--muted);
+  font-size: clamp(12px, 0.85vw, 14px);
+}
+
+kbd {
+  font: inherit;
+  padding: 0.05em 0.4em;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+/* ---------- cartão central ---------- */
+
+main {
+  display: flex;
+  justify-content: center;
+  min-height: 0;
+  padding: 0 clamp(16px, 3vw, 40px);
+}
+
+.card {
+  width: 100%;
+  max-width: 1100px;
+  height: 100%;
+  overflow: auto;
+  padding: clamp(28px, 4.5vh, 56px) clamp(28px, 4.5vw, 72px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.rotulo {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--t-meta);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.titulo {
+  margin: 0.3em 0 0.8em;
+  font-size: var(--t-titulo);
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+/* ---------- frente ---------- */
+
+.secoes {
+  list-style: none;
+  margin: 1.8em 0 0;
+  padding: 0;
+}
+
+.secoes li { margin: 0 0 1.2em; }
+
+.secoes .id {
+  display: block;
+  color: var(--muted);
+  font-size: var(--t-meta);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.secoes .nome {
+  display: block;
+  margin-top: 0.15em;
+  font-size: var(--t-secao);
+  line-height: 1.3;
+}
+
+.dica {
+  margin: 2.2em 0 0;
+  color: var(--muted);
+  font-size: var(--t-meta);
+}
+
+/* ---------- verso ---------- */
+
+.verso .rotulo { margin-bottom: 1.6em; }
+
+.bloco + .bloco {
+  margin-top: 1.3em;
+  padding-top: 1.3em;
+  border-top: 1px solid var(--rule);
+}
+
+.secao {
+  margin: 0 0 0.9em;
+  color: var(--muted);
+  font-size: var(--t-secao);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.linha {
+  margin: 0 0 0.85em;
+  font-size: var(--t-linha);
+  line-height: 1.35;
+}
+
+.linha strong { font-weight: 700; }
+
+/* só o que acabou de ser revelado aparece com um fade curto */
+.nova { animation: surgir 120ms ease-out; }
+
+@keyframes surgir { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .nova { animation: none; }
+}
+
+/* ---------- fim da rodada e erro ---------- */
+
+.fim .resumo,
+.erro p {
+  margin: 0 0 1.6em;
+  font-size: var(--t-secao);
+  line-height: 1.4;
+}
+
+.opcoes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: var(--t-secao);
+}
+
+.opcoes li { margin: 0 0 0.7em; }
+
+.opcoes kbd { margin-right: 0.5em; color: var(--text); }
+
+.erro pre {
+  display: inline-block;
+  margin: 0;
+  padding: 0.6em 0.9em;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  font-size: var(--t-meta);
+}

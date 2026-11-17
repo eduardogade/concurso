@@ -1,0 +1,14 @@
+# Ponto 3 — Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados
+
+EVENTOS
+↓
+INGESTÃO / LOG
+↓
+TEMPO / JANELAS / WATERMARKS
+↓
+ESTADO / CHECKPOINT / REPLAY
+↓
+GARANTIAS DE PROCESSAMENTO
+↓
+STORAGE / SERVING
+

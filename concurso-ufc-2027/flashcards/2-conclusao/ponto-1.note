@@ -1,0 +1,14 @@
+# Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+DATASET
+↓
+PARTICIONAMENTO
+↓
+REPLICAÇÃO
+↓
+CONSISTÊNCIA / QUÓRUNS
+↓
+RECUPERAÇÃO E REBALANCEAMENTO
+↓
+ABSTRAÇÃO DE ARMAZENAMENTO
+

@@ -1,0 +1,8 @@
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+5.1 Variável-alvo | Relação X → Y | Estrutura em X
+5.2 θ* = argmin L | Treino validação teste | Viés × variância [3] | Regularização λ
+5.3 Algoritmo + hipótese | k-means DBSCAN PCA | Acurácia ≠ utilidade | Validação cruzada k-fold
+5.4 Desempenho × interpretabilidade | Data leakage | Fora da distribuição | Sem algoritmo universal
+5.5 Rótulos? → formulação | Relações × estrutura latente | Condições reais uso
+

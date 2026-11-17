@@ -1,0 +1,70 @@
+digraph mapa {
+  graph [fontname="Arial" fontsize=11 fontcolor="#111111" bgcolor="white" rankdir=TB newrank=true nodesep=0.55 ranksep=0.24 labelloc="t" labeljust="c" margin=0.1 pad=0.2];
+  node [shape=box style="filled" fillcolor="white" color="#2b2b2b" penwidth=1.2 fontname="Arial" fontsize=12 fontcolor="#111111" margin="0.14,0.06" height=0.36];
+  edge [color="#333333" penwidth=1.3 arrowsize=0.8];
+  label=<<FONT POINT-SIZE="16"><B>Ponto 5</B></FONT><BR/><FONT POINT-SIZE="12">Aprendizado Supervisionado e Não Supervisionado</FONT><BR/> >;
+  subgraph cluster_5_1 {
+    label=<<B>5.1</B>&#160;&#160;Introdução e Delimitação do Problema>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n5_1_0_0 [label=<<B>variável-alvo</B> disponível?> group="eixo"];
+    n5_1_1_0 [label=<sim: (x<FONT POINT-SIZE="9"><SUB>i</SUB></FONT>, y<FONT POINT-SIZE="9"><SUB>i</SUB></FONT>) → <B>f: X → Y</B>>];
+    n5_1_1_1 [label=<não: só x<FONT POINT-SIZE="9"><SUB>i</SUB></FONT> → <B>estrutura</B>>];
+    n5_1_1_m [shape=point width=0 height=0 style=invis group="eixo"];
+    { rank=same; n5_1_1_0; n5_1_1_m; n5_1_1_1; }
+    n5_1_1_0 -> n5_1_1_m [style=invis headclip=false];
+    n5_1_1_m -> n5_1_1_1 [style=invis tailclip=false];
+    n5_1_0_0 -> n5_1_1_0;
+    n5_1_0_0 -> n5_1_1_1;
+    n5_1_0_0 -> n5_1_1_m [style=invis];
+  }
+  subgraph cluster_5_2 {
+    label=<<B>5.2</B>&#160;&#160;Fundamentos e Relevância>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n5_2_0_0 [label=<<B>risco empírico</B> ≠ erro em dados novos> group="eixo"];
+    n5_2_1_0 [label=<underfitting (<B>viés</B>) ↔ overfitting (<B>variância</B>)> group="eixo"];
+    n5_2_0_0 -> n5_2_1_0;
+    n5_2_2_0 [label=<<B>regularização</B>: erro + λ · complexidade (L1 ↔ L2)> group="eixo"];
+    n5_2_1_0 -> n5_2_2_0;
+  }
+  subgraph cluster_5_3 {
+    label=<<B>5.3</B>&#160;&#160;Núcleo Técnico>; labeljust="l"; style="dashed"; color="#bdbdbd"; margin=10;
+    subgraph cluster_5_3_1 {
+      label=<<B>5.3.1</B>&#160;&#160;Aprendizado Supervisionado>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n5_3_1_0_0 [label=<método = <B>hipótese</B> sobre os dados> group="eixo"];
+      n5_3_1_1_0 [label=<linear · árvore · <B>ensemble</B> · SVM · rede> group="eixo"];
+      n5_3_1_0_0 -> n5_3_1_1_0;
+      n5_3_1_2_0 [label=<<B>bagging</B> − variância ↔ <B>boosting</B> − viés> group="eixo"];
+      n5_3_1_1_0 -> n5_3_1_2_0;
+    }
+    subgraph cluster_5_3_2 {
+      label=<<B>5.3.2</B>&#160;&#160;Aprendizado Não Supervisionado>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n5_3_2_0_0 [label=<<B>k-means</B>: 2 passos · 3 limitações · k-means++> group="eixo"];
+      n5_3_2_1_0 [label=<dendrograma · <B>DBSCAN</B> (ruído) · PCA> group="eixo"];
+      n5_3_2_0_0 -> n5_3_2_1_0;
+    }
+    subgraph cluster_5_3_3 {
+      label=<<B>5.3.3</B>&#160;&#160;Avaliação e Seleção de Modelos>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n5_3_3_0_0 [label=<<B>acurácia</B> engana se desbalanceado (fraude)> group="eixo"];
+      n5_3_3_1_0 [label=<sem rótulo → <B>silhueta</B>> group="eixo"];
+      n5_3_3_0_0 -> n5_3_3_1_0;
+      n5_3_3_2_0 [label=<<B>k-fold</B> · teste intocado até o fim> group="eixo"];
+      n5_3_3_1_0 -> n5_3_3_2_0;
+    }
+  }
+  subgraph cluster_5_4 {
+    label=<<B>5.4</B>&#160;&#160;Limitações, Trade-offs e Desafios Atuais>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n5_4_0_0 [label=<<B>leakage</B> · fora da distribuição → teste engana> group="eixo"];
+    n5_4_1_0 [label=<<B>aprendizado profundo</B>: + capacidade, + preço> group="eixo"];
+    n5_4_0_0 -> n5_4_1_0;
+    n5_4_2_0 [label=<nenhum algoritmo <B>universal</B>> group="eixo"];
+    n5_4_1_0 -> n5_4_2_0;
+  }
+  subgraph cluster_5_5 {
+    label=<<B>5.5</B>&#160;&#160;Conclusão>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n5_5_0_0 [label=<adequação: problema · dados · modelo · <B>métrica</B>> group="eixo"];
+  }
+  n5_1_1_m -> n5_2_0_0 [style=invis];
+  n5_2_2_0 -> n5_3_1_0_0 [style=invis];
+  n5_3_1_2_0 -> n5_3_2_0_0 [style=invis];
+  n5_3_2_1_0 -> n5_3_3_0_0 [style=invis];
+  n5_3_3_2_0 -> n5_4_0_0 [style=invis];
+  n5_4_2_0 -> n5_5_0_0 [style=invis];
+}

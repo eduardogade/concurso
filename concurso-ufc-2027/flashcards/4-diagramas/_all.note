@@ -1,0 +1,451 @@
+# Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+## 1.2. Fundamentos e Relevância
+
+Dois mecanismos estruturam o problema:
+
+- **particionamento** distribui dados distintos entre nós, ampliando capacidade e paralelismo;
+- **replicação** mantém cópias, introduzindo redundância para disponibilidade, durabilidade e tolerância a falhas.
+
+## 1.4. Limitações, Trade-offs e Desafios Atuais
+
+Não existe arquitetura universalmente superior. O projeto deve compatibilizar:
+
+- **localidade versus balanceamento**;
+- **redundância versus custo**;
+- **consistência versus disponibilidade sob partições;** e
+- **garantias fortes versus latência e coordenação**.
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+## 2.3. Núcleo Técnico
+### 2.3.3. MapReduce e Modelos de Execução Distribuída
+
+O paradigma **MapReduce** [3] expressa a computação por funções *map*, que produzem pares intermediários, e *reduce*, que agregam valores de uma mesma chave; entre ambas, o *shuffle* redistribui e agrupa os dados intermediários:
+
+ENTRADA → MAP → SHUFFLE → REDUCE → SAÍDA
+
+### 2.3.4. DAGs, Reutilização e Recuperação
+
+Surge um compromisso entre:
+
+- **replicação**, que consome armazenamento;
+- **recomputação**, que consome processamento;
+- **checkpointing**, que persiste estados intermediários e reduz o custo de recuperação ao preço de I/O adicional.
+
+## 2.4. Limitações, Trade-offs e Desafios Atuais
+
+Existe, assim, um compromisso permanente entre:
+
+- **granularidade e overhead**;
+- **localidade e balanceamento**;
+- **paralelismo e comunicação**;
+- **redundância e recomputação**;
+- e **desempenho e custo de recursos**.
+# Ponto 3 — Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados
+
+## 3.2. Fundamentos e Relevância
+
+Conceitualmente, um evento percorre a cadeia:
+
+FONTE → INGESTÃO → FLUXO → PROCESSAMENTO → ESTADO/SAÍDA → SERVING
+
+## 3.3. Núcleo Técnico
+### 3.3.1. Tempo, Janelas e Watermarks
+
+O modelo Dataflow [1] organiza o problema em três perguntas:
+
+- **windowing:** quais eventos pertencem à mesma agregação;
+- **watermark:** até onde se estima que o fluxo tenha avançado em *event time*;
+- **trigger:** quando um resultado deve ser emitido.
+# Ponto 4 — Mineração de Dados: Descoberta de Conhecimento, Análise Exploratória de Dados, Identificação de Padrões e Anomalias
+
+## 4.1. Introdução e Delimitação do Problema
+
+O objetivo não é apenas executar algoritmos, e sim transformar observações em padrões **válidos, novos, úteis e interpretáveis**, capazes de ampliar a compreensão de um fenômeno ou apoiar decisões:
+
+Data Mining ⊂ KDD
+
+## 4.2. Fundamentos e Relevância
+
+O processo KDD pode ser representado por:
+
+seleção → pré-processamento → transformação → mineração → avaliação/interpretação → conhecimento
+
+O processo KDD pode ser representado por:
+
+- Na **seleção**, definem-se dados e atributos relevantes.
+- O **pré-processamento** trata valores ausentes, duplicações, inconsistências e erros.
+- A **transformação** adapta a representação por normalização, discretização, agregação ou construção de atributos.
+- A **mineração** identifica associações, agrupamentos ou comportamentos anômalos.
+
+É essencial distinguir **dado, padrão e conhecimento**. Um padrão é uma regularidade identificada nos dados, mas sua mera existência não constitui conhecimento:
+
+padrão + validação + interpretação + contexto → conhecimento
+
+## 4.3. Núcleo Técnico
+### 4.3.1. Preparação dos Dados e Análise Exploratória
+
+Pode ser univariada, bivariada ou multivariada e é essencialmente iterativa:
+
+exploração → hipótese → transformação → nova exploração
+
+### 4.3.3. Identificação de Anomalias
+
+Distinguem-se:
+
+- **anomalias globais**, atípicas em relação ao conjunto inteiro;
+- **anomalias contextuais**, atípicas somente sob determinada condição;
+- **anomalias coletivas**, nas quais o caráter anômalo emerge de um conjunto de observações.
+
+## 4.4. Limitações, Trade-offs e Desafios Atuais
+
+Por isso, padrões e anomalias devem ser avaliados quanto à estabilidade, reprodutibilidade e relevância prática. Entre os desafios estão:
+
+- dados incompletos, ruidosos ou enviesados;
+- múltiplas comparações e padrões espúrios;
+- sensibilidade à representação e aos parâmetros;
+- alta dimensionalidade e baixa interpretabilidade;
+- mudanças na distribuição dos dados ao longo do tempo.
+
+Além disso:
+
+associação ≠ causalidade
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+## 5.1. Introdução e Delimitação do Problema
+
+No **aprendizado não supervisionado**, observam-se apenas os \(x_{i}\), sem rótulo-alvo explícito, e busca-se identificar estrutura nos próprios dados:
+
+supervisionado → aprender a relação X → Y
+não supervisionado → aprender a estrutura em X
+
+## 5.2. Fundamentos e Relevância
+
+Por isso, os dados são tipicamente separados em:
+
+treino → ajustar parâmetros
+validação → escolher modelo e hiperparâmetros
+teste → estimar o desempenho final
+
+## 5.3. Núcleo Técnico
+### 5.3.1. Aprendizado Supervisionado
+
+As famílias de métodos refletem diferentes hipóteses sobre a estrutura dos dados:
+
+- modelos lineares oferecem simplicidade e interpretabilidade;
+- árvores de decisão representam relações não lineares por particionamento do espaço de atributos;
+- *ensembles*, como **Random Forests** e *boosting*, combinam múltiplos modelos para aumentar robustez e desempenho;
+- k-NN baseia-se em proximidade entre exemplos;
+- SVM busca fronteiras de máxima margem; e
+- redes neurais permitem representar relações altamente não lineares [4].
+
+A escolha depende, portanto, da hipótese estrutural que o método impõe:
+
+método = algoritmo + hipótese sobre os dados
+
+### 5.3.2. Aprendizado Não Supervisionado
+
+Entre os métodos mais representativos estão:
+
+- **k-means**, que busca grupos compactos em torno de centroides;
+- **clustering hierárquico**, que constrói agrupamentos em múltiplos níveis;
+- **DBSCAN**, que identifica regiões densas e pode tratar pontos isolados como ruído;
+- **PCA**, que reduz a dimensionalidade preservando direções de maior variância;
+- **modelos de mistura**, que representam agrupamentos de forma probabilística.
+
+### 5.3.3. Avaliação e Seleção de Modelos
+
+Quando a amostra é limitada, a **validação cruzada** ajuda a estimar a generalização. No esquema k-fold:
+
+dados → k partes → treina em k−1 → valida em 1 → repete k vezes
+
+## 5.4. Limitações, Trade-offs e Desafios Atuais
+
+A escolha de um modelo envolve múltiplos trade-offs:
+
+- desempenho × interpretabilidade;
+- viés × variância;
+- precisão × recall;
+- custo computacional × ganho preditivo.
+
+Não existe, portanto, algoritmo universalmente superior. A escolha deve considerar:
+
+dados + objetivo + hipótese do modelo + métrica + restrições → método
+# Ponto 6 — Aprendizado por Reforço
+
+## 6.1. Introdução e Delimitação do Problema
+
+Diferentemente do aprendizado supervisionado, não há, em geral, um rótulo informando a ação correta em cada estado. O agente deve descobrir, pelas consequências de suas decisões, comportamentos capazes de maximizar resultados ao longo do tempo:
+
+recompensa imediata ≠ objetivo de longo prazo
+
+## 6.3. Núcleo Técnico
+### 6.3.1. Política e Funções de Valor
+
+A relação entre comportamento e aprendizado pode ser sintetizada por:
+
+política → ações → retorno → valor → melhoria da política
+
+### 6.3.2. Equações de Bellman e Aprendizado Temporal
+
+\[
+V^{\pi}(s) = \mathbb{E}_{\pi}\left\lbrack R_{t + 1} + \gamma V^{\pi}(S_{t + 1}) \mid S_{t} = s \right\rbrack
+\]
+
+valor presente = recompensa imediata + futuro descontado
+
+### 6.3.3. Exploração × Explotação
+
+Como o agente inicialmente desconhece as consequências das ações, surge o compromisso entre:
+
+- **exploração**: testar ações pouco conhecidas para adquirir informação;
+- **explotação**: selecionar a melhor ação segundo o conhecimento atual.
+
+### 6.3.4. Principais Famílias de Métodos
+
+Arquiteturas **Actor–Critic** combinam essas perspectivas:
+
+- **ator**: seleciona ações segundo a política;
+- **crítico**: estima valor e fornece sinal para melhorar a política.
+
+## 6.4. Limitações, Trade-offs e Desafios Atuais
+
+Outro desafio fundamental é a especificação da recompensa:
+
+maximizar recompensa especificada ≠ maximizar objetivo real
+
+Também existem importantes trade-offs:
+
+- exploração × segurança;
+- desempenho × eficiência amostral;
+- capacidade de representação × estabilidade;
+- planejamento explícito × custo computacional.
+# Ponto 7 — MLOps: Desenvolvimento, Versionamento e Experimentação de Modelos
+
+## 7.1. Introdução e Delimitação do Problema
+
+Um modelo treinado não resulta apenas do código que implementa o algoritmo, mas da combinação entre dados, configuração, hiperparâmetros, ambiente computacional e procedimento de treinamento [1]:
+
+modelo treinado ≠ código isolado
+
+## 7.2. Fundamentos e Relevância
+
+Cada execução relevante pode ser entendida como uma unidade experimental:
+
+experimento = entradas + procedimento + saídas + metadados
+
+Uma melhoria de desempenho somente é interpretável quando se conhecem as condições responsáveis pelo resultado: uma métrica isolada não constitui evidência experimental suficiente. O princípio central é:
+
+resultado confiável = resultado + proveniência
+
+## 7.3. Núcleo Técnico
+### 7.3.1. Versionamento, Artefatos e Linhagem
+
+A **proveniência** identifica a origem de um artefato, enquanto a **linhagem** (*lineage*) representa as relações de transformação entre os componentes:
+
+dados brutos → dados processados → features → treinamento → modelo → métricas
+
+### 7.3.2. Experiment Tracking e Rastreabilidade
+
+O **experiment tracking** registra sistematicamente as condições e os resultados de cada execução:
+
+- versões de dados e código;
+- hiperparâmetros e configuração;
+- *seed* e ambiente;
+- métricas, logs e artefatos;
+- estado e identificador da execução.
+
+### 7.3.3. Reprodutibilidade
+
+O mesmo script não constitui o mesmo experimento se dados, dependências ou ambiente forem diferentes. Reprodutibilidade, contudo, não é determinismo absoluto:
+
+reprodutível ≠ idêntico bit a bit
+
+### 7.3.4. Validação, Comparação e Seleção
+
+Logo, o melhor modelo não é o de maior métrica isolada: a seleção deve ocorrer sob critérios explícitos de aceitação e protocolo comparável.
+
+EXPERIMENTO → VALIDAÇÃO DE DADOS E DO MODELO → COMPARAÇÃO COM BASELINE → CRITÉRIOS DE ACEITAÇÃO → MODELO CANDIDATO
+
+## 7.4. Limitações, Trade-offs e Desafios Atuais
+
+A automação pode reduzir erro manual e aumentar a consistência de validação, rastreamento e registro. Entretanto:
+
+automatizar processo ruim ≠ criar processo bom
+
+## 7.5. Conclusão
+
+Todo esse fluxo é atravessado por:
+
+PROVENIÊNCIA + LINEAGE + REPRODUTIBILIDADE
+# Ponto 8 — MLOps: Automação, Implantação e Infraestrutura de Aprendizado de Máquina
+
+## 8.1. Introdução e Delimitação do Problema
+
+Em sistemas reais, o código do modelo é apenas uma pequena parte do sistema em produção [1]:
+
+modelo validado ≠ sistema operacional confiável
+
+## 8.2. Fundamentos e Relevância
+
+Três conceitos devem ser distinguidos:
+
+1. A **Integração Contínua (CI)** integra e valida mudanças, tipicamente por testes automáticos.
+2. A **Entrega ou Implantação Contínua (CD)** promove artefatos aprovados para ambientes-alvo.
+3. Já o **Continuous Training (CT)** aciona novo treinamento quando condições previamente definidas são satisfeitas, como chegada de novos dados ou mudanças relevantes; CT não é retreinamento indiscriminado.
+
+A automação deve permanecer subordinada a critérios explícitos de aceitação, ou *quality gates* [3]:
+
+promoção ⇒ critérios satisfeitos
+
+## 8.3. Núcleo Técnico
+### 8.3.1. Empacotamento e Implantação
+
+Implantar um modelo não é apenas copiar seu arquivo de pesos. A unidade implantável pode incluir:
+
+artefato de implantação = modelo + código + runtime + dependências + configuração
+
+Diferentes estratégias podem ser utilizadas para liberar novas versões [4]:
+
+- **recreate**: substituição completa da versão anterior;
+- **rolling update**: substituição gradual das instâncias;
+- **blue-green**: manutenção paralela de dois ambientes;
+- **canary**: exposição inicial de pequena parcela do tráfego à nova versão.
+
+Essas estratégias equilibram de modo distinto risco, disponibilidade e custo. Um sistema maduro deve ainda permitir **rollback** para a versão estável:
+
+release confiável = artefato versionado + estratégia de implantação + rollback
+
+### 8.3.2. Serving e Padrões de Inferência
+
+Na **inferência online**, cada requisição recebe resposta próxima do tempo real:
+
+REQUISIÇÃO → PRÉ-PROCESSAMENTO → MODELO → PREDIÇÃO → RESPOSTA
+
+### 8.3.3. Infraestrutura, Containers e Orquestração
+
+Quando existem múltiplas instâncias, entra a **orquestração**, que inicia e remove instâncias, aloca recursos, reinicia componentes, distribui carga, realiza atualizações e escala réplicas:
+
+CONTAINER → como executar de forma isolada?
+ORQUESTRAÇÃO → como coordenar muitas execuções?
+
+### 8.3.4. Escalabilidade e Disponibilidade
+
+Com várias réplicas, **balanceadores de carga** distribuem requisições entre elas:
+
+REQUISIÇÕES → LOAD BALANCER → I1 / I2 / I3
+
+O **autoscaling** ajusta a capacidade à demanda. Entretanto:
+
+escalabilidade ≠ disponibilidade
+
+## 8.4. Limitações, Trade-offs e Desafios Atuais
+
+A infraestrutura de ML envolve múltiplos compromissos:
+
+- latência × custo;
+- disponibilidade × custo;
+- automação × complexidade;
+- sofisticação arquitetural × simplicidade operacional.
+
+## 8.5. Conclusão
+
+Todo esse fluxo é atravessado por:
+
+VALIDAÇÃO + VERSIONAMENTO + RECUPERAÇÃO + CONTROLE DE CUSTO
+# Ponto 9 — MLOps: Monitoramento, Governança e Manutenção de Modelos
+
+## 9.1. Introdução e Delimitação do Problema
+
+Dados, comportamento dos usuários, regras de negócio, infraestrutura e a própria relação entre variáveis podem mudar ao longo do tempo [1]:
+
+modelo implantado ≠ modelo permanentemente válido
+
+## 9.2. Fundamentos e Relevância
+
+A saúde de um sistema de ML possui duas dimensões:
+
+sistema disponível ≠ modelo correto
+
+## 9.3. Núcleo Técnico
+### 9.3.1. Qualidade de Dados, Data Drift e Concept Drift
+
+\[
+P_{t}(Y \mid X) \neq P_{\text{train}}(Y \mid X)
+\]
+
+DATA QUALITY → os dados são válidos?
+DATA DRIFT → P(X) mudou?
+CONCEPT DRIFT → P(Y|X) mudou?
+DEGRADAÇÃO → o desempenho piorou?
+
+### 9.3.3. Governança, Auditoria e Lineage
+
+governança = responsabilidade + rastreabilidade + controle
+
+### 9.3.4. Manutenção, Retreinamento e Ciclo de Vida
+
+A manutenção deve ser orientada por diagnóstico:
+
+drift detectado ≠ retreinamento obrigatório
+
+## 9.4. Limitações, Trade-offs e Desafios Atuais
+
+Há ainda trade-offs entre:
+
+- sensibilidade × falsos alarmes;
+- frequência de monitoramento × custo;
+- retreinamento frequente × estabilidade operacional;
+- governança rigorosa × agilidade.
+
+Automatizar ações demais também é arriscado, pois retreinamento automático mal governado pode introduzir erros ou amplificar problemas nos dados:
+
+detecção automática ≠ correção automática obrigatória
+
+## 9.5. Conclusão
+
+Todo esse ciclo é atravessado por:
+
+GOVERNANÇA + LINEAGE + AUDITORIA + GESTÃO DE RISCO
+# Ponto 10 — XAI: Métodos, Interpretabilidade, Avaliação e Uso das Explicações
+
+## 10.1. Introdução e Delimitação do Problema
+
+A primeira distinção é:
+
+interpretabilidade intrínseca ≠ explicação post hoc
+
+O problema pode ser organizado por quatro perguntas:
+
+1. O QUE está sendo explicado?
+2. COMO a explicação é produzida?
+3. A explicação é FIEL?
+4. PARA QUEM e PARA QUÊ ela será utilizada?
+
+## 10.2. Fundamentos e Relevância
+
+XAI descreve primordialmente o comportamento preditivo do modelo:
+
+importância para o modelo ≠ efeito causal
+
+## 10.3. Núcleo Técnico
+### 10.3.2. Surrogates, Exemplos e Contrafactuais
+
+Um bom contrafactual deve ser, além de válido, **plausível, viável e acionável**. Essas famílias respondem perguntas distintas:
+
+- ATRIBUIÇÃO → quais variáveis contribuíram?
+- SURROGATE → qual regra simples aproxima o modelo?
+- EXEMPLOS → com quais casos a decisão se parece?
+- CONTRAFACTUAL → o que mudaria a decisão?
+
+### 10.3.3. Avaliação das Explicações
+
+Uma explicação pode parecer convincente e ainda representar mal o modelo:
+
+plausibilidade ≠ fidelidade
+
+## 10.4. Limitações, Trade-offs e Desafios Atuais
+
+A limitação mais fundamental é:
+
+explicar o modelo ≠ explicar o fenômeno

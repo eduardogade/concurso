@@ -1,0 +1,75 @@
+# Ponto 8 — MLOps: Automação, Implantação e Infraestrutura de Aprendizado de Máquina
+
+## 8.1. Introdução e Delimitação do Problema
+
+Em sistemas reais, o código do modelo é apenas uma pequena parte do sistema em produção [1]:
+
+modelo validado ≠ sistema operacional confiável
+
+## 8.2. Fundamentos e Relevância
+
+Três conceitos devem ser distinguidos:
+
+1. A **Integração Contínua (CI)** integra e valida mudanças, tipicamente por testes automáticos.
+2. A **Entrega ou Implantação Contínua (CD)** promove artefatos aprovados para ambientes-alvo.
+3. Já o **Continuous Training (CT)** aciona novo treinamento quando condições previamente definidas são satisfeitas, como chegada de novos dados ou mudanças relevantes; CT não é retreinamento indiscriminado.
+
+A automação deve permanecer subordinada a critérios explícitos de aceitação, ou *quality gates* [3]:
+
+promoção ⇒ critérios satisfeitos
+
+## 8.3. Núcleo Técnico
+### 8.3.1. Empacotamento e Implantação
+
+Implantar um modelo não é apenas copiar seu arquivo de pesos. A unidade implantável pode incluir:
+
+artefato de implantação = modelo + código + runtime + dependências + configuração
+
+Diferentes estratégias podem ser utilizadas para liberar novas versões [4]:
+
+- **recreate**: substituição completa da versão anterior;
+- **rolling update**: substituição gradual das instâncias;
+- **blue-green**: manutenção paralela de dois ambientes;
+- **canary**: exposição inicial de pequena parcela do tráfego à nova versão.
+
+Essas estratégias equilibram de modo distinto risco, disponibilidade e custo. Um sistema maduro deve ainda permitir **rollback** para a versão estável:
+
+release confiável = artefato versionado + estratégia de implantação + rollback
+
+### 8.3.2. Serving e Padrões de Inferência
+
+Na **inferência online**, cada requisição recebe resposta próxima do tempo real:
+
+REQUISIÇÃO → PRÉ-PROCESSAMENTO → MODELO → PREDIÇÃO → RESPOSTA
+
+### 8.3.3. Infraestrutura, Containers e Orquestração
+
+Quando existem múltiplas instâncias, entra a **orquestração**, que inicia e remove instâncias, aloca recursos, reinicia componentes, distribui carga, realiza atualizações e escala réplicas:
+
+CONTAINER → como executar de forma isolada?
+ORQUESTRAÇÃO → como coordenar muitas execuções?
+
+### 8.3.4. Escalabilidade e Disponibilidade
+
+Com várias réplicas, **balanceadores de carga** distribuem requisições entre elas:
+
+REQUISIÇÕES → LOAD BALANCER → I1 / I2 / I3
+
+O **autoscaling** ajusta a capacidade à demanda. Entretanto:
+
+escalabilidade ≠ disponibilidade
+
+## 8.4. Limitações, Trade-offs e Desafios Atuais
+
+A infraestrutura de ML envolve múltiplos compromissos:
+
+- latência × custo;
+- disponibilidade × custo;
+- automação × complexidade;
+- sofisticação arquitetural × simplicidade operacional.
+
+## 8.5. Conclusão
+
+Todo esse fluxo é atravessado por:
+
+VALIDAÇÃO + VERSIONAMENTO + RECUPERAÇÃO + CONTROLE DE CUSTO

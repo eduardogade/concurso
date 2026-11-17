@@ -1,0 +1,481 @@
+
+# Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de sistema de armazenamento distribuído e propriedades de particionamento, replicação e tolerância a falhas | 0,30 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Distinção entre armazenamento em bloco, arquivo e objeto, com critérios de escolha | 0,25 | Essencial | Diferenciação técnica fundamental para justificar decisões de projeto |
+| 1.1 | Modelos de consistência: forte, eventual, causal e leituras/escritas monotônicas | 0,35 | Essencial | Precisão conceitual exigida para analisar garantias de armazenamento |
+| 1.1 | Teorema CAP e PACELC: interpretação correta e crítica a leituras simplistas | 0,30 | Essencial | Demonstra rigor científico e capacidade crítica sobre trade-offs |
+| 1.1 | Transações distribuídas: ACID, 2PC e limitações; BASE como contraponto | 0,30 | Essencial | Cobre o núcleo transacional e seus limites em ambientes distribuídos |
+| 1.1 | Particionamento/sharding: hash, range, consistência e hotspots | 0,25 | Essencial | Conceito central para escalabilidade e distribuição de dados |
+| 1.1 | Replicação: líder-seguidor, multi-líder, sem líder; quóruns e consistência | 0,30 | Essencial | Exigência técnica para explicar disponibilidade e tolerância a falhas |
+| 1.1 | Consenso e coordenação: Paxos/Raft, leader election, relógios lógicos e vector clocks (fronteira com o Ponto 2) | 0,20 | Desejável | Aprofunda mecanismos de coordenação indispensáveis em armazenamento distribuído |
+| 1.1 | Análise crítica: quando não usar NoSQL/eventual; custos de consistência, latência e complexidade operacional | 0,25 | Essencial | A banca valoriza limitações, pressupostos e decisões justificadas |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Arquitetura de DFS: namenode/datanodes, blocos, replicação e rack awareness (GFS/HDFS) | 0,35 | Essencial | Núcleo canônico de armazenamento distribuído em arquivos |
+| 1.2 | Object storage: buckets, objetos, metadados, durabilidade e consistência (modelo S3-like) | 0,30 | Essencial | Paradigma atual indispensável em larga escala |
+| 1.2 | Key-value e wide-column stores: Bigtable/HBase, Dynamo/Cassandra e modelos de dados | 0,35 | Essencial | Cobre famílias de bancos distribuídos centrais ao ponto |
+| 1.2 | Bancos relacionais distribuídos/NewSQL: sharding, replicação e transações distribuídas | 0,30 | Essencial | Mostra domínio de alternativas relacionais escaláveis |
+| 1.2 | Data lake e tabelas abertas: Parquet/ORC, catálogo e layout por partições (fronteira com o Ponto 3) | 0,25 | Desejável | Conecta armazenamento a formatos e organização física modernos |
+| 1.2 | Estratégias de particionamento e rebalanceamento | 0,30 | Essencial | Ideia fundamental para distribuição e elasticidade |
+| 1.2 | Estratégias de replicação e recuperação de falhas | 0,30 | Essencial | Núcleo de disponibilidade e durabilidade |
+| 1.2 | Consistência e versionamento: MVCC, snapshots e timestamps | 0,20 | Desejável | Diferencial técnico sobre controle de concorrência |
+| 1.2 | Gerenciamento de metadados e catálogo | 0,15 | Desejável | Relevante para governança e descoberta de dados |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | GFS (Ghemawat et al., 2003) e HDFS como referências clássicas | 0,15 | Essencial | Obra fundacional do armazenamento distribuído de arquivos |
+| 1.4 | Bigtable (Chang et al., 2006) e Dynamo (DeCandia et al., 2007) | 0,15 | Essencial | Referências canônicas para wide-column e key-value distribuídos |
+| 1.4 | Kleppmann, Designing Data-Intensive Applications (2017) | 0,15 | Essencial | Referência atual e abrangente sobre sistemas distribuídos de dados |
+| 1.4 | Abadi (2012), consistency tradeoffs e PACELC | 0,10 | Essencial | Atualiza a discussão de consistência para além do CAP simplificado |
+| 1.4 | Documentação técnica atual de Apache Hadoop/HDFS, Apache Cassandra, Apache HBase e Amazon S3 (verificar versões) | 0,20 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Parquet/ORC e catálogos (Apache Hive Metastore, Apache Iceberg) (fronteira com o Ponto 3) | 0,10 | Desejável | Indica estado da arte em formatos e tabelas abertas |
+| 1.4 | Özsu & Valduriez, Principles of Distributed Database Systems (verificar edição/ano) | 0,10 | Desejável | Obra de referência acadêmica consolidada |
+| 1.4 | YCSB (Yahoo! Cloud Serving Benchmark) para avaliação de armazenamentos distribuídos | 0,05 | Desejável | Ferramenta relevante para comparação técnica |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de quórum R + W > N e trade-offs entre latência e consistência | 0,20 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | CAP/PACELC com análise de latência e partição em cenários concretos | 0,15 | Essencial | Exige relação não trivial entre teoria e prática |
+| 1.5 | Complexidade e custos de replicação: fan-out, largura de banda e latência de consenso | 0,15 | Desejável | Diferencial sobre custos operacionais e de rede |
+| 1.5 | Hotspots e skew em sharding; técnicas de salting e rebalanceamento | 0,15 | Essencial | Caso-limite central em distribuição de dados |
+| 1.5 | Casos-limite: falha de coordenador, split-brain, stale reads e perda de quórum | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Relação entre MVCC, snapshots e isolamento; anomalias de concorrência | 0,10 | Essencial | Nuance técnica que diferencia resposta aprofundada |
+| 1.5 | Exemplo aplicado: modelagem de armazenamento para sessões/telemetria com escolha justificada de store | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de processamento paralelo × distribuído: memória compartilhada × distribuída, acoplamento e implicações | 0,30 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Taxonomia de paralelismo: paralelismo de dados, de tarefas e pipeline; granularidade e escala | 0,25 | Essencial | Distinção fundamental para classificar modelos de execução |
+| 1.1 | Modelos de execução: MapReduce, DAG/dataflow e BSP; propriedades e critérios de adequação | 0,35 | Essencial | Núcleo conceitual dos paradigmas de processamento distribuído |
+| 1.1 | Métricas de desempenho: speedup, eficiência, throughput, latência; leis de Amdahl e Gustafson | 0,30 | Essencial | Rigor técnico exigido para analisar escalabilidade |
+| 1.1 | Sincronização e comunicação: barreiras, shuffle, dependências e custos de rede | 0,25 | Essencial | Conceito central para explicar coordenação distribuída |
+| 1.1 | Tolerância a falhas: reexecução de tarefas, lineage, checkpoints e execução especulativa | 0,30 | Essencial | Exigência técnica sobre robustez em larga escala |
+| 1.1 | Análise crítica: overhead de comunicação, skew, stragglers, limites de escala e quando não distribuir | 0,30 | Essencial | A banca valoriza limitações, pressupostos e decisões justificadas |
+| 1.1 | Localidade de dados e relação entre armazenamento e processamento (fronteira com o Ponto 1) | 0,20 | Desejável | Aprofunda a integração entre camadas de armazenamento e execução |
+| 1.1 | Coordenação de recursos e consenso para escalonamento em cluster (fronteira com o Ponto 1) | 0,25 | Desejável | Diferencial sobre mecanismos de coordenação distribuída |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Modelo MapReduce: funções map, shuffle/sort e reduce; exemplo canônico de contagem de palavras | 0,35 | Essencial | Paradigma fundacional do processamento distribuído em larga escala |
+| 1.2 | Hadoop MapReduce e YARN: arquitetura de job, ResourceManager, NodeManager e containers | 0,30 | Essencial | Implementação clássica indispensável ao ponto |
+| 1.2 | Spark: RDDs, linhagem, transformações/ações e avaliação preguiçosa | 0,35 | Essencial | Modelo atual central para processamento distribuído em memória |
+| 1.2 | DataFrames/Datasets e otimizador Catalyst no Spark SQL | 0,15 | Desejável | Diferencial sobre otimização de consultas distribuídas |
+| 1.2 | Escalonamento por DAG: estágios, dependências narrow/wide e barreiras de shuffle | 0,30 | Essencial | Ideia fundamental para entender execução distribuída |
+| 1.2 | Particionamento e paralelismo: partições, repartition/coalesce e número de tarefas | 0,25 | Essencial | Conceito central para controle de escala e desempenho |
+| 1.2 | Operações distribuídas: joins broadcast e shuffle, groupBy e agregações | 0,35 | Essencial | Cobre operadores essenciais em pipelines de larga escala |
+| 1.2 | Tolerância a falhas em Spark: lineage, reexecução de tarefas e checkpoints | 0,25 | Essencial | Núcleo de recuperação em processamento distribuído |
+| 1.2 | Escalonamento de tarefas: localidade de dados, speculative execution e stragglers | 0,20 | Desejável | Aprofunda mecanismos de execução e mitigação de atrasos |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Dean & Ghemawat, MapReduce (2004) | 0,15 | Essencial | Obra fundacional do modelo MapReduce |
+| 1.4 | Zaharia et al., Resilient Distributed Datasets (2012) | 0,15 | Essencial | Referência canônica do modelo RDD/Spark |
+| 1.4 | Malewicz et al., Pregel (2010) | 0,10 | Desejável | Referência clássica para processamento BSP em grafos |
+| 1.4 | Valiant, modelo BSP (1990) | 0,05 | Desejável | Formalização clássica de paralelismo por superpassos |
+| 1.4 | Kleppmann, Designing Data-Intensive Applications (2017) | 0,15 | Essencial | Referência atual e abrangente sobre sistemas distribuídos de dados |
+| 1.4 | Dean & Barroso, The Tail at Scale (2013) | 0,10 | Essencial | Referência sobre latência de cauda e stragglers |
+| 1.4 | Documentação técnica atual de Apache Hadoop/MapReduce/YARN e Apache Spark (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Apache Flink para processamento batch/stream unificado (fronteira com o Ponto 3) | 0,10 | Desejável | Indica tendência de unificação entre batch e stream |
+| 1.4 | Benchmarks HiBench e TPCx-HS (verificar versões) | 0,05 | Desejável | Ferramentas relevantes para avaliação de desempenho |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de speedup S(n) = T1/Tn, eficiência e limites de Amdahl/Gustafson | 0,20 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Análise de custo de shuffle: rede, disco, serialização e efeito de particionamento | 0,20 | Essencial | Relação não trivial entre operadores e desempenho |
+| 1.5 | Stragglers e speculative execution: causas e impacto na latência de cauda | 0,15 | Essencial | Caso-limite central em execução distribuída |
+| 1.5 | Casos-limite: falha de executor, perda de partição e recomputação longa por lineage | 0,15 | Essencial | A banca rigorosa espera análise de falhas e recuperação |
+| 1.5 | Trade-offs: memória × disco, broadcast join × shuffle join e repartition × coalesce | 0,15 | Essencial | Exige nuances e decisões justificadas de projeto |
+| 1.5 | Relação não trivial entre localidade de dados, elasticidade e custo de serialização | 0,10 | Desejável | Diferencial sobre tensões de projeto em clusters |
+| 1.5 | Exemplo aplicado: pipeline de agregação em larga escala com escolha justificada de operadores | 0,05 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 3 — Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de stream e distinção entre dados limitados (batch) e ilimitados (stream) | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Tempo de evento × tempo de ingestão × tempo de processamento; desordem e atrasos | 0,30 | Essencial | Distinção central para correção semântica em fluxos |
+| 1.1 | Semânticas de entrega: at-most-once, at-least-once e exactly-once; implicações práticas | 0,30 | Essencial | Precisão conceitual exigida sobre garantias de processamento |
+| 1.1 | Processamento com estado: estado chaveado, backends e recuperação | 0,25 | Essencial | Núcleo técnico de operadores stateful em streaming |
+| 1.1 | Watermarks e tratamento de eventos atrasados; allowed lateness | 0,25 | Essencial | Conceito indispensável para janelas e completude |
+| 1.1 | Janelas tumbling, sliding, session e global; triggers e eviction | 0,30 | Essencial | Cobre o modelo canônico de agregação sobre fluxos |
+| 1.1 | Backpressure e controle de fluxo em pipelines de stream | 0,15 | Desejável | Diferencial sobre robustez e desempenho |
+| 1.1 | Log distribuído, partições, offsets e consumer groups (fronteira com o Ponto 1) | 0,25 | Essencial | Explica a base de brokers e ingestão em arquiteturas de stream |
+| 1.1 | Análise crítica: quando não usar streaming; custos, complexidade e limites do exactly-once | 0,30 | Essencial | A banca valoriza limitações, pressupostos e decisões justificadas |
+| 1.1 | Trade-offs entre motores unificados batch/stream e pipelines especializados (fronteira com o Ponto 2) | 0,15 | Desejável | Aprofunda decisões arquiteturais não triviais |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Arquitetura Lambda: camadas batch, speed e serving; funcionamento e limitações | 0,30 | Essencial | Paradigma clássico de arquitetura de dados em larga escala |
+| 1.2 | Arquitetura Kappa: log imutável, reprocessamento e stream único; limitações | 0,30 | Essencial | Contraponto canônico e atual ao Lambda |
+| 1.2 | Ingestão de dados: conectores, CDC e pipelines de eventos | 0,25 | Essencial | Ideia fundamental para entrada de dados em arquiteturas |
+| 1.2 | Kafka: tópicos, partições, replicação, offsets, retenção e consumer groups | 0,35 | Essencial | Componente central de arquiteturas orientadas a eventos |
+| 1.2 | Motores de stream: Flink, Kafka Streams e Spark Structured Streaming; operadores e janelas | 0,35 | Essencial | Núcleo tecnológico do processamento de fluxos |
+| 1.2 | Exactly-once fim a fim: checkpoints, transações e idempotência em sinks | 0,25 | Essencial | Garantia central em pipelines de stream confiáveis |
+| 1.2 | Camadas de arquitetura: ingestão, armazenamento, processamento e serving; data lake/lakehouse (fronteira com o Ponto 1) | 0,25 | Essencial | Organiza a visão arquitetural exigida pelo ponto |
+| 1.2 | Orquestração de pipelines, DAGs e lineage | 0,20 | Desejável | Diferencial sobre operação e rastreabilidade |
+| 1.2 | Padrões de serving: materialized views, CQRS e stores de leitura | 0,25 | Essencial | Conecta processamento de fluxos à entrega de dados |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Kreps et al., Kafka (2011) | 0,15 | Essencial | Referência fundacional para log distribuído e mensageria |
+| 1.4 | Akidau et al., The Dataflow Model (2015) | 0,15 | Essencial | Formaliza event time, watermarks e janelas |
+| 1.4 | Carbone et al., Apache Flink (2015) | 0,10 | Essencial | Referência técnica sobre motor de stream stateful |
+| 1.4 | Akidau, Chernyak & Lax, Streaming Systems (2018) | 0,10 | Essencial | Obra atual e abrangente sobre processamento de fluxos |
+| 1.4 | Marz & Warren, Big Data (2015) | 0,10 | Essencial | Referência clássica da arquitetura Lambda |
+| 1.4 | Kreps, Questioning the Lambda Architecture (2014) | 0,10 | Essencial | Referência canônica da arquitetura Kappa |
+| 1.4 | Kleppmann, Designing Data-Intensive Applications (2017) | 0,10 | Essencial | Referência atual sobre sistemas distribuídos e streams |
+| 1.4 | Documentação atual de Apache Kafka, Apache Flink e Spark Structured Streaming (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Documentação de Apache Iceberg/Hudi/Delta Lake (fronteira com o Ponto 1) | 0,05 | Desejável | Indica tendência de tabelas abertas em arquiteturas de dados |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de watermarks: completude versus latência e heurísticas de avanço | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Janelas e triggers: allowed lateness, modos de acumulação e emissão de resultados | 0,15 | Essencial | Nuance central para corretude em fluxos desordenados |
+| 1.5 | Exactly-once fim a fim: transações, idempotência e trade-offs com latência e custo | 0,15 | Essencial | Relação não trivial entre garantia e desempenho |
+| 1.5 | Casos-limite: eventos além da latência permitida, partições quentes e falha de checkpoint | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Trade-offs Lambda × Kappa: reprocessamento, duplicação de código, latência e custo operacional | 0,15 | Essencial | Exige comparação arquitetural justificada |
+| 1.5 | Relação entre ordenação por chave, partições e paralelismo em operadores stateful | 0,10 | Desejável | Diferencial sobre garantias e escalabilidade |
+| 1.5 | Backpressure e skew em operadores stateful | 0,10 | Desejável | Aprofunda desempenho e estabilidade de pipelines |
+| 1.5 | Exemplo aplicado: detecção de fraude/anomalia em tempo real com janelas e exactly-once | 0,05 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 4 — Mineração de Dados: Descoberta de Conhecimento. Análise Exploratória de Dados. Identificação de padrões e anomalias
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de KDD (Knowledge Discovery in Databases) e distinção entre KDD e mineração de dados como etapa do processo | 0,30 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Definição de Análise Exploratória de Dados (EDA) e seu papel no ciclo de descoberta | 0,25 | Essencial | Delimita corretamente o escopo da EDA |
+| 1.1 | Definição formal de padrão e de anomalia/outlier, com critérios de distinção | 0,30 | Essencial | Precisão conceitual exigida para todo o restante da resposta |
+| 1.1 | Tipos de atributos e escalas de medida (nominal, ordinal, intervalar, razão) e implicações analíticas | 0,20 | Essencial | Determina quais medidas e métodos são aplicáveis |
+| 1.1 | Medidas de similaridade e distância: Euclidiana, Manhattan, Jaccard e cosseno; critérios de escolha | 0,30 | Essencial | Núcleo técnico para padrões, agrupamentos e anomalias |
+| 1.1 | Análise crítica da EDA: correlação não implica causalidade e riscos de viés de visualização | 0,25 | Essencial | A banca valoriza capacidade crítica e limites de inferência |
+| 1.1 | Limitações: maldição da dimensionalidade e risco de overfitting em descoberta de padrões | 0,25 | Essencial | Demonstra domínio dos pressupostos e limites dos métodos |
+| 1.1 | Pré-processamento: limpeza, normalização, discretização e tratamento de valores ausentes | 0,30 | Essencial | Etapa indispensável do KDD e da qualidade dos resultados |
+| 1.1 | Análise crítica de medidas de avaliação de padrões (ex.: suporte e confiança podem ser enganosos) | 0,15 | Desejável | Diferencial sobre interpretação criteriosa de resultados |
+| 1.1 | Quando não usar métodos: clustering em alta dimensão sem redução, detecção de anomalias sem rótulos confiáveis | 0,20 | Desejável | A banca rigorosa espera explicitar pressupostos e contraindicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Processo KDD: etapas de seleção, pré-processamento, transformação, mineração e interpretação/avaliação; natureza iterativa | 0,30 | Essencial | Núcleo canônico do ponto |
+| 1.2 | EDA: estatísticas descritivas (média, mediana, desvio padrão, quartis) e sua interpretação | 0,25 | Essencial | Ideia fundamental da análise exploratória |
+| 1.2 | EDA: visualizações (histograma, boxplot, dispersão, heatmap) e o que cada uma revela | 0,25 | Essencial | Ferramentas centrais de exploração e comunicação |
+| 1.2 | Análise de correlação: coeficientes de Pearson e Spearman e limitações | 0,20 | Essencial | Ideia fundamental para identificação de relações |
+| 1.2 | Regras de associação: suporte, confiança e lift; algoritmo Apriori | 0,30 | Essencial | Paradigma canônico de descoberta de padrões |
+| 1.2 | Algoritmo FP-Growth e comparação com Apriori | 0,15 | Desejável | Diferencial sobre alternativas eficientes |
+| 1.2 | Agrupamento (clustering) como descoberta de padrões: k-means, hierárquico e DBSCAN (fronteira com o Ponto 5) | 0,30 | Essencial | Cobre a principal família de descoberta não supervisionada |
+| 1.2 | Detecção de anomalias: métodos estatísticos (z-score, intervalo interquartil) | 0,20 | Essencial | Abordagem básica e indispensável ao tema |
+| 1.2 | Detecção de anomalias: métodos baseados em distância (k-NN) e densidade (LOF) | 0,25 | Essencial | Técnicas centrais para anomalias locais e globais |
+| 1.2 | Isolation Forest e One-Class SVM (fronteira com o Ponto 5) | 0,15 | Desejável | Diferencial sobre métodos modernos de detecção |
+| 1.2 | Avaliação de padrões: medidas de interestingness e validação de resultados | 0,15 | Desejável | Mostra preocupação com qualidade e relevância dos padrões |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Fayyad, Piatetsky-Shapiro & Smyth (1996), From Data Mining to Knowledge Discovery in Databases | 0,10 | Essencial | Referência fundacional do processo KDD |
+| 1.4 | Han, Kamber & Pei, Data Mining: Concepts and Techniques (verificar edição) | 0,15 | Essencial | Obra de referência abrangente em mineração de dados |
+| 1.4 | Tukey (1977), Exploratory Data Analysis | 0,10 | Essencial | Obra clássica que define a EDA |
+| 1.4 | Chandola, Banerjee & Kumar (2009), Anomaly Detection: A Survey | 0,15 | Essencial | Survey canônico sobre detecção de anomalias |
+| 1.4 | Aggarwal, Outlier Analysis (verificar edição) | 0,10 | Essencial | Referência consolidada em análise de outliers |
+| 1.4 | CRISP-DM (Shearer, 2000) como processo padrão de mineração de dados | 0,10 | Essencial | Norma/processo amplamente adotado na indústria |
+| 1.4 | Documentação atual de scikit-learn, pandas, matplotlib e seaborn (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Agrawal & Srikant (1994), Fast Algorithms for Mining Association Rules | 0,10 | Essencial | Referência clássica do algoritmo Apriori |
+| 1.4 | Zimek, Schubert & Kriegel (2012), On the Evaluation of Unsupervised Outlier Detection | 0,05 | Desejável | Diferencial sobre avaliação rigorosa de anomalias |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de suporte, confiança e lift; propriedades (ex.: confiança não é simétrica) | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Complexidade do Apriori (exponencial no pior caso) e otimizações via FP-Growth | 0,10 | Essencial | Relação não trivial entre algoritmo e custo computacional |
+| 1.5 | Escolha de medida de distância e impacto em clustering/anomalias; efeito da alta dimensionalidade | 0,15 | Essencial | Nuance central para resultados válidos |
+| 1.5 | Sensibilidade a parâmetros: k em k-NN, eps/minPts em DBSCAN, contaminação em Isolation Forest | 0,15 | Essencial | A banca rigorosa espera análise de robustez |
+| 1.5 | Casos-limite: anomalias em alta dimensionalidade, dados categóricos e dados temporais | 0,15 | Essencial | Exige análise de limites e adaptações metodológicas |
+| 1.5 | Relação entre EDA e detecção automática de anomalias: visualização versus métodos algorítmicos | 0,10 | Desejável | Diferencial sobre integração entre exploração e modelagem |
+| 1.5 | Trade-offs em detecção de anomalias: precisão versus recall e custo de falsos positivos | 0,10 | Essencial | Decisão prática indispensável em aplicações reais |
+| 1.5 | Exemplo aplicado: detecção de fraude em transações com EDA e Isolation Forest | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de aprendizado supervisionado (dados rotulados) e não supervisionado (sem rótulos), com objetivos distintos | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Formulação das tarefas: classificação, regressão, agrupamento e redução de dimensionalidade | 0,25 | Essencial | Delimita corretamente os problemas de cada paradigma |
+| 1.1 | Risco esperado, risco empírico e minimização do risco empírico (ERM); função de perda | 0,30 | Essencial | Rigor formal exigido para fundamentar o aprendizado |
+| 1.1 | Trade-off viés-variância; overfitting, underfitting e capacidade de generalização | 0,30 | Essencial | Núcleo conceitual da teoria de aprendizado |
+| 1.1 | Regularização L1/L2 e seu papel no controle de complexidade | 0,20 | Essencial | Conceito central para generalização e seleção de modelos |
+| 1.1 | Validação: holdout, k-fold, validação estratificada e vazamento de dados (data leakage) | 0,25 | Essencial | Exigência metodológica para avaliação honesta |
+| 1.1 | Métricas de classificação: acurácia, precisão, recall, F1, ROC-AUC e PR-AUC; limitações | 0,30 | Essencial | Precisão conceitual sobre avaliação supervisionada |
+| 1.1 | Métricas de regressão: MSE, MAE e R²; interpretação e limitações | 0,15 | Essencial | Complementa a avaliação de modelos supervisionados |
+| 1.1 | Análise crítica: desbalanceamento de classes, custos assimétricos de erro e métrica única enganosa | 0,20 | Essencial | A banca valoriza análise crítica e decisões justificadas |
+| 1.1 | Distinção entre avaliação supervisionada e não supervisionada: critérios objetivos versus validação interna | 0,15 | Desejável | Diferencial sobre os limites epistemológicos dos paradigmas |
+| 1.1 | Quando não usar aprendizado supervisionado (rótulos escassos) ou não supervisionado (sem critério objetivo de validação) | 0,15 | Desejável | A banca rigorosa espera explicitar pressupostos e contraindicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Regressão linear e regressão logística: hipóteses, funções de custo e estimação | 0,35 | Essencial | Modelos canônicos do aprendizado supervisionado |
+| 1.2 | Árvores de decisão: impureza (Gini/entropia), divisão e poda | 0,25 | Essencial | Paradigma fundamental e base para ensembles |
+| 1.2 | Ensembles: bagging/Random Forest e boosting (AdaBoost/Gradient Boosting) | 0,35 | Essencial | Técnicas centrais e atuais em dados tabulares |
+| 1.2 | SVM: margem máxima, vetores de suporte, kernels e parâmetro C | 0,25 | Essencial | Modelo clássico de classificação com forte base teórica |
+| 1.2 | Redes neurais: perceptron/MLP, funções de ativação e backpropagation | 0,20 | Essencial | Cobre a família dominante de modelos supervisionados |
+| 1.2 | k-means: funcionamento, inicialização k-means++, escolha de k e limitações | 0,30 | Essencial | Algoritmo canônico de aprendizado não supervisionado |
+| 1.2 | DBSCAN: eps, minPts, ruído e agrupamentos de forma arbitrária | 0,20 | Essencial | Técnica central de agrupamento por densidade |
+| 1.2 | PCA: componentes principais, variância explicada e redução de dimensionalidade | 0,25 | Essencial | Método canônico de redução dimensional não supervisionada |
+| 1.2 | Avaliação não supervisionada: silhouette, Davies-Bouldin, inércia e limitações | 0,15 | Essencial | Mostra critérios e limites de validação sem rótulos |
+| 1.2 | k-NN e maldição da dimensionalidade | 0,10 | Desejável | Diferencial sobre método simples e seus limites |
+| 1.2 | Agrupamento hierárquico: linkage e dendrograma | 0,10 | Desejável | Complementa as principais famílias de clustering |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Hastie, Tibshirani & Friedman, The Elements of Statistical Learning (verificar edição) | 0,15 | Essencial | Obra de referência abrangente em aprendizado estatístico |
+| 1.4 | Bishop, Pattern Recognition and Machine Learning (2006) | 0,10 | Essencial | Referência consolidada em aprendizado de máquina |
+| 1.4 | Murphy, Machine Learning: A Probabilistic Perspective (2012) | 0,10 | Essencial | Obra atual e rigorosa sobre fundamentos probabilísticos |
+| 1.4 | James et al., An Introduction to Statistical Learning (verificar edição) | 0,10 | Essencial | Referência acessível e atual sobre métodos supervisionados |
+| 1.4 | Cortes & Vapnik (1995), Support-Vector Networks | 0,10 | Essencial | Artigo fundacional das SVMs |
+| 1.4 | Breiman (2001), Random Forests | 0,10 | Essencial | Artigo canônico de ensembles |
+| 1.4 | Arthur & Vassilvitskii (2007), k-means++ | 0,10 | Essencial | Referência central para inicialização de k-means |
+| 1.4 | Ester et al. (1996), A Density-Based Algorithm for Discovering Clusters (DBSCAN) | 0,10 | Essencial | Artigo fundacional do DBSCAN |
+| 1.4 | Documentação atual do scikit-learn (verificar versão) | 0,10 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Jolliffe, Principal Component Analysis (verificar edição) | 0,05 | Desejável | Referência clássica sobre PCA |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de ERM e decomposição viés-variância | 0,15 | Essencial | Formalização que demonstra profundidade teórica |
+| 1.5 | Regularização L1/L2: trade-off entre ajuste e complexidade; seleção de hiperparâmetros | 0,10 | Essencial | Relação não trivial entre regularização e generalização |
+| 1.5 | SVM: trade-offs de kernels e dos parâmetros C e gamma | 0,10 | Essencial | Nuance técnica sobre fronteiras de decisão |
+| 1.5 | k-means: complexidade, sensibilidade à inicialização e escolha de k; papel do k-means++ | 0,15 | Essencial | A banca rigorosa espera análise de robustez |
+| 1.5 | DBSCAN: sensibilidade a eps/minPts e degradação em alta dimensionalidade | 0,15 | Essencial | Caso-limite central em agrupamento por densidade |
+| 1.5 | PCA: variância explicada, limite linear e perda de interpretabilidade | 0,10 | Essencial | Nuance sobre redução dimensional |
+| 1.5 | Casos-limite: desbalanceamento, data leakage, overfitting em alta dimensão e validação inadequada | 0,15 | Essencial | Exige análise de falhas e limites metodológicos |
+| 1.5 | Relação não trivial entre redução dimensional e clustering/classificação | 0,05 | Desejável | Diferencial sobre integração entre etapas do pipeline |
+| 1.5 | Exemplo aplicado: pipeline com validação, escolha de modelo e comparação supervisionado × não supervisionado | 0,05 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 6 — Aprendizado por Reforço
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de Processo de Decisão de Markov (MDP): estados, ações, transições, recompensa e fator de desconto | 0,30 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Política, retorno descontado e funções de valor V^π e Q^π | 0,30 | Essencial | Formalização central do objetivo do aprendizado por reforço |
+| 1.1 | Equações de Bellman esperadas e de otimalidade; relação entre avaliação e melhoria de política | 0,30 | Essencial | Núcleo teórico que fundamenta os algoritmos |
+| 1.1 | Exploração versus exploitation e necessidade de exploração em ambientes desconhecidos | 0,25 | Essencial | Conceito crítico e recorrente em todo o tema |
+| 1.1 | Distinção model-based × model-free e on-policy × off-policy | 0,30 | Essencial | Classificação fundamental dos algoritmos de RL |
+| 1.1 | Atribuição de crédito, recompensa atrasada, horizonte e papel do fator de desconto | 0,25 | Essencial | Explica a dificuldade central do aprendizado por reforço |
+| 1.1 | Análise crítica: ineficiência amostral, instabilidade, reward hacking e risco de exploração insegura | 0,30 | Essencial | A banca valoriza limitações e riscos do paradigma |
+| 1.1 | Pressupostos de convergência e sensibilidade a hiperparâmetros (gamma, taxa de aprendizado, exploração) | 0,20 | Essencial | Demonstra rigor sobre condições de funcionamento |
+| 1.1 | Distinção entre RL e aprendizado supervisionado (fronteira com o Ponto 5) | 0,10 | Essencial | Delimita corretamente o paradigma e evita confusão conceitual |
+| 1.1 | Quando não usar RL: se há supervisão, planejamento ou bandit simples suficiente | 0,20 | Desejável | A banca rigorosa espera explicitar contraindicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Loop agente-ambiente; episódios versus tarefas contínuas | 0,25 | Essencial | Ideia canônica que organiza todo o tema |
+| 1.2 | Retorno descontado e políticas determinísticas versus estocásticas | 0,20 | Essencial | Conceitos fundamentais para definir objetivos e comportamento |
+| 1.2 | Programação dinâmica: avaliação de política, policy iteration e value iteration | 0,25 | Essencial | Métodos canônicos de solução de MDPs conhecidos |
+| 1.2 | Monte Carlo: estimação por retornos e variantes primeira visita/todas as visitas | 0,20 | Essencial | Família fundamental de métodos livres de modelo |
+| 1.2 | TD(0): atualização por diferença temporal e comparação com Monte Carlo | 0,25 | Essencial | Núcleo dos métodos de aprendizado por reforço |
+| 1.2 | Q-learning (off-policy) e SARSA (on-policy) | 0,30 | Essencial | Algoritmos canônicos e obrigatórios no ponto |
+| 1.2 | ε-greedy, softmax e decaimento da exploração | 0,20 | Essencial | Estratégias centrais de exploração |
+| 1.2 | DQN: aproximação de função, experience replay e target network | 0,30 | Essencial | Marco moderno do RL profundo |
+| 1.2 | Policy gradient/REINFORCE e actor-critic | 0,25 | Essencial | Família central de métodos para ações contínuas e políticas estocásticas |
+| 1.2 | Bandit multi-armado: exploração, recompensa e regret | 0,15 | Desejável | Caso fundamental e simplificado de RL |
+| 1.2 | Model-based RL: Dyna e uso de planejamento | 0,10 | Desejável | Diferencial sobre integração entre aprendizado e planejamento |
+| 1.2 | Exemplo aplicado canônico (gridworld ou CartPole) | 0,05 | Desejável | Mostra aplicação concreta e capacidade de ilustração |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Sutton & Barto, Reinforcement Learning: An Introduction (2ª ed., 2018) | 0,20 | Essencial | Obra de referência central e atual do tema |
+| 1.4 | Bellman (1957), Dynamic Programming | 0,10 | Essencial | Referência fundacional das equações de Bellman |
+| 1.4 | Watkins & Dayan (1992), Q-learning | 0,10 | Essencial | Artigo canônico do algoritmo Q-learning |
+| 1.4 | Mnih et al. (2015), Human-level control through deep reinforcement learning | 0,15 | Essencial | Artigo fundacional do DQN |
+| 1.4 | Williams (1992), Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning | 0,10 | Essencial | Referência clássica do REINFORCE/policy gradient |
+| 1.4 | Schulman et al. (2017), Proximal Policy Optimization Algorithms | 0,10 | Essencial | Referência atual e amplamente usada de PPO |
+| 1.4 | Puterman (1994), Markov Decision Processes | 0,10 | Desejável | Obra consolidada sobre MDPs e programação dinâmica |
+| 1.4 | Documentação atual de Gymnasium, Stable-Baselines3 e RLlib (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Operador de Bellman como contração e convergência de métodos de valor | 0,15 | Essencial | Formalização que demonstra profundidade teórica |
+| 1.5 | Condições de convergência do Q-learning: exploração suficiente, taxas decrescentes e ambiente finito | 0,10 | Essencial | A banca rigorosa espera pressupostos formais |
+| 1.5 | Deadly triad: aproximação de função, bootstrapping e off-policy | 0,15 | Essencial | Relação não trivial central para estabilidade em RL profundo |
+| 1.5 | Trade-off Monte Carlo × TD: viés, variância e eficiência amostral | 0,10 | Essencial | Nuance fundamental entre famílias de algoritmos |
+| 1.5 | Exploração formal: regret, UCB e Thompson sampling em bandits | 0,05 | Desejável | Diferencial sobre fundamentação da exploração |
+| 1.5 | Reward shaping e shaping baseado em potenciais | 0,05 | Desejável | Nuance sobre recompensas auxiliares e riscos |
+| 1.5 | Superestimação no DQN e Double DQN | 0,10 | Desejável | Diferencial sobre estabilidade e correções modernas |
+| 1.5 | PPO: objetivo truncado e trade-offs entre estabilidade e eficiência amostral | 0,10 | Essencial | Aprofunda um dos algoritmos atuais mais relevantes |
+| 1.5 | Casos-limite: recompensas esparsas, ações contínuas, não estacionariedade e sim-to-real | 0,15 | Essencial | Exige análise de limites e adaptações práticas |
+| 1.5 | Exemplo aprofundado: comparação Q-learning × policy gradient em ambiente com recompensa esparsa | 0,05 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 7 — Operações de Aprendizado de Máquina (MLOps): Desenvolvimento, Versionamento e Experimentação de Modelos
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de MLOps e delimitação do escopo de desenvolvimento, versionamento e experimentação frente à operação | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Ciclo de vida de ML e diferenças em relação ao software tradicional: dados como código, não determinismo e dívida técnica | 0,30 | Essencial | Distinção fundamental para justificar práticas específicas de MLOps |
+| 1.1 | Reprodutibilidade formal: determinismo, sementes, ambientes, linhagem e artefatos imutáveis | 0,30 | Essencial | Rigor técnico exigido para experimentação confiável |
+| 1.1 | Versionamento de código, dados, modelo, configuração e ambiente; identificação e rastreabilidade | 0,30 | Essencial | Núcleo conceitual do ponto |
+| 1.1 | Experimentação: hipótese, variáveis, métricas, validação e comparação justa de experimentos | 0,25 | Essencial | Delimita o método científico aplicado ao desenvolvimento de modelos |
+| 1.1 | Dívida técnica em ML: entanglement, undeclared consumers, pipeline jungles e glue code | 0,30 | Essencial | Análise crítica esperada sobre riscos de desenvolvimento |
+| 1.1 | Análise crítica: vazamento de dados, overfitting de benchmark, seleção enviesada e comparação não controlada | 0,30 | Essencial | A banca valoriza limitações e pressupostos metodológicos |
+| 1.1 | Distinção entre avaliação offline e online (fronteira com o Ponto 9) | 0,25 | Desejável | Diferencial sobre os limites da experimentação antes da operação |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Processo CRISP-DM e ciclo iterativo de desenvolvimento de modelos | 0,25 | Essencial | Referência canônica para organizar o desenvolvimento |
+| 1.2 | Estruturação de projeto: organização de código, notebooks versus scripts, módulos e configuração | 0,25 | Essencial | Ideia fundamental para manutenibilidade e reprodutibilidade |
+| 1.2 | Controle de versão de código com Git e boas práticas de branches, commits e tags | 0,25 | Essencial | Prática básica e indispensável de versionamento |
+| 1.2 | Versionamento de dados: DVC, hashes, armazenamento remoto e reprodutibilidade | 0,30 | Essencial | Núcleo do versionamento em projetos de ML |
+| 1.2 | Versionamento de modelos e artefatos: model registry, metadados, estágios e linhagem | 0,30 | Essencial | Conceito central para rastrear e promover modelos |
+| 1.2 | Rastreamento de experimentos: parâmetros, métricas, artefatos, runs e comparação (MLflow, W&B, TensorBoard) | 0,30 | Essencial | Ferramenta e prática centrais de experimentação |
+| 1.2 | Gestão de hiperparâmetros: grid/random/Bayesian optimization e registro dos trials | 0,25 | Essencial | Técnica fundamental para experimentação controlada |
+| 1.2 | Ambientes reprodutíveis: dependências, containers, seeds e configuração | 0,25 | Essencial | Garante repetibilidade dos experimentos |
+| 1.2 | Documentação de experimentos e model cards | 0,20 | Desejável | Diferencial sobre comunicação e rastreabilidade |
+| 1.2 | Testes de dados e validação de esquema | 0,15 | Desejável | Complementa a qualidade do desenvolvimento |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Sculley et al. (2015), Hidden Technical Debt in Machine Learning Systems | 0,15 | Essencial | Referência fundacional sobre dívida técnica em ML |
+| 1.4 | Breck et al. (2017), The ML Test Score | 0,10 | Essencial | Referência sobre prontidão e qualidade de sistemas de ML |
+| 1.4 | Zaharia et al. (2018), Accelerating the Machine Learning Lifecycle with MLflow | 0,15 | Essencial | Referência central sobre rastreamento e gestão do ciclo de vida |
+| 1.4 | Shearer (2000), CRISP-DM | 0,10 | Essencial | Processo padrão amplamente adotado no desenvolvimento |
+| 1.4 | Mitchell et al. (2019), Model Cards for Model Reporting | 0,10 | Essencial | Referência atual sobre documentação de modelos |
+| 1.4 | Gebru et al. (2021), Datasheets for Datasets | 0,10 | Essencial | Referência atual sobre documentação e versionamento de dados |
+| 1.4 | Vartak et al. (2016), ModelDB | 0,10 | Desejável | Diferencial sobre gestão de modelos e metadados |
+| 1.4 | Snoek et al. (2012), Practical Bayesian Optimization of Machine Learning Algorithms | 0,10 | Desejável | Referência sobre otimização de hiperparâmetros |
+| 1.4 | Documentação atual de Git, DVC, MLflow, Weights & Biases e TensorBoard (verificar versões) | 0,15 | Desejável | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Pineau et al., Machine Learning Reproducibility Checklist (verificar) | 0,05 | Desejável | Indica preocupação formal com reprodutibilidade |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização da reprodutibilidade: mesma tupla (código, dados, ambiente, hiperparâmetros, seed) produz o mesmo artefato | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Linhagem e grafo de dependências entre datasets, runs e modelos; auditoria | 0,15 | Essencial | Relação não trivial entre artefatos e rastreabilidade |
+| 1.5 | Trade-offs: tracking detalhado versus overhead; registry centralizado versus autonomia; versionamento de dados versus custo | 0,15 | Essencial | Exige análise de decisões de projeto justificadas |
+| 1.5 | Casos-limite: dados mutáveis, dependências não fixadas, seeds não controladas, experimentos concorrentes e conflitos de versão | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Comparação justa de experimentos: mesmos splits, mesma métrica, controle de variáveis e significância | 0,10 | Essencial | Nuance metodológica central para experimentação válida |
+| 1.5 | Relação entre versionamento de dados e vazamento temporal/leakage | 0,10 | Desejável | Diferencial sobre integridade experimental |
+| 1.5 | Estratégias de tuning: espaço de busca, orçamento e early stopping | 0,10 | Desejável | Aprofunda a prática de experimentação |
+| 1.5 | Exemplo aplicado: pipeline reprodutível com Git + DVC + MLflow e registro de modelo | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 8 — Operações de Aprendizado de Máquina (MLOps): Automação, Implantação e Infraestrutura de Aprendizado de Máquina
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de automação de pipeline de ML e distinção entre CI, CD e Continuous Training (CT) | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Distinção entre implantação batch, online (tempo real) e streaming; critérios técnicos de escolha | 0,30 | Essencial | Delimita corretamente os paradigmas de implantação |
+| 1.1 | Infraestrutura como código (IaC): declaração, idempotência, versionamento e reprodutibilidade da infraestrutura | 0,25 | Essencial | Conceito central para automação e gestão de infraestrutura |
+| 1.1 | Conteinerização e isolamento de dependências; imagens reprodutíveis e imutáveis | 0,25 | Essencial | Base técnica para implantação consistente |
+| 1.1 | Orquestração de pipelines e agendamento de tarefas; dependências e paralelismo | 0,25 | Essencial | Núcleo da automação de fluxos de ML |
+| 1.1 | Serving de modelos: APIs REST/gRPC, inferência em lote versus tempo real e escalabilidade horizontal | 0,30 | Essencial | Precisão conceitual sobre entrega de modelos em produção |
+| 1.1 | Feature store: definição, consistência treino/serving e camadas online/offline | 0,25 | Essencial | Componente arquitetural central em infraestrutura de ML |
+| 1.1 | Análise crítica: custos, complexidade operacional, vendor lock-in, automação prematura e riscos de segurança | 0,30 | Essencial | A banca valoriza limitações e decisões justificadas |
+| 1.1 | Distinção entre infraestrutura de ML e infraestrutura de software tradicional | 0,20 | Essencial | Evita confusão conceitual e delimita o escopo do ponto |
+| 1.1 | Quando não automatizar: fase exploratória, baixa frequência de retreino e custo superior ao benefício | 0,15 | Desejável | A banca rigorosa espera explicitar contraindicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | CI/CD para ML: testes de código, dados e modelo; pipeline automatizado de build, teste e implantação | 0,30 | Essencial | Ideia canônica de automação em MLOps |
+| 1.2 | Continuous Training (CT): gatilhos por novos dados, agendamento e drift (fronteira com o Ponto 9) | 0,25 | Essencial | Núcleo da automação do ciclo de vida |
+| 1.2 | Padrões de implantação: shadow, canário, blue-green e A/B testing | 0,30 | Essencial | Conjunto fundamental de estratégias de implantação segura |
+| 1.2 | Empacotamento e serving: Docker, Kubernetes, KServe/Seldon e TorchServe/TF Serving | 0,30 | Essencial | Ferramentas e arquiteturas centrais de serving |
+| 1.2 | Orquestração de pipelines: Airflow, Kubeflow Pipelines e MLflow (fronteira com o Ponto 7) | 0,25 | Essencial | Tecnologias canônicas de automação de fluxos |
+| 1.2 | Infraestrutura em nuvem e escalabilidade: instâncias, autoscaling, GPUs e balanceamento de carga | 0,25 | Essencial | Ideia fundamental para operar ML em larga escala |
+| 1.2 | Feature store: Feast/Tecton e padrões de acesso online/offline | 0,20 | Essencial | Componente central de infraestrutura de features |
+| 1.2 | Batch scoring e pipelines agendados para inferência em lote | 0,20 | Essencial | Modalidade fundamental de implantação |
+| 1.2 | API de inferência e contrato de entrada/saída; versionamento de endpoints | 0,15 | Essencial | Garante integração e compatibilidade em produção |
+| 1.2 | IaC com Terraform e gestão declarativa de recursos | 0,15 | Essencial | Prática central de infraestrutura automatizada |
+| 1.2 | Edge deployment e otimização de modelos (quantização, pruning) | 0,15 | Desejável | Diferencial sobre implantação em dispositivos restritos |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Huyen, Designing Machine Learning Systems (2022) | 0,15 | Essencial | Obra atual e abrangente sobre sistemas de ML em produção |
+| 1.4 | Treveil et al., Introducing MLOps (2020) | 0,10 | Essencial | Referência introdutória consolidada sobre MLOps |
+| 1.4 | Kreuzberger, Kühl & Hirschl (2023), Machine Learning Operations (MLOps): Overview, Definition, and Architecture (verificar) | 0,10 | Essencial | Referência recente sobre definição e arquitetura de MLOps |
+| 1.4 | Humble & Farley, Continuous Delivery (2010) | 0,10 | Essencial | Obra clássica que fundamenta CI/CD |
+| 1.4 | Breck et al. (2017), The ML Test Score | 0,10 | Essencial | Referência sobre prontidão para produção de sistemas de ML |
+| 1.4 | Documentação atual de Kubernetes, Docker e Terraform (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Documentação atual de Kubeflow, Feast, KServe/Seldon e TorchServe/TF Serving (verificar versões) | 0,15 | Essencial | Cobre ferramentas centrais de orquestração, features e serving |
+| 1.4 | MLPerf Inference benchmark (verificar versão) | 0,10 | Essencial | Referência para avaliação de desempenho de inferência |
+| 1.4 | Sato, Wider & Windheuser (2019), Continuous Delivery for Machine Learning (verificar) | 0,05 | Desejável | Diferencial sobre CD específico para ML |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de SLO/SLA de inferência: latência p95/p99, throughput e disponibilidade | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Trade-offs entre padrões de implantação: canário, blue-green e shadow; risco, custo e complexidade | 0,15 | Essencial | Exige comparação arquitetural justificada |
+| 1.5 | Autoscaling e custo: cold start, scale-to-zero, utilização de GPU e elasticidade | 0,15 | Essencial | Relação não trivial entre desempenho e custo |
+| 1.5 | Casos-limite: skew treino/serving, falha de feature store e indisponibilidade de endpoint | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Trade-off entre serving online e batch: latência, custo e atualidade das previsões | 0,10 | Essencial | Nuance central na escolha de infraestrutura |
+| 1.5 | Segurança e isolamento multi-tenant; supply chain de imagens e assinatura de artefatos | 0,10 | Desejável | Diferencial sobre riscos de infraestrutura |
+| 1.5 | Relação entre IaC e reprodutibilidade; detecção de drift de infraestrutura | 0,10 | Desejável | Aprofunda gestão declarativa e consistência ambiental |
+| 1.5 | Exemplo aplicado: pipeline CI/CD/CT com implantação canário e rollback automatizado | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 9 — Operações de Aprendizado de Máquina (MLOps): Monitoramento, Governança e Manutenção de Modelos
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de monitoramento de modelos e distinção de observabilidade (métricas, logs e traces) | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Distinção entre monitoramento de sistema, de modelo e de negócio | 0,30 | Essencial | Delimita corretamente as camadas de monitoramento em produção |
+| 1.1 | Data drift, concept drift, label drift e covariate shift: definições e critérios de detecção | 0,35 | Essencial | Núcleo conceitual da manutenção de modelos em operação |
+| 1.1 | Métricas de desempenho em produção e problema do atraso de rótulos (label delay) | 0,30 | Essencial | Rigor técnico exigido para avaliação contínua de modelos |
+| 1.1 | Governança de ML: definição, papéis, accountability, políticas e gestão de risco | 0,30 | Essencial | Conceito central do ponto e exigência de controle institucional |
+| 1.1 | Manutenção de modelos: tipos (corretiva, adaptativa e perfectiva) e gatilhos de retreino | 0,25 | Essencial | Delimita o escopo de manutenção ao longo do ciclo de vida |
+| 1.1 | Análise crítica: falsos alarmes, drift sem degradação, métricas agregadas enganosas e feedback loops | 0,30 | Essencial | A banca valoriza limitações, pressupostos e riscos reais |
+| 1.1 | Distinção entre monitoramento offline e online e avaliação contínua em produção | 0,20 | Essencial | Evita confusão entre validação experimental e operação |
+| 1.1 | Quando não retreinar automaticamente: riscos de feedback loops, degradação silenciosa e instabilidade | 0,15 | Desejável | A banca rigorosa espera explicitar contraindicações |
+| 1.1 | Segurança e privacidade no monitoramento: PII em logs, anonimização e retenção | 0,10 | Desejável | Diferencial sobre conformidade e proteção de dados |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Métricas operacionais: latência, throughput, taxa de erros, disponibilidade e uso de recursos | 0,20 | Essencial | Ideia fundamental de monitoramento de sistemas de ML |
+| 1.2 | Monitoramento de dados: schema, estatísticas, valores ausentes, ranges e freshness | 0,25 | Essencial | Núcleo da qualidade e atualidade dos dados em produção |
+| 1.2 | Detecção de drift: PSI, KS, Jensen-Shannon e testes estatísticos | 0,30 | Essencial | Técnicas canônicas de monitoramento de distribuição |
+| 1.2 | Monitoramento de performance: métricas de modelo, janelas, segmentação e label delay | 0,30 | Essencial | Ideia central para verificar degradação real |
+| 1.2 | Alertas: SLI/SLO, limiares, severidade, on-call e runbooks | 0,20 | Essencial | Prática fundamental de operação e resposta |
+| 1.2 | Logging e auditoria: predições, entradas, versões, lineage e retenção | 0,25 | Essencial | Garante rastreabilidade e diagnóstico em produção |
+| 1.2 | Governança: políticas, catálogo, model registry, aprovação, auditoria e conformidade | 0,30 | Essencial | Núcleo canônico de governança de modelos |
+| 1.2 | Gestão de risco de modelo: inventário, classificação, revisão periódica e validação independente | 0,25 | Essencial | Ideia fundamental de controle e accountability |
+| 1.2 | Manutenção: retreino agendado/por gatilho, rollback, aposentadoria e versionamento | 0,25 | Essencial | Cobre o ciclo de manutenção e substituição de modelos |
+| 1.2 | Feedback loop e coleta de rótulos em produção | 0,20 | Essencial | Conecta monitoramento à melhoria contínua do modelo |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Sculley et al. (2015), Hidden Technical Debt in Machine Learning Systems | 0,10 | Essencial | Referência fundacional sobre dívida técnica e manutenção |
+| 1.4 | Breck et al. (2017), The ML Test Score | 0,10 | Essencial | Referência sobre prontidão e qualidade de sistemas de ML |
+| 1.4 | Huyen, Designing Machine Learning Systems (2022) | 0,15 | Essencial | Obra atual e abrangente sobre operação de sistemas de ML |
+| 1.4 | Gama et al. (2014), A Survey on Concept Drift Adaptation | 0,15 | Essencial | Survey canônico sobre drift e adaptação de modelos |
+| 1.4 | Lu et al. (2018), Learning under Concept Drift: A Review (verificar) | 0,10 | Desejável | Diferencial sobre detecção e adaptação a drift |
+| 1.4 | NIST AI Risk Management Framework (AI RMF 1.0, 2023) | 0,10 | Essencial | Referência atual de governança e gestão de risco de IA |
+| 1.4 | ISO/IEC 42001:2023 — AI management system | 0,10 | Essencial | Norma atual de governança de sistemas de IA |
+| 1.4 | LGPD (Lei 13.709/2018) e GDPR (Regulamento UE 2016/679) | 0,10 | Essencial | Base legal indispensável para governança e privacidade |
+| 1.4 | Documentação atual de Evidently AI, WhyLabs, Prometheus/Grafana e MLflow (verificar versões) | 0,10 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de drift: mudança em P(X) versus mudança em P(y|X), com testes estatísticos e poder | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Label delay e avaliação retardada: estratégias de estimação e viés associado | 0,10 | Essencial | Relação não trivial entre monitoramento e disponibilidade de rótulos |
+| 1.5 | Trade-offs de alertas: sensibilidade versus especificidade e custo de falsos positivos/negativos | 0,10 | Essencial | Exige decisão justificada sobre limiares e resposta |
+| 1.5 | Casos-limite: drift sem degradação, degradação sem drift, feedback loops e sazonalidade | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Governança: auditoria e rastreabilidade fim a fim; retenção e privacidade de dados | 0,10 | Essencial | Nuance central entre controle, conformidade e operação |
+| 1.5 | Manutenção: retreino automático versus manual; validação pós-retreino e rollback | 0,10 | Essencial | Trade-off central do ciclo de manutenção de modelos |
+| 1.5 | Relação entre monitoramento e versionamento/linhagem (fronteira com o Ponto 7) | 0,10 | Desejável | Diferencial sobre rastreabilidade entre artefatos e produção |
+| 1.5 | Exemplo aplicado: monitoramento de modelo de crédito com PSI, performance e alertas segmentados | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | Riscos adversariais e envenenamento de dados em produção (data poisoning) | 0,10 | Desejável | Aprofunda segurança e robustez operacional |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |
+
+
+# Ponto 10 — Inteligência Artificial Explicável (XAI): Métodos, Interpretabilidade, Avaliação e Uso das Explicações
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de interpretabilidade, explicabilidade e transparência; distinção entre modelo interpretável e explicação post-hoc | 0,25 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Distinção entre explicações globais e locais; model-specific × model-agnostic; ante-hoc × post-hoc | 0,30 | Essencial | Classificação fundamental dos métodos e do escopo explicativo |
+| 1.1 | Definição de fidelidade (faithfulness), estabilidade, robustez e compreensibilidade como critérios de qualidade | 0,30 | Essencial | Rigor técnico exigido para avaliar explicações |
+| 1.1 | Pressupostos e limites: explicações como aproximações, multiplicidade de explicações (Rashomon) e risco de explicações enganosas | 0,30 | Essencial | A banca valoriza análise crítica dos limites do paradigma |
+| 1.1 | Análise crítica do trade-off entre desempenho preditivo e interpretabilidade; crítica à suposição de sacrifício inevitável de acurácia | 0,25 | Essencial | Demonstra capacidade crítica sobre decisões de modelagem |
+| 1.1 | Adequação da explicação ao público-alvo: desenvolvedores, usuários finais, auditores e reguladores | 0,25 | Essencial | Explicações precisam ser compreensíveis e acionáveis para quem as usa |
+| 1.1 | Quando não usar XAI: explicação não acionável, risco de confiança excessiva e casos de modelos intrinsecamente interpretáveis | 0,20 | Essencial | A banca rigorosa espera explicitar contraindicações e pressupostos |
+| 1.1 | Distinção entre explicabilidade e causalidade; explicações preditivas não estabelecem relações causais | 0,20 | Desejável | Diferencial sobre interpretação correta do alcance das explicações |
+| 1.1 | Limitações de explicabilidade em modelos de alta dimensionalidade e dados não estruturados (texto, imagem, áudio) | 0,20 | Desejável | Aprofunda limites técnicos dos métodos atuais |
+| 1.1 | Crítica à XAI como substituto de governança, validação humana e controle institucional (fronteira com o Ponto 9) | 0,25 | Desejável | Diferencial sobre uso responsável e limites das explicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Modelos intrinsecamente interpretáveis: regressão linear/logística, árvores de decisão, rule lists e GAMs | 0,30 | Essencial | Alternativa canônica e central à explicação post-hoc |
+| 1.2 | Importância de features: permutation importance, PDP/ICE e suas limitações | 0,30 | Essencial | Técnicas fundamentais de interpretabilidade global e local |
+| 1.2 | LIME: perturbações locais, modelo substituto e escopo de aplicação | 0,30 | Essencial | Método canônico e obrigatório de explicação local |
+| 1.2 | SHAP: valores de Shapley, propriedades (eficiência, simetria, dummy, aditividade) e TreeSHAP/KernelSHAP | 0,35 | Essencial | Núcleo teórico e prático da explicabilidade baseada em atribuição |
+| 1.2 | Gradientes de saliência e Integrated Gradients para entradas contínuas e imagens | 0,25 | Essencial | Família central de métodos para modelos profundos |
+| 1.2 | Explicações contrafactuais e âncoras (anchors): definição, geração e uso | 0,25 | Essencial | Abordagem fundamental de explicação acionável |
+| 1.2 | Explicações baseadas em exemplos/protótipos e k-NN explicável | 0,20 | Desejável | Diferencial sobre explicações por analogia |
+| 1.2 | Surrogate models globais (árvore substituta) e regras de decisão | 0,20 | Desejável | Complementa a interpretabilidade global aproximada |
+| 1.2 | Visualizações de explicabilidade: heatmaps, SHAP force plots, PDP/ICE | 0,15 | Desejável | Recurso central de comunicação e análise de explicações |
+| 1.2 | Explicações baseadas em atenção em modelos de linguagem/visão e suas limitações | 0,20 | Desejável | Diferencial sobre métodos populares e sua fidelidade questionável |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Ribeiro, Singh & Guestrin (2016), "Why Should I Trust You?": Explaining the Predictions of Any Classifier (LIME) | 0,10 | Essencial | Artigo fundacional do LIME |
+| 1.4 | Lundberg & Lee (2017), A Unified Approach to Interpreting Model Predictions (SHAP) | 0,10 | Essencial | Artigo canônico do SHAP |
+| 1.4 | Sundararajan, Taly & Yan (2017), Axiomatic Attribution for Deep Networks (Integrated Gradients) | 0,10 | Essencial | Referência central para atribuição axiomática em redes profundas |
+| 1.4 | Wachter, Mittelstadt & Russell (2017), Counterfactual Explanations Without Opening the Black Box | 0,10 | Essencial | Referência fundacional de explicações contrafactuais |
+| 1.4 | Molnar, Interpretable Machine Learning (2ª ed., 2022) (verificar) | 0,10 | Essencial | Obra abrangente e atual sobre interpretabilidade |
+| 1.4 | Doshi-Velez & Kim (2017), Towards A Rigorous Science of Interpretable Machine Learning | 0,10 | Essencial | Referência sobre avaliação rigorosa de interpretabilidade |
+| 1.4 | Rudin (2019), Stop Explaining Black Box Machine Learning Models for High Stakes Decisions and Use Interpretable Models Instead | 0,10 | Essencial | Referência crítica central sobre modelos interpretáveis em decisões sensíveis |
+| 1.4 | Miller (2019), Explanation in Artificial Intelligence: Insights from the Social Sciences | 0,10 | Desejável | Diferencial sobre fundamentos sociais e cognitivos das explicações |
+| 1.4 | Documentação atual de SHAP, LIME, InterpretML, Captum e Alibi (verificar versões) | 0,10 | Desejável | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | LGPD (Lei 13.709/2018) e GDPR: direito à explicação (fronteira com o Ponto 9) | 0,10 | Desejável | Indica uso regulatório e implicações jurídicas das explicações |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização dos valores de Shapley e das propriedades de eficiência, simetria, dummy e aditividade | 0,15 | Essencial | Formalização que demonstra profundidade teórica sobre SHAP |
+| 1.5 | Formalização de fidelidade: correlação entre importância atribuída e mudança na predição; métricas de deletion/insertion | 0,15 | Essencial | Rigor formal exigido para avaliar explicações |
+| 1.5 | Trade-offs: fidelidade × compreensibilidade, estabilidade × sensibilidade e custo computacional de SHAP/LIME | 0,15 | Essencial | Exige análise de decisões justificadas sobre métodos |
+| 1.5 | Casos-limite: explicadores instáveis, dependência entre features, colinearidade distorcendo SHAP/permutation importance | 0,15 | Essencial | A banca rigorosa espera análise de falhas e limites |
+| 1.5 | Avaliação de explicações: métricas funcionais (fidelidade, estabilidade) e estudos humanos (compreensibilidade, confiança) | 0,15 | Essencial | Núcleo metodológico da avaliação de XAI |
+| 1.5 | Relação entre explicabilidade e causalidade; explicações preditivas × causais | 0,10 | Desejável | Diferencial sobre interpretação correta e limites inferenciais |
+| 1.5 | Exemplo aplicado: explicação local com SHAP/LIME para decisão de crédito e análise de contrafactual | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | Limitações em modelos de linguagem e imagens: risco de explicações plausíveis, porém infiéis | 0,05 | Desejável | Aprofunda riscos atuais em modelos complexos |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

@@ -1,0 +1,90 @@
+===== GATILHOS v1 — 4-mineracao-de-dados-descoberta-de-conhecimento-aed-identificacao-de-padroes-e-anomalias_v2.docx — 2026-10-21 =====
+
+# Ponto 4 — Mineração de Dados: Descoberta de Conhecimento, Análise Exploratória de Dados, Identificação de Padrões e Anomalias
+
+## 1. Introdução e Delimitação do Problema
+Mineração: extrair regularidades ≠ descoberta de conhecimento
+O objetivo: padrões válidos/novos/úteis/interpretáveis ≠ só algoritmos
+Data Mining ⊂ KDD
+A mineração = etapa do KDD [1]
+
+## 2. Fundamentos e Relevância
+O processo KDD representado por:
+seleção → pré-processamento → transformação
+→ mineração → avaliação/interpretação → conhecimento
+Na seleção: dados + atributos relevantes
+- O pré-processamento trata ausentes/duplicações/inconsistências/erros
+- A transformação: normalizar/discretizar/agregar/construir atributos
+- A mineração identifica associações/agrupamentos/anomalias
+Por fim: avaliar validade/novidade/utilidade/interpretabilidade; não linear
+É essencial: dado ≠ padrão ≠ conhecimento
+padrão + validação + interpretação + contexto → conhecimento
+Um resultado detectável ≠ relevante: trivial/espúrio/irrelevante
+
+## 3. Núcleo Técnico
+
+### 3.1. Preparação dos Dados e Análise Exploratória
+A qualidade dos padrões ← qualidade + representação
+A preparação: limpeza/integração/normalização/seleção/redução dimensional
+Essas operações ≠ neutras: revelam/ocultam estruturas
+A Análise EDA [2]: compreender antes de modelar
+Pode ser uni/bi/multivariada; iterativa:
+exploração → hipótese → transformação → nova exploração
+EDA ≠ gráficos: orienta; achados = hipóteses ≠ conclusões
+
+### 3.2. Identificação e Mineração de Padrões
+Padrões assumem: coocorrência/associação/agrupamento/sequência/estrutura local
+Em regras de associação: três medidas [3]:
+sup(X → Y) = freq(X ∪ Y)/N, conf(X → Y) = sup(X ∪ Y)/sup(X), lift(X → Y) = conf(X → Y)/sup(Y)
+O suporte = conjunta; confiança = Y dado X; lift > 1 positiva
+Agrupamentos: estrutura latente; detalhe → não supervisionado
+Um padrão: global × local; temporal → sequências
+Frequência ≠ relevância: frequente trivial × raro significativo
+
+### 3.3. Identificação de Anomalias
+Anomalias = desvio do esperado [4]
+Não devem: anomalia ≠ erro; ruído × fraude/falha/raro/biológico
+Distinguem-se:
+- anomalias globais: atípicas no conjunto
+- anomalias contextuais: atípicas sob condição
+- anomalias coletivas: emergem do conjunto
+A detecção baseia-se: estatística/distância/densidade/vizinhança/isolamento
+Em alta dimensionalidade: distância inútil (curse)
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+O principal risco: aparente ≠ válido; buscas ↑ → falso positivo ↑
+Por isso: estabilidade + reprodutibilidade + relevância; desafios:
+- dados incompletos/ruidosos/enviesados
+- múltiplas comparações + padrões espúrios
+- sensibilidade à representação + parâmetros
+- alta dimensionalidade + baixa interpretabilidade
+- mudanças na distribuição no tempo
+Além disso:
+associação ≠ causalidade
+Uma relação: confundimento/viés/reversa/coincidência; causal exige desenho
+Por fim: domínio indispensável; forte ≠ útil; raro = valioso
+
+## 5. Conclusão
+Em síntese:
+DADOS
+↓
+PREPARAÇÃO
+↓
+EDA
+↓
+PADRÕES / ANOMALIAS
+↓
+VALIDAÇÃO
+↓
+INTERPRETAÇÃO
+↓
+CONHECIMENTO
+A mineração: processo iterativo com retroalimentação
+Seu valor: robusto ≠ artefato → conhecimento útil
+
+## Referências
+[1] Fayyad, U. et al. AI Magazine. 1996.
+[2] Tukey, J. W. Addison-Wesley. 1977.
+[3] Han, J. et al. Morgan Kaufmann. 2012.
+[4] Aggarwal, C. C. Springer. 2017.
+

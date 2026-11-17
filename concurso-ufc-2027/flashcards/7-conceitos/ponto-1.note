@@ -1,0 +1,187 @@
+# Ponto 1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+## Particionamento vertical × horizontal
+
+**Prioridade:** A
+
+**Definição:**
+Particionamento divide logicamente um conjunto de dados em partes menores. No particionamento **horizontal**, diferentes linhas ou registros são separados entre partições; no **vertical**, diferentes conjuntos de atributos ou colunas são separados, preservando alguma chave que permita relacioná-los.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+2 — Processamento Paralelo e Distribuído
+3 — Processamento de Fluxos
+
+## Sharding
+
+**Prioridade:** A
+
+**Definição:**
+Sharding é a distribuição de partições horizontais de um conjunto de dados entre diferentes nós ou servidores, de modo que cada shard armazene apenas uma fração dos registros. Permite distribuir capacidade de armazenamento e carga de acesso, mas introduz problemas de distribuição, rebalanceamento e operações entre shards.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+2 — Processamento Paralelo e Distribuído
+3 — Processamento de Fluxos
+
+## Replicação
+
+**Prioridade:** A
+
+**Definição:**
+Replicação mantém múltiplas cópias de dados em nós distintos para aumentar disponibilidade e tolerância a falhas. A existência de réplicas exige mecanismos para controlar sua atualização e o grau de consistência observado pelos clientes.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+2 — Processamento Paralelo e Distribuído
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Linearizabilidade
+
+**Prioridade:** A
+
+**Definição:**
+Linearizabilidade é uma garantia forte de consistência segundo a qual cada operação parece ocorrer atomicamente em algum instante entre sua invocação e sua conclusão, respeitando a ordem temporal observável das operações.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Consistência eventual
+
+**Prioridade:** A
+
+**Definição:**
+Consistência eventual admite divergência temporária entre réplicas, mas garante que, na ausência de novas atualizações, elas convergirão para um mesmo estado. Favorece disponibilidade e operação distribuída ao custo de permitir leituras temporariamente desatualizadas.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Teorema CAP
+
+**Prioridade:** A
+
+**Definição:**
+O teorema CAP estabelece que, diante de uma partição de rede, um sistema distribuído não pode simultaneamente garantir consistência forte e disponibilidade para todas as requisições. Assim, quando ocorre a partição, é necessário privilegiar consistência ou disponibilidade.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Quórum de leitura/escrita
+
+**Prioridade:** A
+
+**Definição:**
+Em um sistema com \(N\) réplicas, quóruns determinam quantas réplicas participam de uma escrita \(W\) e de uma leitura \(R\). Condições como \(R+W>N\) fazem os conjuntos de leitura e escrita se sobreporem, permitindo recuperar versões atualizadas conforme o modelo adotado.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Armazenamento distribuído
+
+**Prioridade:** B
+
+**Definição:**
+Armazenamento distribuído organiza dados sobre múltiplos nós coordenados, buscando ampliar capacidade, desempenho, disponibilidade e tolerância a falhas além dos limites de uma única máquina.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Escalabilidade vertical × horizontal
+
+**Prioridade:** B
+
+**Definição:**
+Escalabilidade vertical aumenta os recursos de uma única máquina, como CPU ou memória. Escalabilidade horizontal adiciona novas máquinas ou instâncias e distribui dados ou trabalho entre elas, exigindo mecanismos explícitos de coordenação e distribuição.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Particionamento por intervalo × por hash
+
+**Prioridade:** B
+
+**Definição:**
+No particionamento por intervalo, faixas contíguas da chave são atribuídas às partições, preservando ordenação e favorecendo consultas por faixa. No particionamento por hash, uma função de dispersão distribui chaves entre partições, geralmente favorecendo balanceamento ao custo de perder localidade por ordem.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Replicação síncrona × assíncrona
+
+**Prioridade:** B
+
+**Definição:**
+Na replicação síncrona, a confirmação de uma escrita depende da atualização das réplicas exigidas pelo protocolo, aumentando consistência percebida e latência. Na assíncrona, a confirmação pode preceder a propagação completa, reduzindo latência mas permitindo divergência temporária.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Consenso
+
+**Prioridade:** B
+
+**Definição:**
+Consenso é o problema de fazer processos distribuídos concordarem sobre um valor ou sequência de decisões apesar de falhas admissíveis. É base para coordenação consistente, eleição de líderes e replicação de estado em diversos sistemas distribuídos.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Separação entre computação e armazenamento
+
+**Prioridade:** B
+
+**Definição:**
+É uma arquitetura em que recursos de processamento e persistência são escalados e gerenciados independentemente, em vez de estarem rigidamente acoplados ao mesmo nó. Essa separação favorece elasticidade e compartilhamento, mas pode aumentar comunicação pela rede.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+—
+
+## Skew / hotspot
+
+**Prioridade:** C
+
+**Definição:**
+Skew é uma distribuição desigual de dados, trabalho ou acessos entre partições. Um hotspot surge quando uma partição ou recurso recebe carga desproporcional e se torna gargalo apesar da capacidade disponível no restante do sistema.
+
+**Ponto principal:**
+1 — Armazenamento e Gerenciamento Distribuído de Dados
+
+**Também aparece em:**
+2 — Processamento Paralelo e Distribuído
+

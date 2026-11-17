@@ -1,0 +1,48 @@
+
+# Ponto 4 — Mineração de Dados: Descoberta de Conhecimento. Análise Exploratória de Dados. Identificação de padrões e anomalias
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de KDD (Knowledge Discovery in Databases) e distinção entre KDD e mineração de dados como etapa do processo | 0,30 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Definição de Análise Exploratória de Dados (EDA) e seu papel no ciclo de descoberta | 0,25 | Essencial | Delimita corretamente o escopo da EDA |
+| 1.1 | Definição formal de padrão e de anomalia/outlier, com critérios de distinção | 0,30 | Essencial | Precisão conceitual exigida para todo o restante da resposta |
+| 1.1 | Tipos de atributos e escalas de medida (nominal, ordinal, intervalar, razão) e implicações analíticas | 0,20 | Essencial | Determina quais medidas e métodos são aplicáveis |
+| 1.1 | Medidas de similaridade e distância: Euclidiana, Manhattan, Jaccard e cosseno; critérios de escolha | 0,30 | Essencial | Núcleo técnico para padrões, agrupamentos e anomalias |
+| 1.1 | Análise crítica da EDA: correlação não implica causalidade e riscos de viés de visualização | 0,25 | Essencial | A banca valoriza capacidade crítica e limites de inferência |
+| 1.1 | Limitações: maldição da dimensionalidade e risco de overfitting em descoberta de padrões | 0,25 | Essencial | Demonstra domínio dos pressupostos e limites dos métodos |
+| 1.1 | Pré-processamento: limpeza, normalização, discretização e tratamento de valores ausentes | 0,30 | Essencial | Etapa indispensável do KDD e da qualidade dos resultados |
+| 1.1 | Análise crítica de medidas de avaliação de padrões (ex.: suporte e confiança podem ser enganosos) | 0,15 | Desejável | Diferencial sobre interpretação criteriosa de resultados |
+| 1.1 | Quando não usar métodos: clustering em alta dimensão sem redução, detecção de anomalias sem rótulos confiáveis | 0,20 | Desejável | A banca rigorosa espera explicitar pressupostos e contraindicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Processo KDD: etapas de seleção, pré-processamento, transformação, mineração e interpretação/avaliação; natureza iterativa | 0,30 | Essencial | Núcleo canônico do ponto |
+| 1.2 | EDA: estatísticas descritivas (média, mediana, desvio padrão, quartis) e sua interpretação | 0,25 | Essencial | Ideia fundamental da análise exploratória |
+| 1.2 | EDA: visualizações (histograma, boxplot, dispersão, heatmap) e o que cada uma revela | 0,25 | Essencial | Ferramentas centrais de exploração e comunicação |
+| 1.2 | Análise de correlação: coeficientes de Pearson e Spearman e limitações | 0,20 | Essencial | Ideia fundamental para identificação de relações |
+| 1.2 | Regras de associação: suporte, confiança e lift; algoritmo Apriori | 0,30 | Essencial | Paradigma canônico de descoberta de padrões |
+| 1.2 | Algoritmo FP-Growth e comparação com Apriori | 0,15 | Desejável | Diferencial sobre alternativas eficientes |
+| 1.2 | Agrupamento (clustering) como descoberta de padrões: k-means, hierárquico e DBSCAN (fronteira com o Ponto 5) | 0,30 | Essencial | Cobre a principal família de descoberta não supervisionada |
+| 1.2 | Detecção de anomalias: métodos estatísticos (z-score, intervalo interquartil) | 0,20 | Essencial | Abordagem básica e indispensável ao tema |
+| 1.2 | Detecção de anomalias: métodos baseados em distância (k-NN) e densidade (LOF) | 0,25 | Essencial | Técnicas centrais para anomalias locais e globais |
+| 1.2 | Isolation Forest e One-Class SVM (fronteira com o Ponto 5) | 0,15 | Desejável | Diferencial sobre métodos modernos de detecção |
+| 1.2 | Avaliação de padrões: medidas de interestingness e validação de resultados | 0,15 | Desejável | Mostra preocupação com qualidade e relevância dos padrões |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Fayyad, Piatetsky-Shapiro & Smyth (1996), From Data Mining to Knowledge Discovery in Databases | 0,10 | Essencial | Referência fundacional do processo KDD |
+| 1.4 | Han, Kamber & Pei, Data Mining: Concepts and Techniques (verificar edição) | 0,15 | Essencial | Obra de referência abrangente em mineração de dados |
+| 1.4 | Tukey (1977), Exploratory Data Analysis | 0,10 | Essencial | Obra clássica que define a EDA |
+| 1.4 | Chandola, Banerjee & Kumar (2009), Anomaly Detection: A Survey | 0,15 | Essencial | Survey canônico sobre detecção de anomalias |
+| 1.4 | Aggarwal, Outlier Analysis (verificar edição) | 0,10 | Essencial | Referência consolidada em análise de outliers |
+| 1.4 | CRISP-DM (Shearer, 2000) como processo padrão de mineração de dados | 0,10 | Essencial | Norma/processo amplamente adotado na indústria |
+| 1.4 | Documentação atual de scikit-learn, pandas, matplotlib e seaborn (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | Agrawal & Srikant (1994), Fast Algorithms for Mining Association Rules | 0,10 | Essencial | Referência clássica do algoritmo Apriori |
+| 1.4 | Zimek, Schubert & Kriegel (2012), On the Evaluation of Unsupervised Outlier Detection | 0,05 | Desejável | Diferencial sobre avaliação rigorosa de anomalias |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Formalização de suporte, confiança e lift; propriedades (ex.: confiança não é simétrica) | 0,15 | Essencial | Formalização que demonstra profundidade técnica |
+| 1.5 | Complexidade do Apriori (exponencial no pior caso) e otimizações via FP-Growth | 0,10 | Essencial | Relação não trivial entre algoritmo e custo computacional |
+| 1.5 | Escolha de medida de distância e impacto em clustering/anomalias; efeito da alta dimensionalidade | 0,15 | Essencial | Nuance central para resultados válidos |
+| 1.5 | Sensibilidade a parâmetros: k em k-NN, eps/minPts em DBSCAN, contaminação em Isolation Forest | 0,15 | Essencial | A banca rigorosa espera análise de robustez |
+| 1.5 | Casos-limite: anomalias em alta dimensionalidade, dados categóricos e dados temporais | 0,15 | Essencial | Exige análise de limites e adaptações metodológicas |
+| 1.5 | Relação entre EDA e detecção automática de anomalias: visualização versus métodos algorítmicos | 0,10 | Desejável | Diferencial sobre integração entre exploração e modelagem |
+| 1.5 | Trade-offs em detecção de anomalias: precisão versus recall e custo de falsos positivos | 0,10 | Essencial | Decisão prática indispensável em aplicações reais |
+| 1.5 | Exemplo aplicado: detecção de fraude em transações com EDA e Isolation Forest | 0,10 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

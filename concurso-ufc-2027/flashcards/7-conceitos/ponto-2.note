@@ -1,0 +1,146 @@
+# Ponto 2 — Processamento Paralelo e Distribuído em Larga Escala
+
+## Paralelismo de dados × de tarefas
+
+**Prioridade:** A
+
+**Definição:**
+No paralelismo de dados, operações equivalentes são aplicadas simultaneamente a diferentes partições dos dados. No paralelismo de tarefas, operações distintas são executadas concorrentemente de acordo com suas dependências.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Lei de Amdahl
+
+**Prioridade:** A
+
+**Definição:**
+A Lei de Amdahl estabelece que o ganho máximo de uma computação paralela é limitado pela fração que permanece serial. Para fração serial \(s\) e \(p\) recursos, \(S(p)=1/[s+(1-s)/p]\).
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Shuffle
+
+**Prioridade:** A
+
+**Definição:**
+Shuffle é a redistribuição de dados entre partições ou nós, tipicamente agrupando registros segundo uma nova chave para uma etapa posterior de processamento. Pode envolver comunicação de rede, serialização e I/O significativos, tornando-se frequentemente um dos principais custos de uma execução distribuída.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+3 — Processamento de Fluxos
+
+## MapReduce
+
+**Prioridade:** A
+
+**Definição:**
+MapReduce é um modelo de processamento distribuído no qual uma fase `map` transforma registros em pares intermediários e uma fase `reduce` agrega valores associados às mesmas chaves, com o sistema gerenciando distribuição, shuffle e recuperação de falhas.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Speedup e eficiência paralela
+
+**Prioridade:** B
+
+**Definição:**
+Speedup mede quanto a execução paralela reduz o tempo em relação à execução com um recurso, \(S_p=T_1/T_p\). A eficiência \(E_p=S_p/p\) relaciona esse ganho ao número \(p\) de recursos empregados.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Strong scaling × weak scaling
+
+**Prioridade:** B
+
+**Definição:**
+Strong scaling avalia a redução do tempo de uma carga fixa quando se aumentam os recursos. Weak scaling avalia se o sistema mantém desempenho aproximadamente constante quando carga e recursos crescem proporcionalmente.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Granularidade de tarefas
+
+**Prioridade:** B
+
+**Definição:**
+Granularidade descreve a quantidade de trabalho atribuída a cada tarefa paralela. Tarefas muito grandes restringem paralelismo e balanceamento; tarefas excessivamente pequenas aumentam overhead de criação, escalonamento, sincronização e comunicação.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Localidade dos dados
+
+**Prioridade:** B
+
+**Definição:**
+Localidade dos dados é o princípio de aproximar a computação dos dados que ela processará, reduzindo transferência pela rede e custos de I/O distribuído.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+1 — Armazenamento e Gerenciamento Distribuído
+
+## DAG de execução
+
+**Prioridade:** B
+
+**Definição:**
+Um DAG de execução é um grafo direcionado acíclico no qual vértices representam operações ou estágios e arestas representam dependências. Ele permite identificar operações independentes, ordenar etapas e explorar paralelismo sem violar dependências.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+
+## Recomputação × replicação × checkpointing
+
+**Prioridade:** B
+
+**Definição:**
+São estratégias distintas de tolerância a falhas: recomputação refaz resultados perdidos a partir de dependências preservadas; replicação mantém cópias redundantes; checkpointing materializa periodicamente estados intermediários para limitar o trabalho necessário à recuperação.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+1 — Armazenamento e Gerenciamento Distribuído
+3 — Processamento de Fluxos
+
+## Lineage computacional
+
+**Prioridade:** C
+
+**Definição:**
+Lineage computacional registra as dependências e transformações necessárias para produzir um resultado, permitindo reconstruí-lo a partir de dados anteriores após uma falha. Neste contexto, é principalmente um mecanismo de recuperação por recomputação.
+
+**Ponto principal:**
+2 — Processamento Paralelo e Distribuído
+
+**Também aparece em:**
+—
+

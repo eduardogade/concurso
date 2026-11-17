@@ -1,0 +1,8 @@
+# Ponto 9 — MLOps: Monitoramento, Governança e Manutenção de Modelos
+
+9.1 Implantado ≠ sempre válido | Observar, governar, manter
+9.2 Disponível ≠ correto | Métricas, logs, traces | Sinal ≠ diagnóstico
+9.3 Data × concept drift | Feedback delay thresholds | Governança proporcional risco | Drift ≠ retreinamento
+9.4 Ground truth tardio | Sensibilidade × falsos alarmes | Detecção ≠ correção automática
+9.5 Observar → diagnosticar → agir ↺ | Governança + lineage + auditoria | Executando ≠ sob controle
+

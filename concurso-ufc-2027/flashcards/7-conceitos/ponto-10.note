@@ -1,0 +1,158 @@
+# Ponto 10 — Inteligência Artificial Explicável (XAI)
+
+## XAI
+
+**Prioridade:** A
+
+**Definição:**
+Inteligência Artificial Explicável (XAI) reúne métodos destinados a tornar o comportamento ou as decisões de sistemas de IA compreensíveis para pessoas, oferecendo informação sobre fatores, relações ou razões associados às predições do modelo.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Interpretabilidade intrínseca × explicação post hoc
+
+**Prioridade:** A
+
+**Definição:**
+Modelos intrinsecamente interpretáveis possuem estrutura cujo funcionamento pode ser compreendido diretamente, como modelos lineares simples ou árvores pequenas. Explicações post hoc são construídas após o treinamento para analisar modelos cuja lógica interna não é diretamente interpretável.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Explicação contrafactual
+
+**Prioridade:** A
+
+**Definição:**
+Explicação contrafactual identifica alterações nas entradas que seriam suficientes para produzir uma decisão ou predição diferente, respondendo a perguntas do tipo “o que precisaria mudar para o resultado mudar?”.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Fidelidade da explicação
+
+**Prioridade:** A
+
+**Definição:**
+Fidelidade mede o quanto uma explicação representa corretamente o comportamento efetivo do modelo que pretende explicar. Uma explicação compreensível pode ser enganosa se tiver baixa fidelidade ao mecanismo preditivo real.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Plausibilidade × fidelidade
+
+**Prioridade:** A
+
+**Definição:**
+Plausibilidade indica quanto uma explicação parece razoável ou convincente para uma pessoa; fidelidade indica quanto ela corresponde ao comportamento real do modelo. Uma explicação pode ser plausível sem ser fiel.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Explicação local × global
+
+**Prioridade:** B
+
+**Definição:**
+Explicação local procura descrever por que o modelo produziu uma predição específica ou seu comportamento em uma região restrita. Explicação global procura caracterizar o comportamento geral do modelo sobre o domínio analisado.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Model-specific × model-agnostic
+
+**Prioridade:** B
+
+**Definição:**
+Métodos model-specific exploram propriedades internas de determinada família de modelos. Métodos model-agnostic tratam o modelo principalmente por suas entradas e saídas, podendo ser aplicados a diferentes arquiteturas.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Feature attribution
+
+**Prioridade:** B
+
+**Definição:**
+Feature attribution atribui valores às características de entrada para representar sua contribuição para determinada predição ou comportamento do modelo.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## SHAP
+
+**Prioridade:** B
+
+**Definição:**
+SHAP é uma família de métodos de atribuição de características baseada em valores de Shapley, distribuindo a diferença entre uma referência e uma predição entre as features segundo sua contribuição marginal em diferentes coalizões.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Surrogate model / LIME
+
+**Prioridade:** B
+
+**Definição:**
+Um surrogate model aproxima o comportamento de outro modelo por uma representação mais interpretável. LIME constrói localmente esse tipo de aproximação a partir de perturbações próximas à instância cuja predição se deseja explicar.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Explicação ≠ causalidade
+
+**Prioridade:** B
+
+**Definição:**
+Uma explicação de XAI pode descrever características associadas à predição ou ao comportamento do modelo sem estabelecer que essas características sejam causas do fenômeno real. Interpretar atribuições preditivas como relações causais exige evidência adicional.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+
+## Estabilidade × robustez da explicação
+
+**Prioridade:** C
+
+**Definição:**
+Estabilidade avalia se entradas semelhantes produzem explicações semelhantes; robustez avalia a resistência da explicação a pequenas perturbações ou manipulações que não deveriam alterar substancialmente sua interpretação.
+
+**Ponto principal:**
+10 — Inteligência Artificial Explicável
+
+**Também aparece em:**
+—
+

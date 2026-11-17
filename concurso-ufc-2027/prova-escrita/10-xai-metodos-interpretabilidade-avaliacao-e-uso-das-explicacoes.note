@@ -1,0 +1,95 @@
+===== GATILHOS v1 — 10-xai-metodos-interpretabilidade-avaliacao-e-uso-das-explicacoes_v2.docx — 2026-10-21 =====
+
+# Ponto 10 — XAI: Métodos, Interpretabilidade, Avaliação e Uso das Explicações
+
+## 1. Introdução e Delimitação do Problema
+A XAI: tornar modelo + predição compreensíveis
+Seu objetivo: evidência ≠ narrativa; confiabilidade
+A primeira distinção é:
+interpretabilidade intrínseca ≠ explicação post hoc
+Modelos intrínsecos: inspecionáveis × post hoc: opacos [1]
+O problema: quatro perguntas:
+- O QUE está sendo explicado?
+- COMO a explicação é produzida?
+- A explicação é FIEL?
+- PARA QUEM e PARA QUÊ ela será utilizada?
+XAI = método + avaliação + uso
+
+## 2. Fundamentos e Relevância
+Explicações locais (f(x)) × globais (f geral)
+Métodos model-specific (internos) × model-agnostic (caixa entrada-saída)
+XAI descreve comportamento preditivo:
+importância para o modelo ≠ efeito causal
+
+## 3. Núcleo Técnico
+
+### 3.1. Atribuição de Atributos
+Métodos attribution: contribuição de cada variável
+No SHAP [2]: predição aditiva:
+f(x) = φ₀ + Σⱼ₌₁ᵖ φⱼ
+em que φ₀ referência, φⱼ contribuição da feature j
+Essa decomposição: local → global (hipóteses/referência)
+A permutation importance: embaralha → queda:
+Iⱼ = M_original − M_{permutado(j)}
+Features correlacionadas: uma substitui outra
+Em diferenciáveis: Integrated Gradients [3] acumula caminho
+
+### 3.2. Surrogates, Exemplos e Contrafactuais
+Métodos surrogate: simples g aproxima f: g(x) ≈ f(x)
+O LIME [4]: perturba vizinhança; local ≠ global
+Explicações por exemplos: protótipos/semelhantes/influentes
+Explicações contrafactuais: mudança → decisão diferente:
+x* = argmin_x′ [d(x, x′) + λ L(f(x′), y_desejado)]
+Um bom contrafactual: válido/plausível/viável/acionável; famílias:
+- ATRIBUIÇÃO → quais variáveis contribuíram?
+- SURROGATE → qual regra simples aproxima o modelo?
+- EXEMPLOS → com quais casos a decisão se parece?
+- CONTRAFACTUAL → o que mudaria a decisão?
+
+### 3.3. Avaliação das Explicações
+Uma explicação convincente ≠ representa bem:
+plausibilidade ≠ fidelidade
+A fidelidade = reproduz comportamento efetivo
+Também: estabilidade x ≈ x′ ⇒ E(x) ≈ E(x′); robustez; compreensibilidade
+Há trade-off: fidelidade × simplicidade
+A avaliação: funcional × humana × aplicação [1]
+
+### 3.4. Uso das Explicações
+Durante desenvolvimento: leakage/shortcuts/espúrias; métrica ≠ saudável
+Em suporte: especialista decide revisar
+O objetivo: confiança calibrada ≠ mais confiança
+Explicações apoiam auditoria/erros/comunicação/hipóteses; causal exige evidência
+Uma boa explicação: usuário + tarefa
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+A limitação mais fundamental é:
+explicar o modelo ≠ explicar o fenômeno
+Um modelo: atalhos/vieses → fiel só revela
+Métodos post hoc: aproximados/instáveis/baseline/correlação
+Diferentes métodos: E₁(x) ≠ E₂(x); entender pergunta de cada
+Outro risco: racionalização = convincente ≠ fiel
+XAI ≠ correção: corrigir dados + revalidar
+Por fim: complexo ≠ preciso; interpretável primeiro
+
+## 5. Conclusão
+Em síntese:
+MODELO
+↓
+MÉTODO DE XAI
+↓
+EXPLICAÇÃO
+↓
+AVALIAÇÃO
+↓
+CONTEXTUALIZAÇÃO
+↓
+USO
+XAI ≠ gerar: produzir/avaliar/contextualizar/usar com finalidade
+Uma boa explicação ≠ intuitiva: adequada/fiel/avaliada/consciente
+
+## Referências
+[1] Molnar, C. Leanpub. 2022.
+[2] Lundberg, S. M. et al. NeurIPS. 2017.
+[3] Sundararajan, M. et al. ICML. 2017.
+[4] Ribeiro, M. T. et al. KDD. 2016.
+

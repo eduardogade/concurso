@@ -1,0 +1,184 @@
+# Ponto 6 — Aprendizado por Reforço
+
+## Aprendizado por reforço (RL)
+
+**Prioridade:** A
+
+**Definição:**
+Aprendizado por reforço é o paradigma em que um agente aprende decisões por interação sequencial com um ambiente, recebendo recompensas e transições de estado. Seu objetivo é aprender uma política que maximize o retorno acumulado esperado.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Processo de Decisão de Markov (MDP)
+
+**Prioridade:** A
+
+**Definição:**
+Um MDP formaliza uma tarefa sequencial por estados \(S\), ações \(A\), dinâmica de transição \(P\), recompensas \(R\) e fator de desconto \(\gamma\). Pela propriedade de Markov, dado o estado atual e a ação, o futuro independe da história anterior.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Funções \(V^\pi\) e \(Q^\pi\)
+
+**Prioridade:** A
+
+**Definição:**
+\(V^\pi(s)\) é o retorno esperado ao partir do estado \(s\) e seguir a política \(\pi\); \(Q^\pi(s,a)\) é o retorno esperado ao executar a ação \(a\) em \(s\) e depois seguir \(\pi\).
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Equações de Bellman
+
+**Prioridade:** A
+
+**Definição:**
+As equações de Bellman expressam recursivamente o valor de um estado ou par estado-ação como recompensa imediata mais o valor descontado das consequências futuras. Elas fundamentam grande parte dos métodos de avaliação e otimização em RL.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Exploração × explotação
+
+**Prioridade:** A
+
+**Definição:**
+Exploração seleciona ações para adquirir informação sobre alternativas ainda pouco conhecidas; explotação seleciona ações atualmente consideradas melhores. O agente precisa equilibrar ambas para aprender sem abandonar recompensas conhecidas.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Q-learning × SARSA
+
+**Prioridade:** A
+
+**Definição:**
+Q-learning é um método temporal-difference off-policy que atualiza \(Q\) em direção ao melhor valor da próxima etapa. SARSA é on-policy e atualiza usando a ação efetivamente escolhida pela política seguida pelo agente.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Actor–Critic
+
+**Prioridade:** A
+
+**Definição:**
+Métodos Actor–Critic combinam um **actor**, que representa e atualiza a política, com um **critic**, que estima valores e fornece sinal de avaliação para orientar a atualização do actor.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Retorno e fator de desconto
+
+**Prioridade:** B
+
+**Definição:**
+Retorno \(G_t\) é a soma acumulada das recompensas futuras consideradas pelo agente. O fator \(\gamma\) pondera essas recompensas no tempo, reduzindo a influência de consequências mais distantes quando \(\gamma<1\).
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Política
+
+**Prioridade:** B
+
+**Definição:**
+Política \(\pi(a\mid s)\) especifica como o agente escolhe ações a partir dos estados, podendo ser determinística ou probabilística. É o comportamento que o aprendizado por reforço busca avaliar ou otimizar.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Temporal Difference / bootstrapping
+
+**Prioridade:** B
+
+**Definição:**
+Métodos Temporal Difference atualizam estimativas usando recompensas observadas e estimativas do valor futuro antes que um episódio termine. Esse uso de uma estimativa atual para atualizar outra estimativa caracteriza bootstrapping.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## On-policy × off-policy
+
+**Prioridade:** B
+
+**Definição:**
+Métodos on-policy aprendem sobre a mesma política utilizada para gerar as ações observadas. Métodos off-policy podem aprender uma política-alvo diferente da política utilizada para coletar experiência.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Métodos baseados em valor × em política
+
+**Prioridade:** B
+
+**Definição:**
+Métodos baseados em valor aprendem funções de valor das quais uma política pode ser derivada. Métodos baseados em política parametrizam e otimizam diretamente a própria política.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Reward hacking / specification gaming
+
+**Prioridade:** B
+
+**Definição:**
+Reward hacking ou specification gaming ocorre quando o agente maximiza a recompensa formalmente definida de uma maneira que satisfaz o objetivo matemático, mas não a intenção real de quem especificou a tarefa.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+
+## Model-free × model-based
+
+**Prioridade:** C
+
+**Definição:**
+Métodos model-free aprendem valores ou políticas sem construir explicitamente um modelo da dinâmica do ambiente. Métodos model-based utilizam ou aprendem um modelo de transições e recompensas para prever consequências e planejar ações.
+
+**Ponto principal:**
+6 — Aprendizado por Reforço
+
+**Também aparece em:**
+—
+

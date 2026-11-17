@@ -1,0 +1,78 @@
+digraph mapa {
+  graph [fontname="Arial" fontsize=11 fontcolor="#111111" bgcolor="white" rankdir=TB newrank=true nodesep=0.55 ranksep=0.24 labelloc="t" labeljust="c" margin=0.1 pad=0.2];
+  node [shape=box style="filled" fillcolor="white" color="#2b2b2b" penwidth=1.2 fontname="Arial" fontsize=12 fontcolor="#111111" margin="0.14,0.06" height=0.36];
+  edge [color="#333333" penwidth=1.3 arrowsize=0.8];
+  label=<<FONT POINT-SIZE="16"><B>Ponto 2</B></FONT><BR/><FONT POINT-SIZE="12">Processamento de Dados em Larga Escala:<BR/>Processamento Paralelo e Distribuído em Larga Escala</FONT><BR/> >;
+  subgraph cluster_2_1 {
+    label=<<B>2.1</B>&#160;&#160;Introdução e Delimitação do Problema>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n2_1_0_0 [label=<<B>dividir o trabalho</B>: intra-nó ↔ entre nós> group="eixo"];
+    n2_1_1_0 [label=<decompor → distribuir → coordenar → recuperar> group="eixo"];
+    n2_1_0_0 -> n2_1_1_0;
+    n2_1_2_0 [label=<trabalho útil &gt; <B>custo da distribuição</B>> group="eixo"];
+    n2_1_1_0 -> n2_1_2_0;
+  }
+  subgraph cluster_2_2 {
+    label=<<B>2.2</B>&#160;&#160;Fundamentos e Relevância>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n2_2_0_0 [label=<paralelismo de <B>dados</B> ↔ de <B>tarefas</B>> group="eixo"];
+    n2_2_1_0 [label=<<B>Amdahl</B>: S(p) ≤ 1/s (10% serial → máx. 10×)> group="eixo"];
+    n2_2_0_0 -> n2_2_1_0;
+    n2_2_2_0 [label=<problema cresce → <B>strong</B> ↔ <B>weak</B> scaling> group="eixo"];
+    n2_2_1_0 -> n2_2_2_0;
+  }
+  subgraph cluster_2_3 {
+    label=<<B>2.3</B>&#160;&#160;Núcleo Técnico>; labeljust="l"; style="dashed"; color="#bdbdbd"; margin=10;
+    subgraph cluster_2_3_1 {
+      label=<<B>2.3.1</B>&#160;&#160;Decomposição, Granularidade e Balanceamento>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n2_3_1_0_0 [label=<<B>granularidade</B>: tarefas grandes ↔ pequenas> group="eixo"];
+      n2_3_1_1_0 [label=<trabalho ≠ dados: <B>skew</B> → <B>stragglers</B>> group="eixo"];
+      n2_3_1_0_0 -> n2_3_1_1_0;
+      n2_3_1_2_0 [label=<escalonamento dinâmico + <B>execução especulativa</B>> group="eixo"];
+      n2_3_1_1_0 -> n2_3_1_2_0;
+    }
+    subgraph cluster_2_3_2 {
+      label=<<B>2.3.2</B>&#160;&#160;Comunicação, Sincronização e Localidade>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n2_3_2_0_0 [label=<T<FONT POINT-SIZE="9"><SUB>total</SUB></FONT> = comp + <B>comm</B> + <B>sync</B> + overhead> group="eixo"];
+      n2_3_2_1_0 [label=<<B>localidade</B> ↔ balanceamento> group="eixo"];
+      n2_3_2_0_0 -> n2_3_2_1_0;
+      n2_3_2_2_0 [label=<<B>shuffle</B> é o mais caro → agregação local> group="eixo"];
+      n2_3_2_1_0 -> n2_3_2_2_0;
+    }
+    subgraph cluster_2_3_3 {
+      label=<<B>2.3.3</B>&#160;&#160;MapReduce e Modelos de Execução Distribuída>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n2_3_3_0_0 [label=<<B>map</B> → shuffle → <B>reduce</B> (contar palavras)> group="eixo"];
+      n2_3_3_1_0 [label=<runtime embute <B>tolerância a falhas</B>> group="eixo"];
+      n2_3_3_0_0 -> n2_3_3_1_0;
+      n2_3_3_2_0 [label=<grava em <B>disco</B> → batch robusto, iterativo lento> group="eixo"];
+      n2_3_3_1_0 -> n2_3_3_2_0;
+    }
+    subgraph cluster_2_3_4 {
+      label=<<B>2.3.4</B>&#160;&#160;DAGs, Reutilização e Recuperação>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n2_3_4_0_0 [label=<<B>Spark</B>: memória + avaliação preguiçosa → DAG> group="eixo"];
+      n2_3_4_1_0 [label=<dependência estreita ↔ <B>larga</B> → estágios> group="eixo"];
+      n2_3_4_0_0 -> n2_3_4_1_0;
+      n2_3_4_2_0 [label=<<B>linhagem</B>: recomputar × replicar × checkpoint> group="eixo"];
+      n2_3_4_1_0 -> n2_3_4_2_0;
+    }
+  }
+  subgraph cluster_2_4 {
+    label=<<B>2.4</B>&#160;&#160;Limitações, Trade-offs e Desafios Atuais>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n2_4_0_0 [label=<distribuir ≠ escala <B>linear</B>> group="eixo"];
+    n2_4_1_0 [label=<a <B>cauda</B> importa, não só a média> group="eixo"];
+    n2_4_0_0 -> n2_4_1_0;
+    n2_4_2_0 [label=<abstração mantém <B>custo físico</B> (agrupar por chave)> group="eixo"];
+    n2_4_1_0 -> n2_4_2_0;
+  }
+  subgraph cluster_2_5 {
+    label=<<B>2.5</B>&#160;&#160;Conclusão>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n2_5_0_0 [label=<escalar ≠ <B>somar nós</B>> group="eixo"];
+    n2_5_1_0 [label=<MapReduce e Spark não eliminam <B>custos</B>> group="eixo"];
+    n2_5_0_0 -> n2_5_1_0;
+  }
+  n2_1_2_0 -> n2_2_0_0 [style=invis];
+  n2_2_2_0 -> n2_3_1_0_0 [style=invis];
+  n2_3_1_2_0 -> n2_3_2_0_0 [style=invis];
+  n2_3_2_2_0 -> n2_3_3_0_0 [style=invis];
+  n2_3_3_2_0 -> n2_3_4_0_0 [style=invis];
+  n2_3_4_2_0 -> n2_4_0_0 [style=invis];
+  n2_4_2_0 -> n2_5_0_0 [style=invis];
+}

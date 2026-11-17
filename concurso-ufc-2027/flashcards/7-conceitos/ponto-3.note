@@ -1,0 +1,174 @@
+# Ponto 3 — Processamento de Fluxos e Arquiteturas de Dados
+
+## Batch × streaming
+
+**Prioridade:** A
+
+**Definição:**
+Processamento batch opera sobre conjuntos delimitados e previamente disponíveis, normalmente em execuções discretas. Streaming processa eventos continuamente à medida que chegam, favorecendo atualização incremental e baixa latência.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Latência × throughput
+
+**Prioridade:** A
+
+**Definição:**
+Latência é o tempo necessário para uma operação ou resultado tornar-se disponível; throughput é a quantidade de trabalho ou dados processados por unidade de tempo. Otimizar uma dessas propriedades não implica necessariamente otimizar a outra.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+1 — Armazenamento e Gerenciamento Distribuído
+2 — Processamento Paralelo e Distribuído
+8 — MLOps: Automação, Implantação e Infraestrutura
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Event time × processing time
+
+**Prioridade:** A
+
+**Definição:**
+Event time é o instante associado à ocorrência do evento em sua origem; processing time é o instante em que o sistema efetivamente processa esse evento. A distinção torna-se essencial quando eventos chegam atrasados ou fora de ordem.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Watermark
+
+**Prioridade:** A
+
+**Definição:**
+Watermark é uma estimativa do progresso de um fluxo em event time, indicando até que instante o sistema considera que a maior parte dos eventos relevantes já chegou. Não é garantia de completude, pois eventos tardios ainda podem aparecer.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Processamento stateful
+
+**Prioridade:** A
+
+**Definição:**
+Processamento stateful mantém estado entre eventos, permitindo que o resultado de um evento dependa de informações acumuladas de eventos anteriores. Agregações por janela, contagens e correlações temporais são exemplos de operações que exigem esse estado persistente.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Replay
+
+**Prioridade:** A
+
+**Definição:**
+Replay é o reprocessamento de eventos previamente persistidos, geralmente a partir de um log durável, para reconstruir estado ou resultados após falhas ou mudanças no processamento.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## At-most-once × at-least-once × exactly-once
+
+**Prioridade:** A
+
+**Definição:**
+At-most-once admite perda, mas evita reprocessamento; at-least-once evita perda mediante repetição, podendo gerar duplicatas; exactly-once procura fazer cada efeito lógico aparecer uma única vez apesar de falhas e reexecuções.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Dados bounded × unbounded
+
+**Prioridade:** B
+
+**Definição:**
+Dados bounded constituem um conjunto com início e fim definidos. Dados unbounded representam uma sequência potencialmente contínua, razão pela qual operações globais precisam ser reformuladas em termos de janelas, estado ou processamento incremental.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Janelas de processamento
+
+**Prioridade:** B
+
+**Definição:**
+Janelas dividem conceitualmente um fluxo não delimitado em subconjuntos finitos sobre os quais podem ser calculadas agregações. Podem ser, por exemplo, fixas, deslizantes ou definidas por sessões de atividade.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Idempotência / deduplicação
+
+**Prioridade:** B
+
+**Definição:**
+Uma operação idempotente pode ser repetida sem produzir efeitos adicionais após sua primeira aplicação efetiva. Deduplicação identifica e suprime repetições, sendo ambas estratégias importantes para lidar com reprocessamento e entregas repetidas.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Lambda Architecture × Kappa Architecture
+
+**Prioridade:** B
+
+**Definição:**
+Lambda Architecture mantém caminhos separados para processamento batch e streaming e combina seus resultados. Kappa Architecture busca simplificar o sistema usando um único caminho baseado em fluxo, recorrendo a replay para recomputações quando necessário.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Backpressure
+
+**Prioridade:** B
+
+**Definição:**
+Backpressure é o mecanismo pelo qual etapas consumidoras incapazes de acompanhar a taxa de entrada propagam sinais ou restrições para controlar a produção a montante, evitando crescimento ilimitado de filas e esgotamento de recursos.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+
+## Data lake × lakehouse
+
+**Prioridade:** C
+
+**Definição:**
+Data lake armazena grandes volumes de dados em formatos variados com esquema e processamento relativamente flexíveis. Lakehouse combina essa flexibilidade com propriedades de gerenciamento e organização tradicionalmente associadas a sistemas analíticos estruturados.
+
+**Ponto principal:**
+3 — Processamento de Fluxos
+
+**Também aparece em:**
+—
+

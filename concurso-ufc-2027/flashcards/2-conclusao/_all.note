@@ -1,0 +1,147 @@
+ # Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+DATASET
+↓
+PARTICIONAMENTO
+↓
+REPLICAÇÃO
+↓
+CONSISTÊNCIA / QUÓRUNS
+↓
+RECUPERAÇÃO E REBALANCEAMENTO
+↓
+ABSTRAÇÃO DE ARMAZENAMENTO
+
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+PROBLEMA
+↓
+DECOMPOSIÇÃO
+↓
+ESCALONAMENTO E BALANCEAMENTO
+↓
+COMUNICAÇÃO / SHUFFLE
+↓
+MODELO DE EXECUÇÃO
+↓
+REEXECUÇÃO / CHECKPOINT
+↓
+ESCALABILIDADE
+
+# Ponto 3 — Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados
+
+EVENTOS
+↓
+INGESTÃO / LOG
+↓
+TEMPO / JANELAS / WATERMARKS
+↓
+ESTADO / CHECKPOINT / REPLAY
+↓
+GARANTIAS DE PROCESSAMENTO
+↓
+STORAGE / SERVING
+
+# Ponto 4 — Mineração de Dados: Descoberta de Conhecimento, Análise Exploratória de Dados, Identificação de Padrões e Anomalias
+
+DADOS
+↓
+PREPARAÇÃO
+↓
+EDA
+↓
+PADRÕES / ANOMALIAS
+↓
+VALIDAÇÃO
+↓
+INTERPRETAÇÃO
+↓
+CONHECIMENTO
+
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+PROBLEMA
+↓
+DADOS E RÓTULOS DISPONÍVEIS?
+↓
+FORMULAÇÃO SUPERVISIONADA / NÃO SUPERVISIONADA
+↓
+TREINAMENTO
+↓
+VALIDAÇÃO E SELEÇÃO
+↓
+AVALIAÇÃO
+↓
+GENERALIZAÇÃO
+
+# Ponto 6 — Aprendizado por Reforço
+
+INTERAÇÃO
+↓
+RETORNO
+↓
+VALOR
+↓
+POLÍTICA
+↓
+NOVA INTERAÇÃO
+
+# Ponto 7 — MLOps: Desenvolvimento, Versionamento e Experimentação de Modelos
+
+HIPÓTESE
+↓
+EXPERIMENTO
+↓
+VERSIONAMENTO
+↓
+TRACKING
+↓
+VALIDAÇÃO
+↓
+MODELO CANDIDATO
+
+# Ponto 8 — MLOps: Automação, Implantação e Infraestrutura de Aprendizado de Máquina
+
+MODELO VALIDADO
+↓
+AUTOMAÇÃO
+↓
+EMPACOTAMENTO
+↓
+IMPLANTAÇÃO
+↓
+SERVING
+↓
+ESCALA E DISPONIBILIDADE
+↓
+OPERAÇÃO CONFIÁVEL
+
+# Ponto 9 — MLOps: Monitoramento, Governança e Manutenção de Modelos
+
+OBSERVAR
+↓
+DETECTAR
+↓
+DIAGNOSTICAR
+↓
+AGIR
+↓
+VALIDAR
+↓
+PROMOVER / REVERTER
+↓
+OBSERVAR NOVAMENTE ↺
+
+# Ponto 10 — XAI: Métodos, Interpretabilidade, Avaliação e Uso das Explicações
+
+MODELO
+↓
+MÉTODO DE XAI
+↓
+EXPLICAÇÃO
+↓
+AVALIAÇÃO
+↓
+CONTEXTUALIZAÇÃO
+↓
+USO

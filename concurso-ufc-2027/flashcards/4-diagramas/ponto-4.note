@@ -1,0 +1,53 @@
+# Ponto 4 — Mineração de Dados: Descoberta de Conhecimento, Análise Exploratória de Dados, Identificação de Padrões e Anomalias
+
+## 4.1. Introdução e Delimitação do Problema
+
+O objetivo não é apenas executar algoritmos, e sim transformar observações em padrões **válidos, novos, úteis e interpretáveis**, capazes de ampliar a compreensão de um fenômeno ou apoiar decisões:
+
+Data Mining ⊂ KDD
+
+## 4.2. Fundamentos e Relevância
+
+O processo KDD pode ser representado por:
+
+seleção → pré-processamento → transformação → mineração → avaliação/interpretação → conhecimento
+
+O processo KDD pode ser representado por:
+
+- Na **seleção**, definem-se dados e atributos relevantes.
+- O **pré-processamento** trata valores ausentes, duplicações, inconsistências e erros.
+- A **transformação** adapta a representação por normalização, discretização, agregação ou construção de atributos.
+- A **mineração** identifica associações, agrupamentos ou comportamentos anômalos.
+
+É essencial distinguir **dado, padrão e conhecimento**. Um padrão é uma regularidade identificada nos dados, mas sua mera existência não constitui conhecimento:
+
+padrão + validação + interpretação + contexto → conhecimento
+
+## 4.3. Núcleo Técnico
+### 4.3.1. Preparação dos Dados e Análise Exploratória
+
+Pode ser univariada, bivariada ou multivariada e é essencialmente iterativa:
+
+exploração → hipótese → transformação → nova exploração
+
+### 4.3.3. Identificação de Anomalias
+
+Distinguem-se:
+
+- **anomalias globais**, atípicas em relação ao conjunto inteiro;
+- **anomalias contextuais**, atípicas somente sob determinada condição;
+- **anomalias coletivas**, nas quais o caráter anômalo emerge de um conjunto de observações.
+
+## 4.4. Limitações, Trade-offs e Desafios Atuais
+
+Por isso, padrões e anomalias devem ser avaliados quanto à estabilidade, reprodutibilidade e relevância prática. Entre os desafios estão:
+
+- dados incompletos, ruidosos ou enviesados;
+- múltiplas comparações e padrões espúrios;
+- sensibilidade à representação e aos parâmetros;
+- alta dimensionalidade e baixa interpretabilidade;
+- mudanças na distribuição dos dados ao longo do tempo.
+
+Além disso:
+
+associação ≠ causalidade

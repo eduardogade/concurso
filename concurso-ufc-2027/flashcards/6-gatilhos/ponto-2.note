@@ -1,0 +1,8 @@
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+2.1 Decomposição simultânea | Memória compartilhada × distribuída | Trabalho útil > custos
+2.2 Paralelismo dados × tarefas | Speedup, Amdahl [1] | Strong × weak scaling [2]
+2.3 Granularidade stragglers | Comunicação localidade shuffles | MapReduce [3] | Spark DAG lineage [4]
+2.4 Retornos decrescentes | Cauda distribuição | Clusters heterogêneos | Abstrações custos físicos
+2.5 Decomposição → escalonamento → shuffle | Modelo execução → checkpoint | Mais nós ≠ escalabilidade
+

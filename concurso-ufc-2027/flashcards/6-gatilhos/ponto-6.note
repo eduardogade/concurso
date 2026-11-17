@@ -1,0 +1,8 @@
+# Ponto 6 — Aprendizado por Reforço
+
+6.1 Interação sequencial | Sem rótulo | Imediata ≠ longo prazo
+6.2 MDP (S,A,P,R,γ) | Propriedade de Markov | Retorno descontado | Credit assignment
+6.3 V^π / Q^π | Bellman TD bootstrapping | Exploração × explotação | Q-learning, gradiente, Actor–Critic
+6.4 Recompensas esparsas | Eficiência amostral | Reward hacking | Exploração × segurança
+6.5 Retorno → valor → política | Ações alteram futuro | Estabilidade segurança especificação
+

@@ -1,0 +1,147 @@
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+## Aprendizado supervisionado × não supervisionado
+
+**Prioridade:** A
+
+**Definição:**
+No aprendizado supervisionado, exemplos incluem entradas e alvos conhecidos e o objetivo é aprender a relação \(X\rightarrow Y\). No não supervisionado, não existe alvo explícito e procura-se descobrir estrutura, representação ou regularidades nos próprios dados.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+4 — Mineração de Dados
+6 — Aprendizado por Reforço
+
+## Underfitting × overfitting
+
+**Prioridade:** A
+
+**Definição:**
+Underfitting ocorre quando o modelo é insuficientemente expressivo para capturar a estrutura relevante dos dados, apresentando erro elevado até no treinamento. Overfitting ocorre quando o modelo se ajusta excessivamente às particularidades do treinamento e perde capacidade de generalização.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Viés × variância
+
+**Prioridade:** A
+
+**Definição:**
+Viés representa erro sistemático decorrente de hipóteses ou modelos excessivamente restritivos; variância representa sensibilidade do modelo às particularidades da amostra de treinamento. Modelos simples tendem a maior viés, enquanto modelos muito flexíveis podem apresentar maior variância.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Data leakage
+
+**Prioridade:** A
+
+**Definição:**
+Data leakage ocorre quando informações indisponíveis no cenário real de previsão influenciam direta ou indiretamente o treinamento, a seleção ou a avaliação do modelo. Produz estimativas artificialmente otimistas de desempenho e invalida a avaliação de generalização.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+10 — Inteligência Artificial Explicável
+
+## Função de perda
+
+**Prioridade:** B
+
+**Definição:**
+Função de perda quantifica o erro associado às previsões de um modelo e fornece o objetivo a ser minimizado durante o treinamento. Sua escolha determina matematicamente quais tipos de erro são penalizados.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Treino × validação × teste
+
+**Prioridade:** B
+
+**Definição:**
+O conjunto de treino ajusta os parâmetros do modelo; a validação orienta escolha de modelo e hiperparâmetros; o teste é reservado para estimar o desempenho final em dados não utilizados nessas decisões.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Parâmetro × hiperparâmetro
+
+**Prioridade:** B
+
+**Definição:**
+Parâmetros são valores aprendidos a partir dos dados durante o treinamento. Hiperparâmetros são escolhas externas ao processo de ajuste de parâmetros e controlam aspectos como estrutura, regularização ou procedimento de treinamento.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+6 — Aprendizado por Reforço
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+## Generalização
+
+**Prioridade:** B
+
+**Definição:**
+Generalização é a capacidade de um modelo manter desempenho adequado em exemplos não utilizados no treinamento e oriundos da mesma tarefa ou distribuição relevante.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Classificação × regressão
+
+**Prioridade:** B
+
+**Definição:**
+Classificação é uma tarefa supervisionada na qual o alvo pertence a categorias discretas; regressão prevê valores quantitativos ou contínuos.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Validação cruzada
+
+**Prioridade:** B
+
+**Definição:**
+Validação cruzada estima o desempenho de um procedimento de aprendizagem repetindo treinamento e validação sobre diferentes divisões dos dados, permitindo avaliar de forma mais robusta escolhas de modelo ou hiperparâmetros.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+—
+
+## Clustering
+
+**Prioridade:** C
+
+**Definição:**
+Clustering é uma tarefa não supervisionada que organiza observações em grupos segundo alguma noção de similaridade, buscando alta semelhança dentro dos grupos e separação entre eles.
+
+**Ponto principal:**
+5 — Aprendizado Supervisionado e Não Supervisionado
+
+**Também aparece em:**
+4 — Mineração de Dados
+

@@ -1,0 +1,1219 @@
+{
+  "version": 1,
+  "title": "UFC — Prova Escrita — Flashcards de Alto Nível",
+  "theme": {
+    "background": "#0B0B0B",
+    "text": "#E8E6E3",
+    "border": "#C8C6C2",
+    "muted": "#9A9893"
+  },
+  "markup": "Linhas em Markdown mínimo: só **negrito**. Índices, setas e símbolos já estão em Unicode.",
+  "playback": {
+    "shufflePoints": true,
+    "shuffleCardsWithinPoint": false
+  },
+  "points": [
+    {
+      "point": 1,
+      "key": "1",
+      "title": "Armazenamento e Gerenciamento Distribuído de Dados",
+      "fullTitle": "Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados",
+      "source": "prova-escrita/resumos/mapas/ponto-1-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-1.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p1c1",
+          "sectionIds": [
+            "1.1",
+            "1.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 1 — Card 1 de 4",
+          "lines": [
+            "**Vertical** (3 limites) → **Horizontal**",
+            "rede + **falhas parciais** → 4 propriedades em risco",
+            "**visão lógica única**, sem ganho automático",
+            "**particionamento** + **replicação**",
+            "**GFS** → falhas são normais"
+          ],
+          "lineSections": [
+            "1.1",
+            "1.1",
+            "1.2",
+            "1.2",
+            "1.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p1c2",
+          "sectionIds": [
+            "1.3.1",
+            "1.3.2"
+          ],
+          "sectionTitles": [
+            "Particionamento e Distribuição",
+            "Replicação e Tolerância a Falhas"
+          ],
+          "front": "Ponto 1 — Card 2 de 4",
+          "lines": [
+            "**Range** (localidade) ↔ **Hash** (equilíbrio)",
+            "dados equilibrados ≠ **carga** equilibrada",
+            "rebalanceamento → **consistent hashing** (anel)",
+            "**síncrona** ↔ **assíncrona**: garantia × latência",
+            "**failover** sem consenso → **split-brain**",
+            "**domínios de falha** + detecção → disponibilidade"
+          ],
+          "lineSections": [
+            "1.3.1",
+            "1.3.1",
+            "1.3.1",
+            "1.3.2",
+            "1.3.2",
+            "1.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p1c3",
+          "sectionIds": [
+            "1.3.3",
+            "1.3.4"
+          ],
+          "sectionTitles": [
+            "Consistência, Disponibilidade e Quóruns",
+            "Modelos e Arquiteturas"
+          ],
+          "front": "Ponto 1 — Card 3 de 4",
+          "lines": [
+            "**linearizável** ↔ **eventual**",
+            "partição → **CAP** · sem partição → **PACELC**",
+            "**R + W > N** → leitura e escrita se sobrepõem",
+            "várias partições → **2PC** → bloqueio",
+            "mesmos mecanismos → GFS · **Bigtable** · **Dynamo** · objetos",
+            "**shared-nothing** · separar computação/armazenamento"
+          ],
+          "lineSections": [
+            "1.3.3",
+            "1.3.3",
+            "1.3.3",
+            "1.3.3",
+            "1.3.4",
+            "1.3.4"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p1c4",
+          "sectionIds": [
+            "1.4",
+            "1.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 1 — Card 4 de 4",
+          "lines": [
+            "sem arquitetura **universal** → 4 compromissos",
+            "**códigos de apagamento** → custo de reconstrução",
+            "**workload** decide: banco ↔ catálogo",
+            "particionar + replicar → custo de **coordenar**",
+            "**consistência** sob medida"
+          ],
+          "lineSections": [
+            "1.4",
+            "1.4",
+            "1.4",
+            "1.5",
+            "1.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 2,
+      "key": "2",
+      "title": "Processamento Paralelo e Distribuído",
+      "fullTitle": "Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala",
+      "source": "prova-escrita/resumos/mapas/ponto-2-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-2.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p2c1",
+          "sectionIds": [
+            "2.1",
+            "2.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 2 — Card 1 de 4",
+          "lines": [
+            "**dividir o trabalho**: intra-nó ↔ entre nós",
+            "decompor → distribuir → coordenar → recuperar",
+            "trabalho útil > **custo da distribuição**",
+            "paralelismo de **dados** ↔ de **tarefas**",
+            "**Amdahl**: S(p) ≤ 1/s (10% serial → máx. 10×)",
+            "problema cresce → **strong** ↔ **weak** scaling"
+          ],
+          "lineSections": [
+            "2.1",
+            "2.1",
+            "2.1",
+            "2.2",
+            "2.2",
+            "2.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p2c2",
+          "sectionIds": [
+            "2.3.1",
+            "2.3.2"
+          ],
+          "sectionTitles": [
+            "Decomposição, Granularidade e Balanceamento",
+            "Comunicação, Sincronização e Localidade"
+          ],
+          "front": "Ponto 2 — Card 2 de 4",
+          "lines": [
+            "**granularidade**: tarefas grandes ↔ pequenas",
+            "trabalho ≠ dados: **skew** → **stragglers**",
+            "escalonamento dinâmico + **execução especulativa**",
+            "T = comp + **comm** + **sync** + overhead",
+            "**localidade** ↔ balanceamento",
+            "**shuffle** = o mais caro → agregação local"
+          ],
+          "lineSections": [
+            "2.3.1",
+            "2.3.1",
+            "2.3.1",
+            "2.3.2",
+            "2.3.2",
+            "2.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p2c3",
+          "sectionIds": [
+            "2.3.3",
+            "2.3.4"
+          ],
+          "sectionTitles": [
+            "MapReduce e Modelos de Execução Distribuída",
+            "DAGs, Reutilização e Recuperação"
+          ],
+          "front": "Ponto 2 — Card 3 de 4",
+          "lines": [
+            "**map** → shuffle → **reduce** (contar palavras)",
+            "runtime embute **tolerância a falhas**",
+            "grava em **disco** → batch robusto, iterativo lento",
+            "**Spark**: memória + avaliação preguiçosa → DAG",
+            "dependência estreita ↔ **larga** → estágios",
+            "**linhagem**: recomputar × replicar × checkpoint"
+          ],
+          "lineSections": [
+            "2.3.3",
+            "2.3.3",
+            "2.3.3",
+            "2.3.4",
+            "2.3.4",
+            "2.3.4"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p2c4",
+          "sectionIds": [
+            "2.4",
+            "2.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 2 — Card 4 de 4",
+          "lines": [
+            "distribuir ≠ escala **linear**",
+            "a **cauda** importa, não só a média",
+            "abstração mantém **custo físico** (agrupar por chave)",
+            "escalar ≠ **somar nós**",
+            "MapReduce e Spark não eliminam **custos**"
+          ],
+          "lineSections": [
+            "2.4",
+            "2.4",
+            "2.4",
+            "2.5",
+            "2.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 3,
+      "key": "3",
+      "title": "Fluxos e Arquiteturas de Dados",
+      "fullTitle": "Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados",
+      "source": "prova-escrita/resumos/mapas/ponto-3-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-3.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p3c1",
+          "sectionIds": [
+            "3.1",
+            "3.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 3 — Card 1 de 4",
+          "lines": [
+            "**fluxo** ↔ **batch**",
+            "atraso · desordem · estado · falhas → **correção**",
+            "**4 eixos**: tempo · estado · garantias · armazenamento",
+            "**bounded** ↔ **unbounded**",
+            "**latência** · **throughput**",
+            "particionar: + throughput, − **ordem global**"
+          ],
+          "lineSections": [
+            "3.1",
+            "3.1",
+            "3.1",
+            "3.2",
+            "3.2",
+            "3.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p3c2",
+          "sectionIds": [
+            "3.3.1",
+            "3.3.2"
+          ],
+          "sectionTitles": [
+            "Tempo, Janelas e Watermarks",
+            "Estado, Recuperação e Semântica de Processamento"
+          ],
+          "front": "Ponto 3 — Card 2 de 4",
+          "lines": [
+            "**event time** ≠ processing time",
+            "**janelas** (3 tipos) · modelo **Dataflow**",
+            "**watermark** = estimativa → latência × completude × estado",
+            "**stateful**: (sₜ₊₁, yₜ) = f(sₜ, xₜ)",
+            "falha → **checkpoint** + replay (Flink)",
+            "**exactly-once** = efeito no estado ≠ entrega"
+          ],
+          "lineSections": [
+            "3.3.1",
+            "3.3.1",
+            "3.3.1",
+            "3.3.2",
+            "3.3.2",
+            "3.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p3c3",
+          "sectionIds": [
+            "3.3.3",
+            "3.3.4"
+          ],
+          "sectionTitles": [
+            "Logs Distribuídos e Arquiteturas Orientadas a Eventos",
+            "Integração Batch/Streaming e Arquiteturas de Dados"
+          ],
+          "front": "Ponto 3 — Card 3 de 4",
+          "lines": [
+            "**Kafka**: log desacopla produtor ↔ consumidor",
+            "**offset** → replay · ordem por partição",
+            "**log** ≠ **motor** de processamento",
+            "**Lambda**: 2 camadas → duplicação",
+            "↔ **Kappa**: recomputa por replay",
+            "data lake → **lakehouse**"
+          ],
+          "lineSections": [
+            "3.3.3",
+            "3.3.3",
+            "3.3.3",
+            "3.3.4",
+            "3.3.4",
+            "3.3.4"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p3c4",
+          "sectionIds": [
+            "3.4",
+            "3.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 3 — Card 4 de 4",
+          "lines": [
+            "garantias fortes custam → **menor complexidade**",
+            "λ produção > λ consumo → **backlog** → backpressure",
+            "desacoplar ≠ dispensar **contratos de dados**",
+            "dados em **movimento** + dados **persistidos**",
+            "**garantias** exigidas decidem, não a novidade"
+          ],
+          "lineSections": [
+            "3.4",
+            "3.4",
+            "3.4",
+            "3.5",
+            "3.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 4,
+      "key": "4",
+      "title": "Mineração de Dados",
+      "fullTitle": "Mineração de Dados: Descoberta de Conhecimento, Análise Exploratória de Dados, Identificação de Padrões e Anomalias",
+      "source": "prova-escrita/resumos/mapas/ponto-4-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-4.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p4c1",
+          "sectionIds": [
+            "4.1",
+            "4.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 4 — Card 1 de 4",
+          "lines": [
+            "mineração = etapa do **KDD**",
+            "padrão: **4 qualidades** → decisão",
+            "seleção → … → conhecimento (**iterativo**)",
+            "dado → padrão → **conhecimento**",
+            "detectável pode ser trivial · **espúrio** · irrelevante"
+          ],
+          "lineSections": [
+            "4.1",
+            "4.1",
+            "4.2",
+            "4.2",
+            "4.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p4c2",
+          "sectionIds": [
+            "4.3.1",
+            "4.3.2"
+          ],
+          "sectionTitles": [
+            "Preparação dos Dados e Análise Exploratória",
+            "Identificação e Mineração de Padrões"
+          ],
+          "front": "Ponto 4 — Card 2 de 4",
+          "lines": [
+            "preparação **não é neutra**",
+            "**EDA** (Tukey): boxplot · **IQR**",
+            "**Pearson** ↔ **Spearman**",
+            "achados = **hipóteses**",
+            "pão → manteiga: sup · conf · **lift > 1**",
+            "padrão **global** ↔ **local**",
+            "frequente ≠ **relevante**"
+          ],
+          "lineSections": [
+            "4.3.1",
+            "4.3.1",
+            "4.3.1",
+            "4.3.1",
+            "4.3.2",
+            "4.3.2",
+            "4.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p4c3",
+          "sectionIds": [
+            "4.3.3"
+          ],
+          "sectionTitles": [
+            "Identificação de Anomalias"
+          ],
+          "front": "Ponto 4 — Card 3 de 4",
+          "lines": [
+            "desvio do esperado ≠ **erro**",
+            "**3 tipos** (madrugada)",
+            "normalidade: z · IQR · **LOF** · **Isolation Forest**",
+            "alta dimensão → perde **poder discriminativo**"
+          ],
+          "lineSections": [
+            "4.3.3",
+            "4.3.3",
+            "4.3.3",
+            "4.3.3"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p4c4",
+          "sectionIds": [
+            "4.4",
+            "4.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 4 — Card 4 de 4",
+          "lines": [
+            "aparente ≠ válido: **múltiplas comparações**",
+            "**associação** ≠ causalidade",
+            "conhecimento de **domínio** (2 sentidos)",
+            "padrão **robusto** ≠ artefato → conhecimento"
+          ],
+          "lineSections": [
+            "4.4",
+            "4.4",
+            "4.4",
+            "4.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 5,
+      "key": "5",
+      "title": "Aprendizado Supervisionado e Não Supervisionado",
+      "fullTitle": "Aprendizado Supervisionado e Não Supervisionado",
+      "source": "prova-escrita/resumos/mapas/ponto-5-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-5.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p5c1",
+          "sectionIds": [
+            "5.1",
+            "5.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 5 — Card 1 de 4",
+          "lines": [
+            "**variável-alvo** disponível?",
+            "sim: (xᵢ, yᵢ) → **f: X → Y**",
+            "não: só xᵢ → **estrutura**",
+            "**risco empírico** ≠ erro em dados novos",
+            "underfitting (**viés**) ↔ overfitting (**variância**)",
+            "**regularização**: erro + λ · complexidade (L1 ↔ L2)"
+          ],
+          "lineSections": [
+            "5.1",
+            "5.1",
+            "5.1",
+            "5.2",
+            "5.2",
+            "5.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p5c2",
+          "sectionIds": [
+            "5.3.1",
+            "5.3.2"
+          ],
+          "sectionTitles": [
+            "Aprendizado Supervisionado",
+            "Aprendizado Não Supervisionado"
+          ],
+          "front": "Ponto 5 — Card 2 de 4",
+          "lines": [
+            "método = **hipótese** sobre os dados",
+            "linear · árvore · **ensemble** · SVM · rede",
+            "**bagging** − variância ↔ **boosting** − viés",
+            "**k-means**: 2 passos · 3 limitações · k-means++",
+            "dendrograma · **DBSCAN** (ruído) · PCA"
+          ],
+          "lineSections": [
+            "5.3.1",
+            "5.3.1",
+            "5.3.1",
+            "5.3.2",
+            "5.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p5c3",
+          "sectionIds": [
+            "5.3.3"
+          ],
+          "sectionTitles": [
+            "Avaliação e Seleção de Modelos"
+          ],
+          "front": "Ponto 5 — Card 3 de 4",
+          "lines": [
+            "**acurácia** engana se desbalanceado (fraude)",
+            "sem rótulo → **silhueta**",
+            "**k-fold**",
+            "teste **intocado** até o fim"
+          ],
+          "lineSections": [
+            "5.3.3",
+            "5.3.3",
+            "5.3.3",
+            "5.3.3"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p5c4",
+          "sectionIds": [
+            "5.4",
+            "5.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 5 — Card 4 de 4",
+          "lines": [
+            "**leakage** · fora da distribuição → teste engana",
+            "**aprendizado profundo**: + capacidade, + preço",
+            "nenhum algoritmo **universal**",
+            "adequação: problema · dados · modelo · **métrica**"
+          ],
+          "lineSections": [
+            "5.4",
+            "5.4",
+            "5.4",
+            "5.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 6,
+      "key": "6",
+      "title": "Aprendizado por Reforço",
+      "fullTitle": "Aprendizado por Reforço",
+      "source": "prova-escrita/resumos/mapas/ponto-6-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-6.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p6c1",
+          "sectionIds": [
+            "6.1",
+            "6.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 6 — Card 1 de 4",
+          "lines": [
+            "agente: estado → **ação** → recompensa",
+            "ninguém informa a ação **correta**",
+            "**política** → máx. retorno de longo prazo",
+            "**MDP** (S, A, P, R, γ) · Markov",
+            "**retorno**: Gₜ = Σ γᵏ Rₜ₊ₖ₊₁",
+            "ruim agora, ótima no total → **atribuição de crédito**"
+          ],
+          "lineSections": [
+            "6.1",
+            "6.1",
+            "6.1",
+            "6.2",
+            "6.2",
+            "6.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p6c2",
+          "sectionIds": [
+            "6.3.1",
+            "6.3.2"
+          ],
+          "sectionTitles": [
+            "Política e Funções de Valor",
+            "Equações de Bellman e Aprendizado Temporal"
+          ],
+          "front": "Ponto 6 — Card 2 de 4",
+          "lines": [
+            "política **π(a|s)**",
+            "**Vπ(s)**: estado ↔ **Qπ(s,a)**: estado + ação",
+            "conhecer **Q** → melhorar π → repetir",
+            "**Bellman**: V(s) = E[R + γ V(s′)]",
+            "programação dinâmica (modelo) ↔ **model-free**",
+            "**MC** ↔ **TD** (bootstrapping): viés × variância"
+          ],
+          "lineSections": [
+            "6.3.1",
+            "6.3.1",
+            "6.3.1",
+            "6.3.2",
+            "6.3.2",
+            "6.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p6c3",
+          "sectionIds": [
+            "6.3.3",
+            "6.3.4"
+          ],
+          "sectionTitles": [
+            "Exploração × Explotação",
+            "Principais Famílias de Métodos"
+          ],
+          "front": "Ponto 6 — Card 3 de 4",
+          "lines": [
+            "**explorar** ↔ **explotar**",
+            "**ε-greedy** → risco: explorar demais ↔ de menos",
+            "**valor**: Q-learning (max → off-policy) ↔ SARSA",
+            "**política** + valor → **ator–crítico**",
+            "RL profundo → **deadly triad** → DQN (2 mecanismos)"
+          ],
+          "lineSections": [
+            "6.3.3",
+            "6.3.3",
+            "6.3.4",
+            "6.3.4",
+            "6.3.4"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p6c4",
+          "sectionIds": [
+            "6.4",
+            "6.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 6 — Card 4 de 4",
+          "lines": [
+            "recompensa **esparsa** · experiência cara",
+            "recompensa ≠ objetivo → **reward hacking**",
+            "exploração livre arrisca → **safe RL**",
+            "decisão **sequencial**: agora + futuro",
+            "prática: **4 exigências**"
+          ],
+          "lineSections": [
+            "6.4",
+            "6.4",
+            "6.4",
+            "6.5",
+            "6.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 7,
+      "key": "7",
+      "title": "MLOps: Desenvolvimento, Versionamento e Experimentação",
+      "fullTitle": "MLOps: Desenvolvimento, Versionamento e Experimentação de Modelos",
+      "source": "prova-escrita/resumos/mapas/ponto-7-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-7.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p7c1",
+          "sectionIds": [
+            "7.1",
+            "7.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 7 — Card 1 de 4",
+          "lines": [
+            "ciclo **iterativo** e experimental",
+            "modelo ≠ só **código** (Sculley)",
+            "escopo: até o **candidato validado**",
+            "execução = **unidade experimental** (4 componentes)",
+            "entradas → procedimento → saídas",
+            "acurácia subiu ≠ **evidência**"
+          ],
+          "lineSections": [
+            "7.1",
+            "7.1",
+            "7.1",
+            "7.2",
+            "7.2",
+            "7.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p7c2",
+          "sectionIds": [
+            "7.3.1",
+            "7.3.2"
+          ],
+          "sectionTitles": [
+            "Versionamento, Artefatos e Linhagem",
+            "Experiment Tracking e Rastreabilidade"
+          ],
+          "front": "Ponto 7 — Card 2 de 4",
+          "lines": [
+            "versionar só código **não basta** → artefatos",
+            "proveniência ↔ **linhagem**: dados brutos → métricas",
+            "versões **imutáveis**: Git · DVC · MLflow",
+            "tracking + versão + linhagem → **rastreabilidade**",
+            "comparar: mesmo **protocolo** + **baseline**"
+          ],
+          "lineSections": [
+            "7.3.1",
+            "7.3.1",
+            "7.3.1",
+            "7.3.2",
+            "7.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p7c3",
+          "sectionIds": [
+            "7.3.3",
+            "7.3.4"
+          ],
+          "sectionTitles": [
+            "Reprodutibilidade",
+            "Validação, Comparação e Seleção"
+          ],
+          "front": "Ponto 7 — Card 3 de 4",
+          "lines": [
+            "resultado = f(**D, C, H, E, S**)",
+            "mesmo **script** ≠ mesmo experimento",
+            "reprodutível ≠ idêntico **bit a bit**",
+            "validar **dados** ↔ validar **modelo**",
+            "busca de hiperparâmetros → superajuste à **validação**",
+            "teste **uma vez** → candidato → registro"
+          ],
+          "lineSections": [
+            "7.3.3",
+            "7.3.3",
+            "7.3.3",
+            "7.3.4",
+            "7.3.4",
+            "7.3.4"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p7c4",
+          "sectionIds": [
+            "7.4",
+            "7.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 7 — Card 4 de 4",
+          "lines": [
+            "guardar o **suficiente**, não tudo",
+            "automatizar processo ruim ≠ criar **bom**",
+            "**rigor** × velocidade",
+            "**3 elementos** atravessam o fluxo",
+            "valor = condições + validação + **reconstrução**"
+          ],
+          "lineSections": [
+            "7.4",
+            "7.4",
+            "7.4",
+            "7.5",
+            "7.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 8,
+      "key": "8",
+      "title": "MLOps: Automação, Implantação e Infraestrutura",
+      "fullTitle": "MLOps: Automação, Implantação e Infraestrutura de Aprendizado de Máquina",
+      "source": "prova-escrita/resumos/mapas/ponto-8-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-8.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p8c1",
+          "sectionIds": [
+            "8.1",
+            "8.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 8 — Card 1 de 4",
+          "lines": [
+            "modelo validado ≠ **sistema confiável**",
+            "código = pequena parte (**Sculley**)",
+            "escopo: **entrega** + operação",
+            "manual → **pipeline** como DAG (Airflow, Kubeflow)",
+            "CI · CD · **CT** ≠ retreinar sempre",
+            "**quality gates** → regra de promoção"
+          ],
+          "lineSections": [
+            "8.1",
+            "8.1",
+            "8.1",
+            "8.2",
+            "8.2",
+            "8.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p8c2",
+          "sectionIds": [
+            "8.3.1",
+            "8.3.2"
+          ],
+          "sectionTitles": [
+            "Empacotamento e Implantação",
+            "Serving e Padrões de Inferência"
+          ],
+          "front": "Ponto 8 — Card 2 de 4",
+          "lines": [
+            "implantar ≠ copiar **pesos**",
+            "pré/pós + **contrato** E/S → container (Docker)",
+            "4 estratégias de liberação + **rollback**",
+            "**batch**: escore noturno",
+            "↔ **online**: latência · throughput",
+            "training-serving **skew** → **feature store**"
+          ],
+          "lineSections": [
+            "8.3.1",
+            "8.3.1",
+            "8.3.1",
+            "8.3.2",
+            "8.3.2",
+            "8.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p8c3",
+          "sectionIds": [
+            "8.3.3",
+            "8.3.4"
+          ],
+          "sectionTitles": [
+            "Infraestrutura, Containers e Orquestração",
+            "Escalabilidade e Disponibilidade"
+          ],
+          "front": "Ponto 8 — Card 3 de 4",
+          "lines": [
+            "manual → **IaC** (Terraform): recriar + registrar",
+            "container tem limite → **Kubernetes** orquestra",
+            "vertical ↔ **horizontal** + balanceador + autoscaling",
+            "escalável ≠ **disponível**: ponto único de falha"
+          ],
+          "lineSections": [
+            "8.3.3",
+            "8.3.3",
+            "8.3.4",
+            "8.3.4"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p8c4",
+          "sectionIds": [
+            "8.4",
+            "8.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 8 — Card 4 de 4",
+          "lines": [
+            "**under** ↔ **over**provisioning",
+            "**sofisticado** ≠ melhor (serviço interno)",
+            "resiliência + **degradação graciosa**",
+            "atender **requisitos** com controle, não complexidade"
+          ],
+          "lineSections": [
+            "8.4",
+            "8.4",
+            "8.4",
+            "8.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 9,
+      "key": "9",
+      "title": "MLOps: Monitoramento, Governança e Manutenção",
+      "fullTitle": "MLOps: Monitoramento, Governança e Manutenção de Modelos",
+      "source": "prova-escrita/resumos/mapas/ponto-9-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-9.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p9c1",
+          "sectionIds": [
+            "9.1",
+            "9.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 9 — Card 1 de 4",
+          "lines": [
+            "implantado ≠ **válido para sempre**",
+            "detectar → diagnosticar → **controlar**",
+            "saúde: **operacional** ↔ **ML**",
+            "**observabilidade**: 3 sinais → SLI/SLO → alertas"
+          ],
+          "lineSections": [
+            "9.1",
+            "9.1",
+            "9.2",
+            "9.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p9c2",
+          "sectionIds": [
+            "9.3.1",
+            "9.3.2"
+          ],
+          "sectionTitles": [
+            "Qualidade de Dados, Data Drift e Concept Drift",
+            "Monitoramento Preditivo e Detecção de Degradação"
+          ],
+          "front": "Ponto 9 — Card 2 de 4",
+          "lines": [
+            "**data drift** → P(X) mudou?",
+            "**concept drift** → P(Y|X) mudou?",
+            "drift ≠ **degradação** comprovada",
+            "KS · χ² · **PSI** → significância não basta",
+            "feedback **atrasa** (empréstimo) → sinais indiretos",
+            "Mₜ < τ → alerta: **sensibilidade** × estabilidade",
+            "degradação ≠ **causa** → 3 passos"
+          ],
+          "lineSections": [
+            "9.3.1",
+            "9.3.1",
+            "9.3.1",
+            "9.3.1",
+            "9.3.2",
+            "9.3.2",
+            "9.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p9c3",
+          "sectionIds": [
+            "9.3.3",
+            "9.3.4"
+          ],
+          "sectionTitles": [
+            "Governança, Auditoria e Lineage",
+            "Manutenção, Retreinamento e Ciclo de Vida"
+          ],
+          "front": "Ponto 9 — Card 3 de 4",
+          "lines": [
+            "3 componentes · **lineage** + **auditoria**",
+            "proporcional ao **risco**: crédito ↔ filmes",
+            "**ISO/IEC 42001** · LGPD",
+            "drift ≠ **retreinar** (pode incorporar o erro)",
+            "periódico ↔ **por eventos**",
+            "**champion–challenger** antes de promover"
+          ],
+          "lineSections": [
+            "9.3.3",
+            "9.3.3",
+            "9.3.3",
+            "9.3.4",
+            "9.3.4",
+            "9.3.4"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p9c4",
+          "sectionIds": [
+            "9.4",
+            "9.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 9 — Card 4 de 4",
+          "lines": [
+            "**excesso** de alertas",
+            "retreino automático **mal governado**",
+            "manter = demonstrar **controle**, não só executar"
+          ],
+          "lineSections": [
+            "9.4",
+            "9.4",
+            "9.5"
+          ]
+        }
+      ]
+    },
+    {
+      "point": 10,
+      "key": "0",
+      "title": "XAI: Métodos, Interpretabilidade, Avaliação e Uso",
+      "fullTitle": "XAI: Métodos, Interpretabilidade, Avaliação e Uso das Explicações",
+      "source": "prova-escrita/resumos/mapas/ponto-10-mapa.md",
+      "diagram": "prova-escrita/resumos/diagramas/ponto-10.svg",
+      "cards": [
+        {
+          "card": 1,
+          "id": "p10c1",
+          "sectionIds": [
+            "10.1",
+            "10.2"
+          ],
+          "sectionTitles": [
+            "Introdução e Delimitação do Problema",
+            "Fundamentos e Relevância"
+          ],
+          "front": "Ponto 10 — Card 1 de 4",
+          "lines": [
+            "**evidência** ≠ narrativa convincente",
+            "**intrínseca** ↔ **post hoc**",
+            "método → avaliação → **uso**",
+            "**local** ↔ **global**",
+            "**model-specific** ↔ **model-agnostic**",
+            "importância ≠ **efeito causal**"
+          ],
+          "lineSections": [
+            "10.1",
+            "10.1",
+            "10.1",
+            "10.2",
+            "10.2",
+            "10.2"
+          ]
+        },
+        {
+          "card": 2,
+          "id": "p10c2",
+          "sectionIds": [
+            "10.3.1",
+            "10.3.2"
+          ],
+          "sectionTitles": [
+            "Atribuição de Atributos",
+            "Surrogates, Exemplos e Contrafactuais"
+          ],
+          "front": "Ponto 10 — Card 2 de 4",
+          "lines": [
+            "**SHAP**: f(x) = φ₀ + Σ φⱼ · custo exponencial",
+            "**permutação**: Iⱼ = M orig − M perm(j) · correlação",
+            "redes → gradiente (**Integrated Gradients**)",
+            "**LIME**: g(x) ≈ f(x) local, ≠ global",
+            "**contrafactual**: menor mudança → y desejado (idade)"
+          ],
+          "lineSections": [
+            "10.3.1",
+            "10.3.1",
+            "10.3.1",
+            "10.3.2",
+            "10.3.2"
+          ]
+        },
+        {
+          "card": 3,
+          "id": "p10c3",
+          "sectionIds": [
+            "10.3.3",
+            "10.3.4"
+          ],
+          "sectionTitles": [
+            "Avaliação das Explicações",
+            "Uso das Explicações"
+          ],
+          "front": "Ponto 10 — Card 3 de 4",
+          "lines": [
+            "plausível ≠ **fiel** (+ estável, compreensível)",
+            "fidelidade × **simplicidade**",
+            "**3 formas** de avaliação",
+            "desenvolvimento: revela o que a **métrica** esconde",
+            "decisão: mais confiança ≠ confiança **calibrada**",
+            "**auditoria** · investigação de erros"
+          ],
+          "lineSections": [
+            "10.3.3",
+            "10.3.3",
+            "10.3.3",
+            "10.3.4",
+            "10.3.4",
+            "10.3.4"
+          ]
+        },
+        {
+          "card": 4,
+          "id": "p10c4",
+          "sectionIds": [
+            "10.4",
+            "10.5"
+          ],
+          "sectionTitles": [
+            "Limitações, Trade-offs e Desafios Atuais",
+            "Conclusão"
+          ],
+          "front": "Ponto 10 — Card 4 de 4",
+          "lines": [
+            "explicar **modelo** ≠ fenômeno → revela **atalhos**",
+            "post hoc frágil · métodos **discordam**",
+            "não corrige → preferir **interpretável**",
+            "XAI > gerar explicações: **4 ações**",
+            "boa explicação: **3 qualidades**"
+          ],
+          "lineSections": [
+            "10.4",
+            "10.4",
+            "10.4",
+            "10.5",
+            "10.5"
+          ]
+        }
+      ]
+    }
+  ]
+}

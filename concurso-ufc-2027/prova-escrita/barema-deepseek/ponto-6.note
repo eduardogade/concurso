@@ -1,0 +1,50 @@
+
+# Ponto 6 — Aprendizado por Reforço
+
+| ITEM-BAREMA | SUBITEM | VALOR | PRIORIDADE | MOTIVO |
+| :--- | :--- | :--- | :--- | :--- |
+| 1.1 | Definição formal de Processo de Decisão de Markov (MDP): estados, ações, transições, recompensa e fator de desconto | 0,30 | Essencial | Base conceitual sem a qual o tema não se sustenta |
+| 1.1 | Política, retorno descontado e funções de valor V^π e Q^π | 0,30 | Essencial | Formalização central do objetivo do aprendizado por reforço |
+| 1.1 | Equações de Bellman esperadas e de otimalidade; relação entre avaliação e melhoria de política | 0,30 | Essencial | Núcleo teórico que fundamenta os algoritmos |
+| 1.1 | Exploração versus exploitation e necessidade de exploração em ambientes desconhecidos | 0,25 | Essencial | Conceito crítico e recorrente em todo o tema |
+| 1.1 | Distinção model-based × model-free e on-policy × off-policy | 0,30 | Essencial | Classificação fundamental dos algoritmos de RL |
+| 1.1 | Atribuição de crédito, recompensa atrasada, horizonte e papel do fator de desconto | 0,25 | Essencial | Explica a dificuldade central do aprendizado por reforço |
+| 1.1 | Análise crítica: ineficiência amostral, instabilidade, reward hacking e risco de exploração insegura | 0,30 | Essencial | A banca valoriza limitações e riscos do paradigma |
+| 1.1 | Pressupostos de convergência e sensibilidade a hiperparâmetros (gamma, taxa de aprendizado, exploração) | 0,20 | Essencial | Demonstra rigor sobre condições de funcionamento |
+| 1.1 | Distinção entre RL e aprendizado supervisionado (fronteira com o Ponto 5) | 0,10 | Essencial | Delimita corretamente o paradigma e evita confusão conceitual |
+| 1.1 | Quando não usar RL: se há supervisão, planejamento ou bandit simples suficiente | 0,20 | Desejável | A banca rigorosa espera explicitar contraindicações |
+| 1.1 | **Subtotal 1.1** | **2,50** | | |
+| 1.2 | Loop agente-ambiente; episódios versus tarefas contínuas | 0,25 | Essencial | Ideia canônica que organiza todo o tema |
+| 1.2 | Retorno descontado e políticas determinísticas versus estocásticas | 0,20 | Essencial | Conceitos fundamentais para definir objetivos e comportamento |
+| 1.2 | Programação dinâmica: avaliação de política, policy iteration e value iteration | 0,25 | Essencial | Métodos canônicos de solução de MDPs conhecidos |
+| 1.2 | Monte Carlo: estimação por retornos e variantes primeira visita/todas as visitas | 0,20 | Essencial | Família fundamental de métodos livres de modelo |
+| 1.2 | TD(0): atualização por diferença temporal e comparação com Monte Carlo | 0,25 | Essencial | Núcleo dos métodos de aprendizado por reforço |
+| 1.2 | Q-learning (off-policy) e SARSA (on-policy) | 0,30 | Essencial | Algoritmos canônicos e obrigatórios no ponto |
+| 1.2 | ε-greedy, softmax e decaimento da exploração | 0,20 | Essencial | Estratégias centrais de exploração |
+| 1.2 | DQN: aproximação de função, experience replay e target network | 0,30 | Essencial | Marco moderno do RL profundo |
+| 1.2 | Policy gradient/REINFORCE e actor-critic | 0,25 | Essencial | Família central de métodos para ações contínuas e políticas estocásticas |
+| 1.2 | Bandit multi-armado: exploração, recompensa e regret | 0,15 | Desejável | Caso fundamental e simplificado de RL |
+| 1.2 | Model-based RL: Dyna e uso de planejamento | 0,10 | Desejável | Diferencial sobre integração entre aprendizado e planejamento |
+| 1.2 | Exemplo aplicado canônico (gridworld ou CartPole) | 0,05 | Desejável | Mostra aplicação concreta e capacidade de ilustração |
+| 1.2 | **Subtotal 1.2** | **2,50** | | |
+| 1.4 | Sutton & Barto, Reinforcement Learning: An Introduction (2ª ed., 2018) | 0,20 | Essencial | Obra de referência central e atual do tema |
+| 1.4 | Bellman (1957), Dynamic Programming | 0,10 | Essencial | Referência fundacional das equações de Bellman |
+| 1.4 | Watkins & Dayan (1992), Q-learning | 0,10 | Essencial | Artigo canônico do algoritmo Q-learning |
+| 1.4 | Mnih et al. (2015), Human-level control through deep reinforcement learning | 0,15 | Essencial | Artigo fundacional do DQN |
+| 1.4 | Williams (1992), Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning | 0,10 | Essencial | Referência clássica do REINFORCE/policy gradient |
+| 1.4 | Schulman et al. (2017), Proximal Policy Optimization Algorithms | 0,10 | Essencial | Referência atual e amplamente usada de PPO |
+| 1.4 | Puterman (1994), Markov Decision Processes | 0,10 | Desejável | Obra consolidada sobre MDPs e programação dinâmica |
+| 1.4 | Documentação atual de Gymnasium, Stable-Baselines3 e RLlib (verificar versões) | 0,15 | Essencial | Demonstra atualização e contato com ferramentas reais |
+| 1.4 | **Subtotal 1.4** | **1,00** | | |
+| 1.5 | Operador de Bellman como contração e convergência de métodos de valor | 0,15 | Essencial | Formalização que demonstra profundidade teórica |
+| 1.5 | Condições de convergência do Q-learning: exploração suficiente, taxas decrescentes e ambiente finito | 0,10 | Essencial | A banca rigorosa espera pressupostos formais |
+| 1.5 | Deadly triad: aproximação de função, bootstrapping e off-policy | 0,15 | Essencial | Relação não trivial central para estabilidade em RL profundo |
+| 1.5 | Trade-off Monte Carlo × TD: viés, variância e eficiência amostral | 0,10 | Essencial | Nuance fundamental entre famílias de algoritmos |
+| 1.5 | Exploração formal: regret, UCB e Thompson sampling em bandits | 0,05 | Desejável | Diferencial sobre fundamentação da exploração |
+| 1.5 | Reward shaping e shaping baseado em potenciais | 0,05 | Desejável | Nuance sobre recompensas auxiliares e riscos |
+| 1.5 | Superestimação no DQN e Double DQN | 0,10 | Desejável | Diferencial sobre estabilidade e correções modernas |
+| 1.5 | PPO: objetivo truncado e trade-offs entre estabilidade e eficiência amostral | 0,10 | Essencial | Aprofunda um dos algoritmos atuais mais relevantes |
+| 1.5 | Casos-limite: recompensas esparsas, ações contínuas, não estacionariedade e sim-to-real | 0,15 | Essencial | Exige análise de limites e adaptações práticas |
+| 1.5 | Exemplo aprofundado: comparação Q-learning × policy gradient em ambiente com recompensa esparsa | 0,05 | Desejável | Mostra aplicação concreta e capacidade de decisão |
+| 1.5 | **Subtotal 1.5** | **1,00** | | |
+| | **TOTAL** | **7,00** | | |

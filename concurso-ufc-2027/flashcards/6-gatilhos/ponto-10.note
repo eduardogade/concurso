@@ -1,0 +1,7 @@
+# Ponto 10 — XAI: Métodos, Interpretabilidade, Avaliação e Uso das Explicações
+
+10.1 Evidência, não narrativa | Intrínseca ≠ post hoc [1] | Método, avaliação, uso
+10.2 Local × global | Model-specific × agnostic | Importância ≠ efeito causal
+10.3 SHAP, permutação, gradientes | LIME, contrafactuais | Plausibilidade ≠ fidelidade | Confiança calibrada
+10.4 Modelo ≠ fenômeno | E₁ ≠ E₂ | Racionalizações | Interpretável primeiro
+10.5 Método → avaliação → uso | Finalidade explícita | Fiel, não intuitiva

@@ -1,0 +1,159 @@
+# Ponto 8 — MLOps: Automação, Implantação e Infraestrutura
+
+## CI × CD × CT
+
+**Prioridade:** A
+
+**Definição:**
+CI integra mudanças e executa validações automatizadas; CD automatiza a entrega ou implantação de artefatos aprovados; CT automatiza novo treinamento quando condições previamente definidas são satisfeitas. Em MLOps, os três mecanismos conectam desenvolvimento, validação, treinamento e operação.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Container
+
+**Prioridade:** A
+
+**Definição:**
+Container empacota uma aplicação com runtime, bibliotecas, dependências e configuração necessária para executá-la em um ambiente isolado e reproduzível, reduzindo divergências entre ambientes de desenvolvimento e implantação.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Inferência batch × online × streaming
+
+**Prioridade:** A
+
+**Definição:**
+Inferência batch processa conjuntos de entradas em execuções agrupadas; online responde individualmente a requisições com baixa latência; streaming aplica inferência continuamente sobre eventos à medida que chegam.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+3 — Processamento de Fluxos
+
+## Training-serving skew
+
+**Prioridade:** A
+
+**Definição:**
+Training-serving skew é a divergência entre a forma como dados ou features são produzidos durante o treinamento e durante a inferência em produção. Essa inconsistência pode degradar o desempenho mesmo quando o modelo e seus pesos permanecem inalterados.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Pipeline de ML
+
+**Prioridade:** B
+
+**Definição:**
+Pipeline de ML representa uma sequência explícita e automatizável de etapas do ciclo de aprendizado, como ingestão, validação, transformação, treinamento, avaliação, registro e implantação, com dependências definidas entre elas.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Empacotamento de modelo
+
+**Prioridade:** B
+
+**Definição:**
+Empacotamento reúne o modelo e os componentes necessários para sua execução, podendo incluir código, runtime, dependências, configuração, pré-processamento, pós-processamento e contratos de entrada e saída.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Rollback
+
+**Prioridade:** B
+
+**Definição:**
+Rollback é a reversão controlada de um sistema ou modelo implantado para uma versão anterior conhecida e funcional quando a nova versão apresenta falhas ou comportamento inadequado.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Model serving
+
+**Prioridade:** B
+
+**Definição:**
+Model serving é a disponibilização operacional de um modelo para receber entradas e produzir inferências por uma interface ou mecanismo de execução apropriado ao padrão de consumo.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Orquestração
+
+**Prioridade:** B
+
+**Definição:**
+Orquestração coordena a execução de tarefas e suas dependências, controlando ordem, recursos, repetição, falhas e estados de um workflow ou pipeline automatizado.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Autoscaling
+
+**Prioridade:** B
+
+**Definição:**
+Autoscaling ajusta automaticamente a quantidade de recursos computacionais disponíveis segundo métricas ou demanda observada, buscando atender requisitos de desempenho sem manter capacidade excessiva permanentemente.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+
+## Alta disponibilidade × escalabilidade
+
+**Prioridade:** B
+
+**Definição:**
+Alta disponibilidade busca manter o serviço acessível apesar de falhas, normalmente por redundância e recuperação. Escalabilidade busca sustentar crescimento de carga adicionando ou ampliando recursos; uma propriedade não implica automaticamente a outra.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+1 — Armazenamento e Gerenciamento Distribuído
+
+## Underprovisioning × overprovisioning
+
+**Prioridade:** C
+
+**Definição:**
+Underprovisioning ocorre quando os recursos disponíveis são insuficientes para a carga, produzindo degradação ou indisponibilidade. Overprovisioning mantém recursos acima da necessidade efetiva, aumentando custo e ociosidade.
+
+**Ponto principal:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+**Também aparece em:**
+—
+

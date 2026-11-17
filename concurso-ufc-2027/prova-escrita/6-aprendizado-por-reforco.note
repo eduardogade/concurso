@@ -1,0 +1,95 @@
+===== GATILHOS v1 — 6-aprendizado-por-reforco_v2.docx — 2026-10-21 =====
+
+# Ponto 6 — Aprendizado por Reforço
+
+## 1. Introdução e Delimitação do Problema
+O aprendizado RL: agente × ambiente, sequencial [1]
+No instante t: observa Sₜ, age Aₜ por π, recebe Rₜ₊₁, Sₜ₊₁:
+(Sₜ, Aₜ) → (Rₜ₊₁, Sₜ₊₁)
+Diferentemente: sem rótulo → aprende por consequências:
+recompensa imediata ≠ objetivo de longo prazo
+O problema: política → alto retorno esperado
+
+## 2. Fundamentos e Relevância
+A interação formalizada por MDP:
+MDP = (S, A, P, R, γ)
+em que S estados, A ações, P transição, R recompensa, γ ∈ [0, 1) desconto; Markov:
+P(Sₜ₊₁ | Sₜ, Aₜ, história) = P(Sₜ₊₁ | Sₜ, Aₜ)
+O agente otimiza retorno ≠ recompensa isolada:
+Gₜ = Σₖ₌₀^∞ γᵏRₜ₊ₖ₊₁
+O fator γ pesa futuro: local ≠ global; objetivo:
+π* = argmax_π 𝔼_π[Gₜ]
+Essa natureza temporal: credit assignment problem
+
+## 3. Núcleo Técnico
+
+### 3.1. Política e Funções de Valor
+A política π(a | s) = probabilidade; funções de valor:
+V^π(s) = 𝔼_π[Gₜ | Sₜ = s]
+Q^π(s, a) = 𝔼_π[Gₜ | Sₜ = s, Aₜ = a]
+Assim: V^π(s) = estado desejável; Q^π(s, a) = ação nesse estado
+A relação comportamento/aprendizado sintetizada:
+política → ações → retorno → valor → melhoria da política
+
+### 3.2. Equações de Bellman e Aprendizado Temporal
+As funções: recursivas; Bellman para π:
+V^π(s) = 𝔼_π[Rₜ₊₁ + γ V^π(Sₜ₊₁) | Sₜ = s]
+valor presente = recompensa imediata + futuro descontado
+A função ótima Q* satisfaz:
+Q*(s, a) = 𝔼[Rₜ₊₁ + γ max_a′ Q*(Sₜ₊₁, a′) | Sₜ = s, Aₜ = a]
+Essas relações → policy/value iteration + Q-learning; TD incremental:
+V(Sₜ) ← V(Sₜ) + αδₜ,   δₜ = Rₜ₊₁ + γ V(Sₜ₊₁) − V(Sₜ)
+O TD: bootstrapping, sem esperar episódio
+
+### 3.3. Exploração × Explotação
+Como desconhece consequências: compromisso entre:
+- exploração: testar desconhecidas → informação
+- explotação: melhor ação conhecida
+Na ε-greedy: 1 − ε melhor, ε explora
+Explorar demais desperdiça; explotar cedo → subótimo
+
+### 3.4. Principais Famílias de Métodos
+Os métodos: eixos; valor → Q(s, a); Q-learning [2]:
+Q(Sₜ, Aₜ) ← Q(Sₜ, Aₜ) + α[Rₜ₊₁ + γ maxₐ Q(Sₜ₊₁, a) − Q(Sₜ, Aₜ)]
+e é off-policy; SARSA (executada) on-policy
+Métodos de política: π_θ(a | s), gradiente em θ [3]; estocástico/contínuo
+Arquiteturas Actor–Critic combinam perspectivas:
+- ator: seleciona ações (política)
+- crítico: estima valor → sinal
+Métodos model-free: sem dinâmica × model-based: planejamento
+Com aproximadores: Deep RL [4] → alta dimensão
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+Apesar: esparsas → sinal ↓, crédito difícil
+Muitos métodos: interações ↑ → eficiência amostral crítica
+Outro desafio: especificação da recompensa:
+maximizar recompensa especificada ≠ maximizar objetivo real
+Funções inadequadas → reward hacking/specification gaming
+Também existem importantes trade-offs:
+- exploração × segurança
+- desempenho × eficiência amostral
+- capacidade de representação × estabilidade
+- planejamento explícito × custo computacional
+Em robótica/medicina/indústria: safe RL; aproximação → instabilidade
+Por fim: treino bom ≠ implantação robusta
+
+## 5. Conclusão
+Em síntese:
+INTERAÇÃO
+↓
+RETORNO
+↓
+VALOR
+↓
+POLÍTICA
+↓
+NOVA INTERAÇÃO
+O aprendizado: decisão sequencial → recompensa + futuro
+Integra decisão/valor/exploração/política; exige eficiência/estabilidade/segurança/especificação
+
+## Referências
+[1] Sutton, R. S. et al. MIT Press. 2018.
+[2] Watkins, C. J. C. H. et al. Machine Learning. 1992.
+[3] Williams, R. J. Machine Learning. 1992.
+[4] Mnih, V. et al. Nature. 2015.
+

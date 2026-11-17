@@ -1,0 +1,76 @@
+digraph mapa {
+  graph [fontname="Arial" fontsize=11 fontcolor="#111111" bgcolor="white" rankdir=TB newrank=true nodesep=0.55 ranksep=0.24 labelloc="t" labeljust="c" margin=0.1 pad=0.2];
+  node [shape=box style="filled" fillcolor="white" color="#2b2b2b" penwidth=1.2 fontname="Arial" fontsize=12 fontcolor="#111111" margin="0.14,0.06" height=0.36];
+  edge [color="#333333" penwidth=1.3 arrowsize=0.8];
+  label=<<FONT POINT-SIZE="16"><B>Ponto 10</B></FONT><BR/><FONT POINT-SIZE="12">XAI: Métodos, Interpretabilidade,<BR/>Avaliação e Uso das Explicações</FONT><BR/> >;
+  subgraph cluster_10_1 {
+    label=<<B>10.1</B>&#160;&#160;Introdução e Delimitação do Problema>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n10_1_0_0 [label=<<B>evidência</B> ≠ narrativa convincente> group="eixo"];
+    n10_1_1_0 [label=<<B>intrínseca</B> ↔ <B>post hoc</B>> group="eixo"];
+    n10_1_0_0 -> n10_1_1_0;
+    n10_1_2_0 [label=<método → avaliação → <B>uso</B>> group="eixo"];
+    n10_1_1_0 -> n10_1_2_0;
+  }
+  subgraph cluster_10_2 {
+    label=<<B>10.2</B>&#160;&#160;Fundamentos e Relevância>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n10_2_0_0 [label=<<B>local</B> ↔ <B>global</B>> group="eixo"];
+    n10_2_1_0 [label=<<B>model-specific</B> ↔ <B>model-agnostic</B>> group="eixo"];
+    n10_2_0_0 -> n10_2_1_0;
+    n10_2_2_0 [label=<importância ≠ <B>efeito causal</B>> group="eixo"];
+    n10_2_1_0 -> n10_2_2_0;
+  }
+  subgraph cluster_10_3 {
+    label=<<B>10.3</B>&#160;&#160;Núcleo Técnico>; labeljust="l"; style="dashed"; color="#bdbdbd"; margin=10;
+    subgraph cluster_10_3_1 {
+      label=<<B>10.3.1</B>&#160;&#160;Atribuição de Atributos>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n10_3_1_0_0 [label=<<B>SHAP</B>: f(x) = φ<FONT POINT-SIZE="9"><SUB>0</SUB></FONT> + Σ φ<FONT POINT-SIZE="9"><SUB>j</SUB></FONT> · custo exponencial> group="eixo"];
+      n10_3_1_1_0 [label=<<B>permutação</B>: I<FONT POINT-SIZE="9"><SUB>j</SUB></FONT> = M<FONT POINT-SIZE="9"><SUB>orig</SUB></FONT> − M<FONT POINT-SIZE="9"><SUB>perm</SUB></FONT>(j) · correlação> group="eixo"];
+      n10_3_1_0_0 -> n10_3_1_1_0;
+      n10_3_1_2_0 [label=<redes → gradiente (<B>Integrated Gradients</B>)> group="eixo"];
+      n10_3_1_1_0 -> n10_3_1_2_0;
+    }
+    subgraph cluster_10_3_2 {
+      label=<<B>10.3.2</B>&#160;&#160;Surrogates, Exemplos e Contrafactuais>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n10_3_2_0_0 [label=<<B>LIME</B>: g(x) ≈ f(x) local, ≠ global> group="eixo"];
+      n10_3_2_1_0 [label=<<B>contrafactual</B>: menor mudança → y<FONT POINT-SIZE="9"><SUB>desejado</SUB></FONT> (idade)> group="eixo"];
+      n10_3_2_0_0 -> n10_3_2_1_0;
+    }
+    subgraph cluster_10_3_3 {
+      label=<<B>10.3.3</B>&#160;&#160;Avaliação das Explicações>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n10_3_3_0_0 [label=<plausível ≠ <B>fiel</B> (+ estável, compreensível)> group="eixo"];
+      n10_3_3_1_0 [label=<fidelidade × <B>simplicidade</B>> group="eixo"];
+      n10_3_3_0_0 -> n10_3_3_1_0;
+      n10_3_3_2_0 [label=<<B>3 formas</B> de avaliação> group="eixo"];
+      n10_3_3_1_0 -> n10_3_3_2_0;
+    }
+    subgraph cluster_10_3_4 {
+      label=<<B>10.3.4</B>&#160;&#160;Uso das Explicações>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+      n10_3_4_0_0 [label=<desenvolvimento: revela o que a <B>métrica</B> esconde> group="eixo"];
+      n10_3_4_1_0 [label=<decisão: mais confiança ≠ confiança <B>calibrada</B>> group="eixo"];
+      n10_3_4_0_0 -> n10_3_4_1_0;
+      n10_3_4_2_0 [label=<<B>auditoria</B> · investigação de erros> group="eixo"];
+      n10_3_4_1_0 -> n10_3_4_2_0;
+    }
+  }
+  subgraph cluster_10_4 {
+    label=<<B>10.4</B>&#160;&#160;Limitações, Trade-offs e Desafios Atuais>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n10_4_0_0 [label=<explicar <B>modelo</B> ≠ fenômeno → revela <B>atalhos</B>> group="eixo"];
+    n10_4_1_0 [label=<post hoc frágil · métodos <B>discordam</B>> group="eixo"];
+    n10_4_0_0 -> n10_4_1_0;
+    n10_4_2_0 [label=<não corrige → preferir <B>interpretável</B>> group="eixo"];
+    n10_4_1_0 -> n10_4_2_0;
+  }
+  subgraph cluster_10_5 {
+    label=<<B>10.5</B>&#160;&#160;Conclusão>; labeljust="l"; style="filled"; fillcolor="#f2f2f2"; color="#d4d4d4"; margin=10;
+    n10_5_0_0 [label=<XAI &gt; gerar explicações: <B>4 ações</B>> group="eixo"];
+    n10_5_1_0 [label=<boa explicação: <B>3 qualidades</B>> group="eixo"];
+    n10_5_0_0 -> n10_5_1_0;
+  }
+  n10_1_2_0 -> n10_2_0_0 [style=invis];
+  n10_2_2_0 -> n10_3_1_0_0 [style=invis];
+  n10_3_1_2_0 -> n10_3_2_0_0 [style=invis];
+  n10_3_2_1_0 -> n10_3_3_0_0 [style=invis];
+  n10_3_3_2_0 -> n10_3_4_0_0 [style=invis];
+  n10_3_4_2_0 -> n10_4_0_0 [style=invis];
+  n10_4_2_0 -> n10_5_0_0 [style=invis];
+}

@@ -1,0 +1,106 @@
+# Ponto 4 — Mineração de Dados
+
+## KDD
+
+**Prioridade:** A
+
+**Definição:**
+Knowledge Discovery in Databases (KDD) é o processo amplo de transformar dados em conhecimento válido, novo, útil e interpretável. Inclui seleção, pré-processamento, transformação, mineração e avaliação/interpretação, sendo mineração de dados apenas uma de suas etapas.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Análise Exploratória de Dados (EDA)
+
+**Prioridade:** A
+
+**Definição:**
+EDA é a análise dos dados destinada a compreender distribuições, relações, estrutura, qualidade e possíveis anomalias antes da imposição de modelos formais. Emprega estatísticas descritivas e visualizações para gerar hipóteses e revelar propriedades relevantes do conjunto.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Suporte, confiança e lift
+
+**Prioridade:** A
+
+**Definição:**
+Em regras de associação, suporte mede a frequência conjunta dos itens; confiança estima \(P(Y\mid X)\) para uma regra \(X\rightarrow Y\); lift compara essa associação ao que seria esperado pela frequência de \(Y\), sendo valores acima de 1 indicativos de associação positiva.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Anomalia global × contextual × coletiva
+
+**Prioridade:** A
+
+**Definição:**
+Anomalia global é uma observação incomum em relação ao conjunto como um todo; contextual é anômala apenas sob determinado contexto; coletiva emerge quando um conjunto ou sequência apresenta comportamento anormal mesmo que seus elementos isolados não sejam anômalos.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Associação ≠ causalidade
+
+**Prioridade:** A
+
+**Definição:**
+Uma associação estatística indica dependência ou coocorrência observada entre variáveis, mas não demonstra que mudanças em uma delas causem mudanças na outra. Confundidores, seleção e outros mecanismos podem gerar associações sem relação causal direta.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Dado × padrão × conhecimento
+
+**Prioridade:** B
+
+**Definição:**
+Dado é uma observação registrada; padrão é uma regularidade identificada em um conjunto de dados; conhecimento resulta quando um padrão é validado, interpretado e contextualizado de modo a adquirir significado e utilidade.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Detecção de anomalias
+
+**Prioridade:** B
+
+**Definição:**
+Detecção de anomalias busca identificar observações ou comportamentos que se desviam significativamente do padrão considerado normal. O caráter anômalo depende da representação dos dados e, em muitos casos, do contexto em que a observação ocorre.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+
+## Padrão global × local
+
+**Prioridade:** C
+
+**Definição:**
+Um padrão global descreve uma regularidade observável no conjunto de dados como um todo, enquanto um padrão local caracteriza apenas uma região, subconjunto ou contexto específico dos dados.
+
+**Ponto principal:**
+4 — Mineração de Dados
+
+**Também aparece em:**
+—
+

@@ -1,0 +1,79 @@
+# Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+1.1 Crescimento dados | Vertical × horizontal | Falhas parciais
+1.2 Abstração lógica | Distribuição ≠ escalabilidade | Particionamento + replicação | Falhas normais GFS [1]
+1.3 Sharding intervalos × hash | Replicação líder failover | CAP [4], R+W>N | GFS Bigtable Dynamo
+1.4 Localidade × balanceamento | Redundância × custo | Códigos apagamento | Workload invariantes
+1.5 Partição → réplica → quórum | Recuperação → abstração | Necessidades aplicação
+
+# Ponto 2 — Processamento de Dados em Larga Escala: Processamento Paralelo e Distribuído em Larga Escala
+
+2.1 Decomposição simultânea | Memória compartilhada × distribuída | Trabalho útil > custos
+2.2 Paralelismo dados × tarefas | Speedup, Amdahl [1] | Strong × weak scaling [2]
+2.3 Granularidade stragglers | Comunicação localidade shuffles | MapReduce [3] | Spark DAG lineage [4]
+2.4 Retornos decrescentes | Cauda distribuição | Clusters heterogêneos | Abstrações custos físicos
+2.5 Decomposição → escalonamento → shuffle | Modelo execução → checkpoint | Mais nós ≠ escalabilidade
+
+# Ponto 3 — Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados
+
+3.1 Eventos contínuos × batch | Atrasados, fora ordem | Tempo estado garantias
+3.2 Bounded × unbounded | Fonte → serving | Latência × throughput
+3.3 Janela watermark trigger | Stateful replay exactly-once | Kafka ordenação × escalabilidade | Lambda [4] × Kappa
+3.4 Latência × completude | Produção > consumo | Contratos dados | Menor complexidade
+3.5 Log → janelas → estado | Dados movimento + persistidos | Garantias, não novidade
+
+# Ponto 4 — Mineração de Dados: Descoberta de Conhecimento, Análise Exploratória de Dados, Identificação de Padrões e Anomalias
+
+4.1 Válidos novos úteis | Data Mining ⊂ KDD [1]
+4.2 Seleção → transformação → mineração | Processo não linear | Padrão + validação → conhecimento
+4.3 EDA → hipóteses [2] | Suporte confiança lift [3] | Frequência ≠ relevância | Global contextual coletiva [4]
+4.4 Estrutura aparente ≠ conhecimento | Múltiplas comparações | Associação ≠ causalidade | Conhecimento domínio
+4.5 EDA → padrões → validação | Retroalimentação iterativa | Robusto × artefato
+
+# Ponto 5 — Aprendizado Supervisionado e Não Supervisionado
+
+5.1 Variável-alvo | Relação X → Y | Estrutura em X
+5.2 θ* = argmin L | Treino validação teste | Viés × variância [3] | Regularização λ
+5.3 Algoritmo + hipótese | k-means DBSCAN PCA | Acurácia ≠ utilidade | Validação cruzada k-fold
+5.4 Desempenho × interpretabilidade | Data leakage | Fora da distribuição | Sem algoritmo universal
+5.5 Rótulos? → formulação | Relações × estrutura latente | Condições reais uso
+
+# Ponto 6 — Aprendizado por Reforço
+
+6.1 Interação sequencial | Sem rótulo | Imediata ≠ longo prazo
+6.2 MDP (S,A,P,R,γ) | Propriedade de Markov | Retorno descontado | Credit assignment
+6.3 V^π / Q^π | Bellman TD bootstrapping | Exploração × explotação | Q-learning, gradiente, Actor–Critic
+6.4 Recompensas esparsas | Eficiência amostral | Reward hacking | Exploração × segurança
+6.5 Retorno → valor → política | Ações alteram futuro | Estabilidade segurança especificação
+
+# Ponto 7 — MLOps: Desenvolvimento, Versionamento e Experimentação de Modelos
+
+7.1 Modelo ≠ código isolado | Ad hoc → rastreável | Candidato validado
+7.2 Entradas + procedimento + saídas | Métrica isolada insuficiente | Resultado + proveniência
+7.3 Versionar além código | Tracking + baselines | D+C+H+E+S | Validação → registry
+7.4 Suficiente, não tudo | Automatizar ruim ≠ bom | Rigor × velocidade
+7.5 Hipótese → tracking → candidato | Proveniência + lineage + reprodutibilidade | Condições → reconstrução
+
+# Ponto 8 — MLOps: Automação, Implantação e Infraestrutura de Aprendizado de Máquina
+
+8.1 Validado ≠ confiável | Código pequena parte [1] | Entrega e operação
+8.2 Pipelines de ML [2] | CI / CD / CT | Quality gates [3]
+8.3 Empacotamento canary rollback | Batch, online, skew | Container × orquestração | Escalabilidade ≠ disponibilidade
+8.4 Latência × custo | Capacidade ≈ demanda | Sofisticado ≠ melhor | Degradação graciosa
+8.5 Automação → implantação → serving | Validação, versionamento, recuperação | Requisitos, não complexidade
+
+# Ponto 9 — MLOps: Monitoramento, Governança e Manutenção de Modelos
+
+9.1 Implantado ≠ sempre válido | Observar, governar, manter
+9.2 Disponível ≠ correto | Métricas, logs, traces | Sinal ≠ diagnóstico
+9.3 Data × concept drift | Feedback delay thresholds | Governança proporcional risco | Drift ≠ retreinamento
+9.4 Ground truth tardio | Sensibilidade × falsos alarmes | Detecção ≠ correção automática
+9.5 Observar → diagnosticar → agir ↺ | Governança + lineage + auditoria | Executando ≠ sob controle
+
+# Ponto 10 — XAI: Métodos, Interpretabilidade, Avaliação e Uso das Explicações
+
+10.1 Evidência, não narrativa | Intrínseca ≠ post hoc [1] | Método, avaliação, uso
+10.2 Local × global | Model-specific × agnostic | Importância ≠ efeito causal
+10.3 SHAP, permutação, gradientes | LIME, contrafactuais | Plausibilidade ≠ fidelidade | Confiança calibrada
+10.4 Modelo ≠ fenômeno | E₁ ≠ E₂ | Racionalizações | Interpretável primeiro
+10.5 Método → avaliação → uso | Finalidade explícita | Fiel, não intuitiva

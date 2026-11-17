@@ -1,0 +1,101 @@
+===== GATILHOS v1 — 8-mlops-automacao-implantacao-e-infraestrutura-de-aprendizado-de-maquina_v2.docx — 2026-10-21 =====
+
+# Ponto 8 — MLOps: Automação, Implantação e Infraestrutura de Aprendizado de Máquina
+
+## 1. Introdução e Delimitação do Problema
+Após validação: modelo → sistema executável/automatizado/escalável/disponível/recuperável
+Em sistemas reais: código = pequena parte [1]:
+modelo validado ≠ sistema operacional confiável
+Este ponto: entrega + operação; monitoramento depois
+
+## 2. Fundamentos e Relevância
+A automação: manual → explícito/verificável/repetível
+Pipelines: ingestão → treino → registro → implantação [2]
+Três conceitos devem ser distinguidos:
+- A CI: valida mudanças por testes
+- A CD: promove aprovados → ambientes-alvo
+- Já o CT: retreino condicional ≠ indiscriminado
+A automação ← quality gates [3]:
+promoção ⇒ critérios satisfeitos
+
+## 3. Núcleo Técnico
+
+### 3.1. Empacotamento e Implantação
+Implantar ≠ copiar pesos; unidade implantável:
+artefato de implantação = modelo + código + runtime + dependências + configuração
+além de pré/pós-processamento + contratos E/S
+Containers: isolamento + portabilidade → validado ≈ implantado
+Diferentes estratégias de release [4]:
+- recreate: substituição completa
+- rolling update: substituição gradual
+- blue-green: dois ambientes paralelos
+- canary: pequena parcela do tráfego
+Essas estratégias: risco × disponibilidade × custo; rollback:
+release confiável = artefato versionado + estratégia de implantação + rollback
+
+### 3.2. Serving e Padrões de Inferência
+Model serving: inferência ← latência/volume/frequência/custo/criticidade
+Na batch: periódica, volume ↑, latência tolerada
+Na online: resposta quase tempo real:
+REQUISIÇÃO → PRÉ-PROCESSAMENTO → MODELO → PREDIÇÃO → RESPOSTA
+o que exige latência/disponibilidade/concorrência/picos/falhas
+Em streaming: contínuo; latência ≠ throughput
+O training-serving skew: features treino ≠ inferência
+Transformações + contratos compatíveis treino/produção
+
+### 3.3. Infraestrutura, Containers e Orquestração
+A infraestrutura fornece CPU/GPU/memória/armazenamento/rede
+Containers: empacotamento + isolamento ≠ escala/disponibilidade
+Quando múltiplas instâncias: orquestração (inicia/aloca/reinicia/escala)
+CONTAINER → como executar de forma isolada?
+ORQUESTRAÇÃO → como coordenar muitas execuções?
+
+### 3.4. Escalabilidade e Disponibilidade
+A vertical +recurso × horizontal +instância (stateless)
+Com réplicas: balanceador distribui requisições:
+REQUISIÇÕES
+↓
+LOAD BALANCER
+↙   ↓   ↘
+I1     I2     I3
+O autoscaling: capacidade ← demanda; entretanto:
+escalabilidade ≠ disponibilidade
+Um sistema: carga ≠ sem ponto único
+Alta disponibilidade: redundância/replicação/recuperação; componente ≠ sistema
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+A infraestrutura envolve compromissos:
+- latência × custo
+- disponibilidade × custo
+- automação × complexidade
+- sofisticação arquitetural × simplicidade operacional
+Recursos: underprovisioning (demanda > capacidade) × overprovisioning (capacidade ≫ demanda)
+O objetivo: capacidade ≈ demanda + margem; disponibilidade/latência → custo
+Por isso: sofisticada ≠ melhor → proporcional
+Resiliência: rollback + degradação graciosa (fallback)
+
+## 5. Conclusão
+Em síntese:
+MODELO VALIDADO
+↓
+AUTOMAÇÃO
+↓
+EMPACOTAMENTO
+↓
+IMPLANTAÇÃO
+↓
+SERVING
+↓
+ESCALA E DISPONIBILIDADE
+↓
+OPERAÇÃO CONFIÁVEL
+Todo esse fluxo é atravessado por:
+VALIDAÇÃO + VERSIONAMENTO + RECUPERAÇÃO + CONTROLE DE CUSTO
+Assim: adequada ≠ complexa/rápida; = requisitos controlados
+
+## Referências
+[1] Sculley, D. et al. NeurIPS. 2015.
+[2] Kreuzberger, D. et al. IEEE Access. 2023.
+[3] Breck, E. et al. IEEE BigData. 2017.
+[4] Treveil, M. et al. O'Reilly. 2020.
+

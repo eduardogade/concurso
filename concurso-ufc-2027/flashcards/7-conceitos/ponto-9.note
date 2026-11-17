@@ -1,0 +1,173 @@
+# Ponto 9 — MLOps: Monitoramento, Governança e Manutenção
+
+## Monitoramento operacional × monitoramento de ML
+
+**Prioridade:** A
+
+**Definição:**
+Monitoramento operacional acompanha a saúde técnica do serviço, como latência, throughput, erros, recursos e disponibilidade. Monitoramento de ML acompanha dados, predições e desempenho do modelo para verificar se continuam compatíveis com as condições em que ele foi validado.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Data drift
+
+**Prioridade:** A
+
+**Definição:**
+Data drift é uma mudança na distribuição das entradas entre o ambiente atual e a referência de treinamento, expressa como \(P_t(X)\neq P_{\text{train}}(X)\). Sua presença não implica necessariamente perda de desempenho.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Concept drift
+
+**Prioridade:** A
+
+**Definição:**
+Concept drift ocorre quando muda a relação entre as entradas e o alvo, isto é, \(P_t(Y\mid X)\neq P_{\text{train}}(Y\mid X)\). Nesse caso, a regra preditiva aprendida pode deixar de representar adequadamente o ambiente atual.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Retreinamento periódico × orientado por eventos
+
+**Prioridade:** A
+
+**Definição:**
+Retreinamento periódico é executado segundo um calendário predefinido; retreinamento orientado por eventos é disparado quando condições específicas são detectadas, como novos dados ou mudanças relevantes. Nenhuma estratégia deve promover automaticamente um novo modelo sem validação.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Observabilidade
+
+**Prioridade:** B
+
+**Definição:**
+Observabilidade é a capacidade de inferir o estado interno de um sistema a partir dos sinais que ele expõe. Métricas, logs e traces fornecem perspectivas complementares para detectar e diagnosticar comportamento operacional.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+3 — Processamento de Fluxos
+
+## Qualidade de dados
+
+**Prioridade:** B
+
+**Definição:**
+Qualidade de dados refere-se à adequação das entradas aos requisitos esperados, incluindo propriedades como esquema, completude, tipos, faixas, consistência e integridade. Problemas de qualidade podem invalidar inferências independentemente de haver drift estatístico.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+4 — Mineração de Dados
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+## Covariate shift
+
+**Prioridade:** B
+
+**Definição:**
+Covariate shift é um caso em que a distribuição das entradas muda, \(P(X)\), enquanto a relação condicional entre alvo e entrada, \(P(Y\mid X)\), permanece aproximadamente estável.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Drift × degradação
+
+**Prioridade:** B
+
+**Definição:**
+Drift é uma mudança estatística nos dados ou na relação entre dados e alvo; degradação é a piora efetiva do desempenho relevante do modelo. Um drift pode ocorrer sem degradação mensurável, e degradação pode ter causas diferentes de drift.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Governança de modelos
+
+**Prioridade:** B
+
+**Definição:**
+Governança de modelos estabelece regras, responsabilidades, controles e evidências para criação, aprovação, implantação, uso, alteração e retirada de modelos durante seu ciclo de vida.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## Trilha de auditoria
+
+**Prioridade:** B
+
+**Definição:**
+Trilha de auditoria é o registro verificável de eventos, decisões, versões e responsáveis ao longo do ciclo de vida de um sistema, permitindo reconstruir o que ocorreu, quando e sob quais condições.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+
+## Ciclo de vida do modelo
+
+**Prioridade:** B
+
+**Definição:**
+Ciclo de vida do modelo compreende as etapas pelas quais um modelo passa desde desenvolvimento e validação até implantação, monitoramento, manutenção, atualização e eventual retirada de operação.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+7 — MLOps: Desenvolvimento, Versionamento e Experimentação
+8 — MLOps: Automação, Implantação e Infraestrutura
+
+## SLI × SLO
+
+**Prioridade:** C
+
+**Definição:**
+SLI é uma medida quantitativa de uma propriedade observada do serviço; SLO é o objetivo definido para essa medida durante determinado intervalo ou condição operacional.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+
+## Feedback delay
+
+**Prioridade:** C
+
+**Definição:**
+Feedback delay é o intervalo entre uma predição e a obtenção do resultado real necessário para avaliar seu acerto. Esse atraso dificulta detectar rapidamente degradação de desempenho em produção.
+
+**Ponto principal:**
+9 — MLOps: Monitoramento, Governança e Manutenção
+
+**Também aparece em:**
+—
+

@@ -1,0 +1,16 @@
+# Ponto 3 — Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados
+
+## 3.2. Fundamentos e Relevância
+
+Conceitualmente, um evento percorre a cadeia:
+
+FONTE → INGESTÃO → FLUXO → PROCESSAMENTO → ESTADO/SAÍDA → SERVING
+
+## 3.3. Núcleo Técnico
+### 3.3.1. Tempo, Janelas e Watermarks
+
+O modelo Dataflow [1] organiza o problema em três perguntas:
+
+- **windowing:** quais eventos pertencem à mesma agregação;
+- **watermark:** até onde se estima que o fluxo tenha avançado em *event time*;
+- **trigger:** quando um resultado deve ser emitido.

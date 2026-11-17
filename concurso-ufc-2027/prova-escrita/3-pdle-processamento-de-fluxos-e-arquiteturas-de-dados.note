@@ -1,0 +1,77 @@
+gmil===== GATILHOS v1 — 3-pdle-processamento-de-fluxos-e-arquiteturas-de-dados_v2.docx — 2026-10-21 =====
+
+# Ponto 3 — Processamento de Dados em Larga Escala: Processamento de Fluxos e Arquiteturas de Dados
+
+## 1. Introdução e Delimitação do Problema
+O processamento: fluxo contínuo × batch finito
+Em larga escala: correção × atraso/desordem/estado/falhas
+Por isso: fluxo + arquitetura juntos: tempo/estado/garantias/comunicação/armazenamento
+
+## 2. Fundamentos e Relevância
+Dados bounded: início/fim; unbounded: contínuo
+Batch + streaming ≠ excludentes: global × incremental
+Conceitualmente, um evento percorre a cadeia:
+FONTE → INGESTÃO → FLUXO → PROCESSAMENTO → ESTADO/SAÍDA → SERVING
+Latência = ocorrência → resultado; throughput = eventos/tempo
+Particionar: paralelismo ↑; ordem só na partição
+
+## 3. Núcleo Técnico
+
+### 3.1. Tempo, Janelas e Watermarks
+Event time = fato; processing time = sistema
+Buffers: atraso → fora de ordem → distinção
+Como infinito: agregação → janelas tumbling/sliding/session
+O modelo Dataflow [1]: três perguntas:
+- windowing: quais eventos agregam juntos
+- watermark: progresso estimado em event time
+- trigger: quando emitir resultado
+Um watermark ≠ garantia: tardios → atualizar; latência × completude × estado
+
+### 3.2. Estado, Recuperação e Semântica de Processamento
+Muitas operações stateful: evento atual + acumulado:
+(sₜ₊₁, yₜ) = f(sₜ, xₜ)
+em que xₜ evento, sₜ estado, sₜ₊₁ novo, yₜ saída
+Para tolerar: fonte reprocessável + checkpoint + replay [2]
+Daí: at-most-once perde; at-least-once duplica; exactly-once efeito único
+Retransmissões ok: idempotência/deduplicação; sink idempotente/transacional
+
+### 3.3. Logs Distribuídos e Arquiteturas Orientadas a Eventos
+Arquiteturas orientadas: brokers/logs desacoplam produtores/consumidores
+No log Kafka [3]: partições → paralelismo, retenção, replay
+A ordenação: global × escalabilidade; broker ≠ engine
+
+### 3.4. Integração Batch/Streaming e Arquiteturas de Dados
+A Lambda [4]: batch + velocidade ≠ lógica duplicada
+A Kappa: replay = caminho único (≠ global)
+Abordagens recentes: data lake + lakehouse (esquema/governança/consultas)
+
+## 4. Limitações, Trade-offs e Desafios Atuais
+Não existe superior: latência × completude × estado
+Garantias fortes → custo; retenção: replay ≠ armazenamento
+Desequilíbrios sustentados são críticos. Se
+λ_produção > λ_consumo
+o backlog cresce; buffer ≠ déficit → backpressure/elasticidade
+Por fim: desacoplamento ≠ sem contratos (esquema/qualidade/lineage)
+A arquitetura: mínima complexidade → garantias
+
+## 5. Conclusão
+Em síntese:
+EVENTOS
+↓
+INGESTÃO / LOG
+↓
+TEMPO / JANELAS / WATERMARKS
+↓
+ESTADO / CHECKPOINT / REPLAY
+↓
+GARANTIAS DE PROCESSAMENTO
+↓
+STORAGE / SERVING
+Arquiteturas: movimento + persistido; garantias ≠ modismo tecnológico
+
+## Referências
+[1] AKIDAU, T. et al. PVLDB. 2015.
+[2] CARBONE, P. et al. PVLDB. 2017.
+[3] KREPS, J. et al. NetDB. 2011.
+[4] MARZ, N. et al. Manning. 2015.
+

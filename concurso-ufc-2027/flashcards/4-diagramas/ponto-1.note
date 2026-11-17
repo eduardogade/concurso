@@ -1,0 +1,17 @@
+# Ponto 1 — Processamento de Dados em Larga Escala: Armazenamento e Gerenciamento Distribuído de Dados
+
+## 1.2. Fundamentos e Relevância
+
+Dois mecanismos estruturam o problema:
+
+- **particionamento** distribui dados distintos entre nós, ampliando capacidade e paralelismo;
+- **replicação** mantém cópias, introduzindo redundância para disponibilidade, durabilidade e tolerância a falhas.
+
+## 1.4. Limitações, Trade-offs e Desafios Atuais
+
+Não existe arquitetura universalmente superior. O projeto deve compatibilizar:
+
+- **localidade versus balanceamento**;
+- **redundância versus custo**;
+- **consistência versus disponibilidade sob partições;** e
+- **garantias fortes versus latência e coordenação**.
